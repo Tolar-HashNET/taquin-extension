@@ -1,6 +1,5 @@
-import { KeyringController } from '@metamask/eth-keyring-controller';
 import log from 'loglevel';
-
+import { TolarKeyringController } from '../controllers/tolar-keyring-controller';
 import { HardwareKeyringTypes } from '../../../shared/constants/hardware-wallets';
 
 const seedPhraseVerifier = {
@@ -21,7 +20,7 @@ const seedPhraseVerifier = {
       throw new Error('No created accounts defined.');
     }
 
-    const keyringController = new KeyringController({});
+    const keyringController = new TolarKeyringController({});
     const keyringBuilder = keyringController.getKeyringBuilderForType(
       HardwareKeyringTypes.hdKeyTree,
     );

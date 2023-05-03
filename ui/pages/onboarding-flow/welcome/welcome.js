@@ -16,9 +16,10 @@ import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { EVENT, EVENT_NAMES } from '../../../../shared/constants/metametrics';
 import { setFirstTimeFlowType } from '../../../store/actions';
 import {
-  ONBOARDING_METAMETRICS,
   ONBOARDING_SECURE_YOUR_WALLET_ROUTE,
   ONBOARDING_COMPLETION_ROUTE,
+  ONBOARDING_CREATE_PASSWORD_ROUTE,
+  ONBOARDING_IMPORT_WITH_SRP_ROUTE,
 } from '../../../helpers/constants/routes';
 import { FIRST_TIME_FLOW_TYPES } from '../../../helpers/constants/onboarding';
 import { getFirstTimeFlowType, getCurrentKeyring } from '../../../selectors';
@@ -50,10 +51,10 @@ export default function OnboardingWelcome() {
       category: EVENT.CATEGORIES.ONBOARDING,
       event: EVENT_NAMES.ONBOARDING_WALLET_CREATION_STARTED,
       properties: {
-        account_type: 'metamask',
+        account_type: 'taquin',
       },
     });
-    history.push(ONBOARDING_METAMETRICS);
+    history.push(ONBOARDING_CREATE_PASSWORD_ROUTE);
   };
 
   const onImportClick = () => {
@@ -65,7 +66,7 @@ export default function OnboardingWelcome() {
         account_type: 'imported',
       },
     });
-    history.push(ONBOARDING_METAMETRICS);
+    history.push(ONBOARDING_IMPORT_WITH_SRP_ROUTE);
   };
 
   trackEvent({

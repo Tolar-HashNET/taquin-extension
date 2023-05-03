@@ -235,6 +235,35 @@ export const INFURA_PROVIDER_TYPES = [
   NETWORK_TYPES.SEPOLIA,
 ];
 
+// TOLAR CONSTS
+
+export const MAINNET = 'mainnet';
+export const TESTNET = 'testnet';
+export const STAGING = 'staging';
+export const LOCALHOST = 'localhost';
+
+export const MAINNET_NETWORK_ID = '1';
+export const TESTNET_NETWORK_ID = '2';
+export const STAGING_NETWORK_ID = '3';
+
+export const MAINNET_SUBDOMAIN = 'jsongw.mainnet';
+export const TESTNET_SUBDOMAIN = 'jsongw.testnet';
+export const STAGING_SUBDOMAIN = 'jsongw.stagenet';
+
+export const TOLAR_PROVIDER_TYPES = [MAINNET, TESTNET, STAGING];
+
+export const NETWORK_TYPE_TO_ID_MAP = {
+  [MAINNET]: { networkId: MAINNET_NETWORK_ID },
+  [TESTNET]: { networkId: TESTNET_NETWORK_ID },
+  [STAGING]: { networkId: STAGING_NETWORK_ID },
+};
+
+export const NETWORK_TYPE_TO_SUBDOMAIN_MAP = {
+  [TESTNET]: { subdomain: TESTNET_SUBDOMAIN },
+  [MAINNET]: { subdomain: MAINNET_SUBDOMAIN },
+  [STAGING]: { subdomain: STAGING_SUBDOMAIN },
+};
+
 export const TEST_CHAINS = [
   CHAIN_IDS.GOERLI,
   CHAIN_IDS.SEPOLIA,

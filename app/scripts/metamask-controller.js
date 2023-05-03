@@ -59,9 +59,12 @@ import {
   SnapController,
   IframeExecutionService,
 } from '@metamask/snaps-controllers';
+
 ///: END:ONLY_INCLUDE_IN
+// import Web3 from '@tolar/web3';
 
 import browser from 'webextension-polyfill';
+
 import {
   AssetType,
   TransactionStatus,
@@ -132,6 +135,8 @@ import {
   createSnapMethodMiddleware,
   ///: END:ONLY_INCLUDE_IN
 } from './lib/rpc-method-middleware';
+import { TolarKeyringController } from './controllers/tolar-keyring-controller';
+import TolarKeyring from './controllers/tolar-keyring';
 import createOriginMiddleware from './lib/createOriginMiddleware';
 import createTabIdMiddleware from './lib/createTabIdMiddleware';
 import createOnboardingMiddleware from './lib/createOnboardingMiddleware';
@@ -253,7 +258,7 @@ export default class MetamaskController extends EventEmitter {
 
     this.networkController = new NetworkController({
       state: initState.NetworkController,
-      infuraProjectId: opts.infuraProjectId,
+      // infuraProjectId: opts.infuraProjectId,
       trackMetaMetricsEvent: (...args) =>
         this.metaMetricsController.trackEvent(...args),
     });
@@ -262,6 +267,7 @@ export default class MetamaskController extends EventEmitter {
       this.networkController.getProviderAndBlockTracker().provider;
     this.blockTracker =
       this.networkController.getProviderAndBlockTracker().blockTracker;
+    // this.web3 = new Web3(this.provider);
 
     const tokenListMessenger = this.controllerMessenger.getRestricted({
       name: 'TokenListController',
@@ -666,7 +672,7 @@ export default class MetamaskController extends EventEmitter {
       );
     }
 
-    this.keyringController = new KeyringController({
+    this.keyringController = new TolarKeyringController({
       keyringBuilders: additionalKeyrings,
       initState: initState.KeyringController,
       encryptor: opts.encryptor || undefined,
@@ -1132,7 +1138,7 @@ export default class MetamaskController extends EventEmitter {
     this.metamaskMiddleware = createMetamaskMiddleware({
       static: {
         eth_syncing: false,
-        web3_clientVersion: `MetaMask/v${version}`,
+        web3_clientVersion: `Taquin/v${version}`,
       },
       version,
       // account mgmt
@@ -2495,12 +2501,22 @@ export default class MetamaskController extends EventEmitter {
     });
 
     // Accounts
-    const [hdKeyring] = this.keyringController.getKeyringsByType(
-      HardwareKeyringTypes.hdKeyTree,
+    const tolarKeyring =
+      this.keyringController.getKeyringsByType('Tolar Keyring')[0];
+    const hdKeyring =
+      this.keyringController.getKeyringsByType('HD Key Tree')[0];
+    const simpleKeyPairKeyrings =
+      this.keyringController.getKeyringsByType('Simple Key Pair');
+    const tolarAccounts = await Promise.all(
+      tolarKeyring.map((keyring) => keyring.getAccounts()),
     );
-    const simpleKeyPairKeyrings = this.keyringController.getKeyringsByType(
-      HardwareKeyringTypes.hdKeyTree,
-    );
+
+    // const [hdKeyring] = this.keyringController.getKeyringsByType(
+    //   HardwareKeyringTypes.hdKeyTree,
+    // );
+    // const simpleKeyPairKeyrings = this.keyringController.getKeyringsByType(
+    //   HardwareKeyringTypes.hdKeyTree,
+    // );
     const hdAccounts = await hdKeyring.getAccounts();
     const simpleKeyPairKeyringAccounts = await Promise.all(
       simpleKeyPairKeyrings.map((keyring) => keyring.getAccounts()),
@@ -2519,6 +2535,7 @@ export default class MetamaskController extends EventEmitter {
       ledger: [],
       trezor: [],
       lattice: [],
+      tolar: tolarAccounts,
     };
 
     // transactions
@@ -3473,7 +3490,7 @@ export default class MetamaskController extends EventEmitter {
 
     // messages between inpage and background
     this.setupProviderConnection(
-      mux.createStream('metamask-provider'),
+      mux.createStream('taquin-provider'),
       sender,
       _subjectType,
     );
@@ -3500,7 +3517,7 @@ export default class MetamaskController extends EventEmitter {
     // connect features
     this.setupControllerConnection(mux.createStream('controller'));
     this.setupProviderConnection(
-      mux.createStream('provider'),
+      mux.createStream('taquin-provider'),
       sender,
       SubjectType.Internal,
     );
@@ -3617,18 +3634,21 @@ export default class MetamaskController extends EventEmitter {
    * @param {SubjectType} subjectType - The type of the sender, i.e. subject.
    */
   setupProviderConnection(outStream, sender, subjectType) {
-    let origin;
-    if (subjectType === SubjectType.Internal) {
-      origin = ORIGIN_METAMASK;
-    }
-    ///: BEGIN:ONLY_INCLUDE_IN(flask)
-    else if (subjectType === SubjectType.Snap) {
-      origin = sender.snapId;
-    }
-    ///: END:ONLY_INCLUDE_IN
-    else {
-      origin = new URL(sender.url).origin;
-    }
+    // let origin;
+    // if (subjectType === SubjectType.Internal) {
+    //   origin = ORIGIN_METAMASK;
+    // }
+    // ///: BEGIN:ONLY_INCLUDE_IN(flask)
+    // else if (subjectType === SubjectType.Snap) {
+    //   origin = sender.snapId;
+    // }
+    // ///: END:ONLY_INCLUDE_IN
+    // else {
+    //   origin = new URL(sender.url).origin;
+    // }
+
+    const origin =
+      subjectType === 'internal' ? 'taquin' : new URL(sender.url).origin;
 
     if (sender.id && sender.id !== this.extension.runtime.id) {
       this.subjectMetadataController.addSubjectMetadata({
@@ -4031,24 +4051,26 @@ export default class MetamaskController extends EventEmitter {
   async _onKeyringControllerUpdate(state) {
     const {
       keyrings,
-      encryptionKey: loginToken,
-      encryptionSalt: loginSalt,
+      // encryptionKey: loginToken,
+      // encryptionSalt: loginSalt,
     } = state;
     const addresses = keyrings.reduce(
       (acc, { accounts }) => acc.concat(accounts),
       [],
     );
 
-    if (isManifestV3) {
-      await browser.storage.session.set({ loginToken, loginSalt });
-    }
+    // if (isManifestV3) {
+    //   await browser.storage.session.set({ loginToken, loginSalt });
+    // }
 
     if (!addresses.length) {
       return;
     }
 
+    log.info(addresses);
+
     // Ensure preferences + identities controller know about all addresses
-    this.preferencesController.syncAddresses(addresses);
+    // this.preferencesController.syncAddresses(addresses);
     this.accountTracker.syncWithAddresses(addresses);
   }
 

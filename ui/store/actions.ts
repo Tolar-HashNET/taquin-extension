@@ -259,6 +259,7 @@ export function createNewVault(password: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     callBackgroundMethod('createNewVaultAndKeychain', [password], (error) => {
       if (error) {
+        console.log(error, 'newvault', password, 'password');
         reject(error);
         return;
       }

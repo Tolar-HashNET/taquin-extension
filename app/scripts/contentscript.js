@@ -23,20 +23,25 @@ const inpageSuffix = `//# sourceURL=${browser.runtime.getURL('inpage.js')}\n`;
 const inpageBundle = inpageContent + inpageSuffix;
 
 // contexts
-const CONTENT_SCRIPT = 'metamask-contentscript';
-const INPAGE = 'metamask-inpage';
-const PHISHING_WARNING_PAGE = 'metamask-phishing-warning-page';
+// const CONTENT_SCRIPT = 'metamask-contentscript';
+// const INPAGE = 'metamask-inpage';
+// const PHISHING_WARNING_PAGE = 'metamask-phishing-warning-page';
+const CONTENT_SCRIPT = 'contentscript';
+const INPAGE = 'inpage';
+const PHISHING_WARNING_PAGE = 'phishing-warning-page';
 
 // stream channels
-const PHISHING_SAFELIST = 'metamask-phishing-safelist';
-const PROVIDER = 'metamask-provider';
+// const PHISHING_SAFELIST = 'metamask-phishing-safelist';
+const PROVIDER = 'taquin-provider';
+const PHISHING_SAFELIST = 'phishing-safelist';
 
 // For more information about these legacy streams, see here:
 // https://github.com/MetaMask/metamask-extension/issues/15491
 // TODO:LegacyProvider: Delete
 const LEGACY_CONTENT_SCRIPT = 'contentscript';
 const LEGACY_INPAGE = 'inpage';
-const LEGACY_PROVIDER = 'provider';
+// const LEGACY_PROVIDER = 'provider';
+const LEGACY_PROVIDER = 'taquin-provider';
 const LEGACY_PUBLIC_CONFIG = 'publicConfig';
 
 let legacyExtMux,
