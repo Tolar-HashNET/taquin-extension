@@ -97,6 +97,13 @@ export const NETWORK_TYPES = {
   SEPOLIA: 'sepolia',
 } as const;
 
+export const TOLAR_NETWORK_TYPES = {
+  MAINNET: 'mainnet',
+  TESTNET: 'testnet',
+  STAGING: 'staging',
+  LOCALHOST: 'localhost',
+};
+
 /**
  * An object containing shortcut names for any non-builtin network. We need
  * this to be able to differentiate between networks that require custom
@@ -157,7 +164,7 @@ export const CHAIN_IDS = {
  */
 export const MAX_SAFE_CHAIN_ID = 4503599627370476;
 
-export const MAINNET_DISPLAY_NAME = 'Ethereum Mainnet';
+export const MAINNET_DISPLAY_NAME = 'Mainnet';
 export const GOERLI_DISPLAY_NAME = 'Goerli';
 export const SEPOLIA_DISPLAY_NAME = 'Sepolia';
 export const LOCALHOST_DISPLAY_NAME = 'Localhost 8545';
@@ -311,6 +318,21 @@ export const BUILT_IN_NETWORKS = {
   [NETWORK_TYPES.LOCALHOST]: {
     networkId: NETWORK_IDS.LOCALHOST,
     chainId: CHAIN_IDS.LOCALHOST,
+  },
+} as const;
+
+export const TOLAR_BUILT_IN_NETWORKS = {
+  [TOLAR_NETWORK_TYPES.TESTNET]: {
+    networkId: TESTNET,
+    blockExplorerUrl: `https://${TESTNET_SUBDOMAIN}.tolar.io`,
+  },
+  [TOLAR_NETWORK_TYPES.STAGING]: {
+    networkId: STAGING,
+    blockExplorerUrl: `https://${STAGING_SUBDOMAIN}.tolar.io`,
+  },
+  [TOLAR_NETWORK_TYPES.MAINNET]: {
+    networkId: MAINNET,
+    blockExplorerUrl: `https://${MAINNET_SUBDOMAIN}.tolar.io`,
   },
 } as const;
 

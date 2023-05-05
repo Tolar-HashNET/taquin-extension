@@ -70,7 +70,7 @@ export default function SecureYourWallet() {
     zh: 'Chinese - China',
   };
 
-  const defaultLang = subtitles[currentLocale] ? currentLocale : 'en';
+  // const defaultLang = subtitles[currentLocale] ? currentLocale : 'en';
   return (
     <div className="secure-your-wallet" data-testid="secure-your-wallet">
       {showSkipSRPBackupPopover && (
@@ -92,15 +92,15 @@ export default function SecureYourWallet() {
           {t('seedPhraseIntroTitle')}
         </Typography>
       </Box>
-      <Box justifyContent={JustifyContent.center} marginBottom={6}>
+      {/* <Box justifyContent={JustifyContent.center} marginBottom={6}>
         <Typography
           variant={TypographyVariant.H4}
           className="secure-your-wallet__details"
         >
           {t('seedPhraseIntroTitleCopy')}
         </Typography>
-      </Box>
-      <Box>
+      </Box> */}
+      {/* <Box>
         <video
           className="secure-your-wallet__video"
           onPlay={() => {
@@ -128,7 +128,7 @@ export default function SecureYourWallet() {
             );
           })}
         </video>
-      </Box>
+      </Box> */}
       <Box
         margin={8}
         justifyContent={JustifyContent.spaceBetween}

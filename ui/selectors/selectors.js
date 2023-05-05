@@ -347,16 +347,21 @@ export const getMetaMaskAccountsConnected = createSelector(
 );
 
 export function isBalanceCached(state) {
-  const selectedAccountBalance =
-    state.metamask.accounts[getSelectedAddress(state)].balance;
-  const cachedBalance = getSelectedAccountCachedBalance(state);
+  return false;
+  // const selectedAccountBalance =
+  //   state.metamask.accounts[getSelectedAddress(state)].balance;
+  // const cachedBalance = getSelectedAccountCachedBalance(state);
 
-  return Boolean(!selectedAccountBalance && cachedBalance);
+  // return Boolean(!selectedAccountBalance && cachedBalance);
 }
 
 export function getSelectedAccountCachedBalance(state) {
   const cachedBalances = getMetaMaskCachedBalances(state);
   const selectedAddress = getSelectedAddress(state);
+
+  if (!cachedBalances) {
+    return '';
+  }
 
   return cachedBalances && cachedBalances[selectedAddress];
 }

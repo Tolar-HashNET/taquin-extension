@@ -12,7 +12,7 @@ import EthQuery from 'eth-query';
 import { v4 as random } from 'uuid';
 import {
   // INFURA_PROVIDER_TYPES,
-  BUILT_IN_NETWORKS,
+  TOLAR_BUILT_IN_NETWORKS,
   INFURA_BLOCKED_KEY,
   // TEST_NETWORK_TICKER_MAP,
   // CHAIN_IDS,
@@ -321,7 +321,7 @@ export default class NetworkController extends EventEmitter {
       TOLAR_PROVIDER_TYPES.includes(type),
       `Unknown Tolar provider type "${type}".`,
     );
-    const { blockExplorerUrl } = BUILT_IN_NETWORKS[type];
+    const { blockExplorerUrl } = TOLAR_BUILT_IN_NETWORKS[type];
     this._setProviderConfig({
       type,
       rpcUrl: '',

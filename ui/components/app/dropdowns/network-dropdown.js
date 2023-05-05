@@ -10,6 +10,7 @@ import { openAlert as displayInvalidCustomNetworkAlert } from '../../../ducks/al
 import {
   LOCALHOST_RPC_URL,
   NETWORK_TYPES,
+  TOLAR_NETWORK_TYPES,
 } from '../../../../shared/constants/network';
 import { isPrefixedFormattedHexString } from '../../../../shared/modules/network.utils';
 
@@ -277,23 +278,23 @@ class NetworkDropdown extends Component {
 
   render() {
     const {
-      history,
+      // history,
       hideElementsForOnboarding,
       hideNetworkDropdown,
-      shouldShowTestNetworks,
-      showTestnetMessageInDropdown,
-      hideTestNetMessage,
-      networkConfigurations,
+      // shouldShowTestNetworks,
+      // showTestnetMessageInDropdown,
+      // hideTestNetMessage,
+      // networkConfigurations,
     } = this.props;
 
-    const rpcListDetailWithoutLocalHost = pickBy(
-      networkConfigurations,
-      (config) => config.rpcUrl !== LOCALHOST_RPC_URL,
-    );
-    const rpcListDetailForLocalHost = pickBy(
-      networkConfigurations,
-      (config) => config.rpcUrl === LOCALHOST_RPC_URL,
-    );
+    // const rpcListDetailWithoutLocalHost = pickBy(
+    //   networkConfigurations,
+    //   (config) => config.rpcUrl !== LOCALHOST_RPC_URL,
+    // );
+    // const rpcListDetailForLocalHost = pickBy(
+    //   networkConfigurations,
+    //   (config) => config.rpcUrl === LOCALHOST_RPC_URL,
+    // );
 
     const isOpen = this.props.networkDropdownOpen;
     const { t } = this.context;
@@ -333,7 +334,7 @@ class NetworkDropdown extends Component {
           {hideElementsForOnboarding ? null : (
             <div className="network-dropdown-divider" />
           )}
-          {showTestnetMessageInDropdown && !hideElementsForOnboarding ? (
+          {/* {showTestnetMessageInDropdown && !hideElementsForOnboarding ? (
             <div className="network-dropdown-content">
               {t('toggleTestNetworks', [
                 <a
@@ -356,18 +357,20 @@ class NetworkDropdown extends Component {
                 {t('dismiss')}
               </Button>
             </div>
-          ) : null}
+          ) : null} */}
         </div>
 
         <div className="network-dropdown-list">
-          {this.renderNetworkEntry(NETWORK_TYPES.MAINNET)}
+          {this.renderNetworkEntry(TOLAR_NETWORK_TYPES.MAINNET)}
+          {this.renderNetworkEntry(TOLAR_NETWORK_TYPES.TESTNET)}
+          {this.renderNetworkEntry(TOLAR_NETWORK_TYPES.STAGING)}
 
-          {this.renderCustomRpcList(
+          {/* {this.renderCustomRpcList(
             rpcListDetailWithoutLocalHost,
             this.props.provider,
-          )}
+          )} */}
 
-          {shouldShowTestNetworks && (
+          {/* {shouldShowTestNetworks && (
             <>
               {this.renderNetworkEntry(NETWORK_TYPES.GOERLI)}
               {this.renderNetworkEntry(NETWORK_TYPES.SEPOLIA)}
@@ -377,7 +380,7 @@ class NetworkDropdown extends Component {
                 { isLocalHost: true },
               )}
             </>
-          )}
+          )} */}
         </div>
 
         {this.renderAddCustomButton()}

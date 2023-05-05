@@ -1,13 +1,13 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { PRIMARY, SECONDARY } from '../../../helpers/constants/common';
 import CurrencyDisplay from '../../ui/currency-display';
 import { useUserPreferencedCurrency } from '../../../hooks/useUserPreferencedCurrency';
-import { EtherDenomination } from '../../../../shared/constants/common';
+// import { EtherDenomination } from '../../../../shared/constants/common';
 
 export default function UserPreferencedCurrencyDisplay({
   'data-testid': dataTestId,
-  ethLogoHeight = 14,
+  // ethLogoHeight = 14,
   ethNumberOfDecimals,
   fiatNumberOfDecimals,
   numberOfDecimals: propsNumberOfDecimals,
@@ -23,20 +23,21 @@ export default function UserPreferencedCurrencyDisplay({
     numberOfDecimals: propsNumberOfDecimals,
     showFiatOverride: showFiat,
   });
-  const prefixComponent = useMemo(() => {
-    return (
-      currency === EtherDenomination.ETH &&
-      showEthLogo && (
-        <i
-          className="fab fa-ethereum"
-          style={{
-            color: 'var(--color-icon-default)',
-            fontSize: ethLogoHeight,
-          }}
-        />
-      )
-    );
-  }, [currency, showEthLogo, ethLogoHeight]);
+
+  // const prefixComponent = useMemo(() => {
+  //   return (
+  //     currency === EtherDenomination.ETH &&
+  //     showEthLogo && (
+  //       <i
+  //         className="fab fa-ethereum"
+  //         style={{
+  //           color: 'var(--color-icon-default)',
+  //           fontSize: ethLogoHeight,
+  //         }}
+  //       />
+  //     )
+  //   );
+  // }, [currency, showEthLogo, ethLogoHeight]);
 
   return (
     <CurrencyDisplay
@@ -44,7 +45,7 @@ export default function UserPreferencedCurrencyDisplay({
       currency={currency}
       data-testid={dataTestId}
       numberOfDecimals={numberOfDecimals}
-      prefixComponent={prefixComponent}
+      // prefixComponent={prefixComponent}
       suffix={showCurrencySuffix && !showEthLogo && currency}
     />
   );

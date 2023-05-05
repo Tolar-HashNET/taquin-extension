@@ -8,7 +8,7 @@
     "jsx": "react",
     "lib": ["dom", "es2020"],
     "moduleResolution": "node",
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "outDir": "tsout",
     "rootDir": ".",
     "sourceMap": true,

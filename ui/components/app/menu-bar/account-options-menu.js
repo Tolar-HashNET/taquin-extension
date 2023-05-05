@@ -21,7 +21,7 @@ import {
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { getEnvironmentType } from '../../../../app/scripts/lib/util';
 import { ENVIRONMENT_TYPE_FULLSCREEN } from '../../../../shared/constants/app';
-import { HardwareKeyringTypes } from '../../../../shared/constants/hardware-wallets';
+// import { HardwareKeyringTypes } from '../../../../shared/constants/hardware-wallets';
 import { EVENT, EVENT_NAMES } from '../../../../shared/constants/metametrics';
 import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { ICON_NAMES } from '../../component-library';
@@ -31,7 +31,7 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const keyring = useSelector(getCurrentKeyring);
+  // const keyring = useSelector(getCurrentKeyring);
   const chainId = useSelector(getCurrentChainId);
   const rpcPrefs = useSelector(getRpcPrefsForCurrentProvider);
   const selectedIdentity = useSelector(getSelectedIdentity);
@@ -42,7 +42,9 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
   const trackEvent = useContext(MetaMetricsContext);
   const blockExplorerLinkText = useSelector(getBlockExplorerLinkText);
 
-  const isRemovable = keyring.type !== HardwareKeyringTypes.hdKeyTree;
+  // const isRemovable = keyring.type !== HardwareKeyringTypes.hdKeyTree;
+
+  // const isRemovable = keyring.type !== 'Tolar Keyring';
 
   const routeToAddBlockExplorerUrl = () => {
     history.push(`${NETWORKS_ROUTE}#blockExplorerUrl`);
@@ -127,7 +129,7 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
       >
         {t('accountDetails')}
       </MenuItem>
-      <MenuItem
+      {/* <MenuItem
         data-testid="account-options-menu__connected-sites"
         onClick={() => {
           trackEvent({
@@ -143,8 +145,9 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
         iconName={ICON_NAMES.CONNECT}
       >
         {t('connectedSites')}
-      </MenuItem>
-      {isRemovable ? (
+      </MenuItem> */}
+
+      {/* {isRemovable ? (
         <MenuItem
           data-testid="account-options-menu__remove-account"
           onClick={() => {
@@ -160,7 +163,7 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
         >
           {t('removeAccount')}
         </MenuItem>
-      ) : null}
+      ) : null} */}
     </Menu>
   );
 }

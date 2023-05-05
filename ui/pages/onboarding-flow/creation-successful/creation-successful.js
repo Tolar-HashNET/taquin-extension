@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '../../../components/ui/box';
 import Typography from '../../../components/ui/typography';
@@ -13,15 +13,19 @@ import {
 } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import {
-  ONBOARDING_PIN_EXTENSION_ROUTE,
+  DEFAULT_ROUTE,
+  // ONBOARDING_PIN_EXTENSION_ROUTE,
   ONBOARDING_PRIVACY_SETTINGS_ROUTE,
 } from '../../../helpers/constants/routes';
 import { isBeta } from '../../../helpers/utils/build-types';
+import { setCompletedOnboarding } from '../../../store/actions';
 import { getFirstTimeFlowType } from '../../../selectors';
 import { EVENT_NAMES, EVENT } from '../../../../shared/constants/metametrics';
 import { MetaMetricsContext } from '../../../contexts/metametrics';
+import { FIRST_TIME_FLOW_TYPES } from '../../../helpers/constants/onboarding';
 
 export default function CreationSuccessful() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const t = useI18nContext();
   const trackEvent = useContext(MetaMetricsContext);
@@ -100,6 +104,7 @@ export default function CreationSuccessful() {
           large
           rounded
           onClick={() => {
+            dispatch(setCompletedOnboarding());
             trackEvent({
               category: EVENT.CATEGORIES.ONBOARDING,
               event: EVENT_NAMES.ONBOARDING_WALLET_CREATION_COMPLETE,
@@ -107,7 +112,26 @@ export default function CreationSuccessful() {
                 method: firstTimeFlowType,
               },
             });
-            history.push(ONBOARDING_PIN_EXTENSION_ROUTE);
+            trackEvent({
+              category: EVENT.CATEGORIES.ONBOARDING,
+              event: EVENT_NAMES.ONBOARDING_WALLET_SETUP_COMPLETE,
+              properties: {
+                wallet_setup_type:
+                  firstTimeFlowType === FIRST_TIME_FLOW_TYPES.IMPORT
+                    ? 'import'
+                    : 'new',
+                new_wallet: firstTimeFlowType === FIRST_TIME_FLOW_TYPES.CREATE,
+              },
+            });
+            history.push(DEFAULT_ROUTE);
+            // trackEvent({
+            //   category: EVENT.CATEGORIES.ONBOARDING,
+            //   event: EVENT_NAMES.ONBOARDING_WALLET_CREATION_COMPLETE,
+            //   properties: {
+            //     method: firstTimeFlowType,
+            //   },
+            // });
+            // history.push(DEFAULT_ROUTE);
           }}
         >
           {t('gotIt')}

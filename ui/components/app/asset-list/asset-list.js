@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import ImportTokenLink from '../import-token-link';
-import TokenList from '../token-list';
+// import ImportTokenLink from '../import-token-link';
+// import TokenList from '../token-list';
 import AssetListItem from '../asset-list-item';
 import { PRIMARY, SECONDARY } from '../../../helpers/constants/common';
 import { useUserPreferencedCurrency } from '../../../hooks/useUserPreferencedCurrency';
@@ -10,34 +10,34 @@ import {
   getSelectedAccountCachedBalance,
   getShouldShowFiat,
   getNativeCurrencyImage,
-  getDetectedTokensInCurrentNetwork,
-  getIstokenDetectionInactiveOnNonMainnetSupportedNetwork,
+  // getDetectedTokensInCurrentNetwork,
+  // getIstokenDetectionInactiveOnNonMainnetSupportedNetwork,
 } from '../../../selectors';
 import { getNativeCurrency } from '../../../ducks/metamask/metamask';
 import { useCurrencyDisplay } from '../../../hooks/useCurrencyDisplay';
-import Typography from '../../ui/typography/typography';
-import Box from '../../ui/box/box';
-import {
-  Color,
-  TypographyVariant,
-  FONT_WEIGHT,
-  JustifyContent,
-} from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import { EVENT, EVENT_NAMES } from '../../../../shared/constants/metametrics';
-import DetectedToken from '../detected-token/detected-token';
-import DetectedTokensLink from './detetcted-tokens-link/detected-tokens-link';
+// import Typography from '../../ui/typography/typography';
+// import Box from '../../ui/box/box';
+// import {
+//   Color,
+//   TypographyVariant,
+//   FONT_WEIGHT,
+//   JustifyContent,
+// } from '../../../helpers/constants/design-system';
+// import { useI18nContext } from '../../../hooks/useI18nContext';
+// import { MetaMetricsContext } from '../../../contexts/metametrics';
+// import { EVENT, EVENT_NAMES } from '../../../../shared/constants/metametrics';
+// import DetectedToken from '../detected-token/detected-token';
+// import DetectedTokensLink from './detetcted-tokens-link/detected-tokens-link';
 
 const AssetList = ({ onClickAsset }) => {
-  const t = useI18nContext();
+  // const t = useI18nContext();
 
-  const [showDetectedTokens, setShowDetectedTokens] = useState(false);
+  // const [showDetectedTokens, setShowDetectedTokens] = useState(false);
 
   const selectedAccountBalance = useSelector(getSelectedAccountCachedBalance);
   const nativeCurrency = useSelector(getNativeCurrency);
   const showFiat = useSelector(getShouldShowFiat);
-  const trackEvent = useContext(MetaMetricsContext);
+  // const trackEvent = useContext(MetaMetricsContext);
   const balance = useSelector(getSelectedAccountCachedBalance);
   const balanceIsLoading = !balance;
 
@@ -65,10 +65,10 @@ const AssetList = ({ onClickAsset }) => {
     });
 
   const primaryTokenImage = useSelector(getNativeCurrencyImage);
-  const detectedTokens = useSelector(getDetectedTokensInCurrentNetwork) || [];
-  const istokenDetectionInactiveOnNonMainnetSupportedNetwork = useSelector(
-    getIstokenDetectionInactiveOnNonMainnetSupportedNetwork,
-  );
+  // const detectedTokens = useSelector(getDetectedTokensInCurrentNetwork) || [];
+  // const istokenDetectionInactiveOnNonMainnetSupportedNetwork = useSelector(
+  //   getIstokenDetectionInactiveOnNonMainnetSupportedNetwork,
+  // );
 
   return (
     <>
@@ -83,7 +83,7 @@ const AssetList = ({ onClickAsset }) => {
         tokenImage={balanceIsLoading ? null : primaryTokenImage}
         identiconBorder
       />
-      <TokenList
+      {/* <TokenList
         onTokenClick={(tokenAddress) => {
           onClickAsset(tokenAddress);
           trackEvent({
@@ -95,8 +95,8 @@ const AssetList = ({ onClickAsset }) => {
             },
           });
         }}
-      />
-      {detectedTokens.length > 0 &&
+      /> */}
+      {/* {detectedTokens.length > 0 &&
         !istokenDetectionInactiveOnNonMainnetSupportedNetwork && (
           <DetectedTokensLink setShowDetectedTokens={setShowDetectedTokens} />
         )}
@@ -114,7 +114,7 @@ const AssetList = ({ onClickAsset }) => {
       </Box>
       {showDetectedTokens && (
         <DetectedToken setShowDetectedTokens={setShowDetectedTokens} />
-      )}
+      )} */}
     </>
   );
 };

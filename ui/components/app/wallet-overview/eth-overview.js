@@ -8,41 +8,42 @@ import Identicon from '../../ui/identicon';
 import { I18nContext } from '../../../contexts/i18n';
 import {
   SEND_ROUTE,
-  BUILD_QUOTE_ROUTE,
+  // BUILD_QUOTE_ROUTE,
 } from '../../../helpers/constants/routes';
 import Tooltip from '../../ui/tooltip';
 import UserPreferencedCurrencyDisplay from '../user-preferenced-currency-display';
-import { PRIMARY, SECONDARY } from '../../../helpers/constants/common';
+// import { PRIMARY, SECONDARY } from '../../../helpers/constants/common';
+import { PRIMARY } from '../../../helpers/constants/common';
 import {
   isBalanceCached,
-  getShouldShowFiat,
-  getCurrentKeyring,
-  getSwapsDefaultToken,
-  getIsSwapsChain,
-  getIsBuyableChain,
+  // getShouldShowFiat,
+  // getCurrentKeyring,
+  // getSwapsDefaultToken,
+  // getIsSwapsChain,
+  // getIsBuyableChain,
   getNativeCurrencyImage,
   getSelectedAccountCachedBalance,
 } from '../../../selectors';
-import { setSwapsFromToken } from '../../../ducks/swaps/swaps';
+// import { setSwapsFromToken } from '../../../ducks/swaps/swaps';
 import IconButton from '../../ui/icon-button';
-import { isHardwareKeyring } from '../../../helpers/utils/hardware';
+// import { isHardwareKeyring } from '../../../helpers/utils/hardware';
 import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   EVENT,
   EVENT_NAMES,
-  CONTEXT_PROPS,
+  // CONTEXT_PROPS,
 } from '../../../../shared/constants/metametrics';
 import Spinner from '../../ui/spinner';
 import { startNewDraftTransaction } from '../../../ducks/send';
 import { AssetType } from '../../../../shared/constants/transaction';
 import {
-  ButtonIcon,
-  BUTTON_ICON_SIZES,
+  // ButtonIcon,
+  // BUTTON_ICON_SIZES,
   Icon,
   ICON_NAMES,
 } from '../../component-library';
 import { IconColor } from '../../../helpers/constants/design-system';
-import useRamps from '../../../hooks/experiences/useRamps';
+// import useRamps from '../../../hooks/experiences/useRamps';
 import WalletOverview from './wallet-overview';
 
 const EthOverview = ({ className }) => {
@@ -50,17 +51,17 @@ const EthOverview = ({ className }) => {
   const t = useContext(I18nContext);
   const trackEvent = useContext(MetaMetricsContext);
   const history = useHistory();
-  const keyring = useSelector(getCurrentKeyring);
-  const usingHardwareWallet = isHardwareKeyring(keyring?.type);
+  // const keyring = useSelector(getCurrentKeyring);
+  // const usingHardwareWallet = isHardwareKeyring(keyring?.type);
   const balanceIsCached = useSelector(isBalanceCached);
-  const showFiat = useSelector(getShouldShowFiat);
+  // const showFiat = useSelector(getShouldShowFiat);
   const balance = useSelector(getSelectedAccountCachedBalance);
-  const isSwapsChain = useSelector(getIsSwapsChain);
-  const isBuyableChain = useSelector(getIsBuyableChain);
+  // const isSwapsChain = useSelector(getIsSwapsChain);
+  // const isBuyableChain = useSelector(getIsBuyableChain);
   const primaryTokenImage = useSelector(getNativeCurrencyImage);
-  const defaultSwapsToken = useSelector(getSwapsDefaultToken);
+  // const defaultSwapsToken = useSelector(getSwapsDefaultToken);
 
-  const { openBuyCryptoInPdapp } = useRamps();
+  // const { openBuyCryptoInPdapp } = useRamps();
 
   return (
     <WalletOverview
@@ -77,10 +78,10 @@ const EthOverview = ({ className }) => {
                 <UserPreferencedCurrencyDisplay
                   style={{ display: 'contents' }}
                   className={classnames('eth-overview__primary-balance', {
-                    'eth-overview__cached-balance': balanceIsCached,
+                    // 'eth-overview__cached-balance': balanceIsCached,
                   })}
                   data-testid="eth-overview__primary-currency"
-                  value={balance}
+                  value={balance || ''}
                   type={PRIMARY}
                   ethNumberOfDecimals={4}
                   hideTitle
@@ -91,10 +92,10 @@ const EthOverview = ({ className }) => {
                   className="loading-overlay__spinner"
                 />
               )}
-              {balanceIsCached ? (
+              {/* {balanceIsCached ? (
                 <span className="eth-overview__cached-star">*</span>
-              ) : null}
-              <ButtonIcon
+              ) : null} */}
+              {/* <ButtonIcon
                 className="eth-overview__portfolio-button"
                 data-testid="home__portfolio-site"
                 color={IconColor.primaryDefault}
@@ -121,9 +122,9 @@ const EthOverview = ({ className }) => {
                     },
                   );
                 }}
-              />
+              /> */}
             </div>
-            {showFiat && balance && (
+            {/* {showFiat && balance && (
               <UserPreferencedCurrencyDisplay
                 className={classnames({
                   'eth-overview__cached-secondary-balance': balanceIsCached,
@@ -135,13 +136,40 @@ const EthOverview = ({ className }) => {
                 ethNumberOfDecimals={4}
                 hideTitle
               />
-            )}
+            )} */}
           </div>
         </Tooltip>
       }
       buttons={
         <>
           <IconButton
+            className="eth-overview__button"
+            data-testid="eth-overview-send"
+            Icon={
+              <Icon
+                name={ICON_NAMES.ARROW_2_RIGHT}
+                color={IconColor.primaryInverse}
+              />
+            }
+            label={t('send')}
+            onClick={() => {
+              trackEvent({
+                event: EVENT_NAMES.NAV_SEND_BUTTON_CLICKED,
+                category: EVENT.CATEGORIES.NAVIGATION,
+                properties: {
+                  token_symbol: 'TOL',
+                  location: 'Home',
+                  text: 'Send',
+                },
+              });
+              dispatch(
+                startNewDraftTransaction({ type: AssetType.native }),
+              ).then(() => {
+                history.push(SEND_ROUTE);
+              });
+            }}
+          />
+          {/* <IconButton
             className="eth-overview__button"
             Icon={
               <Icon name={ICON_NAMES.ADD} color={IconColor.primaryInverse} />
@@ -253,6 +281,7 @@ const EthOverview = ({ className }) => {
               });
             }}
           />
+        </> */}
         </>
       }
       className={className}

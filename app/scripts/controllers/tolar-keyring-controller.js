@@ -256,7 +256,6 @@ export class TolarKeyringController extends KeyringController {
   }
 
   createNewVaultAndKeychain(password) {
-    console.log(password);
     return this.persistAllKeyrings(password)
       .then(this.createFirstKeyTree.bind(this, password))
       .then(this.persistAllKeyrings.bind(this, password))
@@ -267,5 +266,14 @@ export class TolarKeyringController extends KeyringController {
   fullUpdate() {
     this.emit('update', this.memStore.getState());
     return this.memStore.getState();
+  }
+
+  submitPassword(password) {
+    console.log('dogodi se bome ovje nesto');
+    return this.unlockKeyrings(password).then((keyrings) => {
+      this.keyrings = keyrings;
+      this.setUnlocked();
+      return this.fullUpdate();
+    });
   }
 }

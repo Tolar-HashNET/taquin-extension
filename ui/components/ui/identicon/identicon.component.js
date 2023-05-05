@@ -75,65 +75,70 @@ export default class Identicon extends Component {
   };
 
   renderImage() {
-    const { className, diameter, alt, imageBorder, ipfsGateway } = this.props;
-    let { image } = this.props;
+    // const { className, diameter, alt, imageBorder, ipfsGateway } = this.props;
+    // let { image } = this.props;
 
-    if (Array.isArray(image) && image.length) {
-      image = image[0];
-    }
+    // if (Array.isArray(image) && image.length) {
+    //   image = image[0];
+    // }
 
-    if (
-      typeof image === 'string' &&
-      image.toLowerCase().startsWith('ipfs://')
-    ) {
-      image = getAssetImageURL(image, ipfsGateway);
-    }
+    // if (
+    //   typeof image === 'string' &&
+    //   image.toLowerCase().startsWith('ipfs://')
+    // ) {
+    //   image = getAssetImageURL(image, ipfsGateway);
+    // }
 
-    return (
-      <img
-        className={classnames('identicon', className, {
-          'identicon__image-border': imageBorder,
-        })}
-        src={image}
-        style={getStyles(diameter)}
-        alt={alt}
-        onError={() => {
-          this.setState({ imageLoadingError: true });
-        }}
-      />
-    );
+    // return (
+    //   <img
+    //     className={classnames('identicon', className, {
+    //       'identicon__image-border': imageBorder,
+    //     })}
+    //     src={image}
+    //     style={getStyles(diameter)}
+    //     alt={alt}
+    //     onError={() => {
+    //       this.setState({ imageLoadingError: true });
+    //     }}
+    //   />
+    // );
+
+    return null;
   }
 
   renderJazzicon() {
-    const { address, className, diameter, alt, tokenList } = this.props;
-    return (
-      <Jazzicon
-        address={address}
-        diameter={diameter}
-        className={classnames('identicon', className)}
-        style={getStyles(diameter)}
-        alt={alt}
-        tokenList={tokenList}
-      />
-    );
+    // const { address, className, diameter, alt, tokenList } = this.props;
+    // return (
+    //   <Jazzicon
+    //     address={address}
+    //     diameter={diameter}
+    //     className={classnames('identicon', className)}
+    //     style={getStyles(diameter)}
+    //     alt={alt}
+    //     tokenList={tokenList}
+    //   />
+    // );
+    return null;
   }
 
   renderBlockie() {
-    const { address, className, diameter, alt } = this.props;
+    // const { address, className, diameter, alt } = this.props;
 
-    return (
-      <div
-        className={classnames('identicon', className)}
-        style={getStyles(diameter)}
-      >
-        <BlockieIdenticon address={address} diameter={diameter} alt={alt} />
-      </div>
-    );
+    // return (
+    //   <div
+    //     className={classnames('identicon', className)}
+    //     style={getStyles(diameter)}
+    //   >
+    //     <BlockieIdenticon address={address} diameter={diameter} alt={alt} />
+    //   </div>
+    // );
+    return null;
   }
 
   renderBlockieOrJazzIcon() {
-    const { useBlockie } = this.props;
-    return useBlockie ? this.renderBlockie() : this.renderJazzicon();
+    // const { useBlockie } = this.props;
+    // return useBlockie ? this.renderBlockie() : this.renderJazzicon();
+    return null;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -142,38 +147,39 @@ export default class Identicon extends Component {
   }
 
   render() {
-    const { address, image, addBorder, diameter, tokenList } = this.props;
-    const { imageLoadingError } = this.state;
-    const size = diameter + 8;
+    // const { address, image, addBorder, diameter, tokenList } = this.props;
+    // const { imageLoadingError } = this.state;
+    // const size = diameter + 8;
 
-    if (imageLoadingError) {
-      return this.renderBlockieOrJazzIcon();
-    }
+    // if (imageLoadingError) {
+    //   return this.renderBlockieOrJazzIcon();
+    // }
 
-    if (image) {
-      return this.renderImage();
-    }
+    // if (image) {
+    //   return this.renderImage();
+    // }
 
-    if (address) {
-      if (tokenList[address.toLowerCase()]?.iconUrl) {
-        return this.renderJazzicon();
-      }
+    // if (address) {
+    //   if (tokenList[address.toLowerCase()]?.iconUrl) {
+    //     return this.renderJazzicon();
+    //   }
 
-      return (
-        <div
-          className={classnames({ 'identicon__address-wrapper': addBorder })}
-          style={addBorder ? getStyles(size) : null}
-        >
-          {this.renderBlockieOrJazzIcon()}
-        </div>
-      );
-    }
+    //   return (
+    //     <div
+    //       className={classnames({ 'identicon__address-wrapper': addBorder })}
+    //       style={addBorder ? getStyles(size) : null}
+    //     >
+    //       {this.renderBlockieOrJazzIcon()}
+    //     </div>
+    //   );
+    // }
 
-    return (
-      <div
-        style={getStyles(diameter)}
-        className="identicon__image-border"
-      ></div>
-    );
+    // return (
+    //   <div
+    //     style={getStyles(diameter)}
+    //     className="identicon__image-border"
+    //   ></div>
+    // );
+    return null;
   }
 }

@@ -11,7 +11,7 @@ export default function CurrencyDisplay({
   style,
   className,
   prefix,
-  prefixComponent,
+  // prefixComponent,
   hideLabel,
   hideTitle,
   numberOfDecimals,
@@ -28,6 +28,7 @@ export default function CurrencyDisplay({
     currency,
     suffix,
   });
+
   return (
     <div
       className={classnames('currency-display-component', className)}
@@ -35,12 +36,13 @@ export default function CurrencyDisplay({
       style={style}
       title={(!hideTitle && title) || null}
     >
-      <span className="currency-display-component__prefix">
+      {/* <span className="currency-display-component__prefix">
         {prefixComponent}
-      </span>
+      </span> */}
       <span className="currency-display-component__text">
-        {parts.prefix}
+        {/* {parts.prefix} */}
         {parts.value}
+        {/* {balance || ''} */}
       </span>
       {parts.suffix && (
         <span className="currency-display-component__suffix">
@@ -64,7 +66,7 @@ CurrencyDisplay.propTypes = {
   hideTitle: PropTypes.bool,
   numberOfDecimals: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   prefix: PropTypes.string,
-  prefixComponent: PropTypes.node,
+  // prefixComponent: PropTypes.node,
   style: PropTypes.object,
   suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   value: PropTypes.string,

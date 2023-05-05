@@ -2374,7 +2374,7 @@ export default class MetamaskController extends EventEmitter {
       accounts = await keyringController.getAccounts();
       lastBalance = await this.getBalance(
         accounts[accounts.length - 1],
-        ethQuery,
+        // ethQuery,
       );
 
       const [primaryKeyring] = keyringController.getKeyringsByType(
@@ -2423,22 +2423,31 @@ export default class MetamaskController extends EventEmitter {
    * @param {string} address - The account address
    * @param {EthQuery} ethQuery - The EthQuery instance to use when asking the network
    */
-  getBalance(address, ethQuery) {
+  async getBalance(address, ethQuery) {
     return new Promise((resolve, reject) => {
-      const cached = this.accountTracker.store.getState().accounts[address];
+      // const cached = this.accountTracker.store.getState().accounts[address];
 
-      if (cached && cached.balance) {
-        resolve(cached.balance);
-      } else {
-        ethQuery.getBalance(address, (error, balance) => {
-          if (error) {
-            reject(error);
-            log.error(error);
-          } else {
-            resolve(balance || '0x0');
-          }
-        });
-      }
+      // if (cached && cached.balance) {
+      //   resolve(cached.balance);
+      // } else {
+      //   ethQuery.getBalance(address, (error, balance) => {
+      //     if (error) {
+      //       reject(error);
+      //       log.error(error);
+      //     } else {
+      //       resolve(balance || '0x0');
+      //     }
+      //   });
+      // } const _query = new EthQuery(this.provider);
+
+      const _query = new EthQuery(this.provider);
+
+      const res = _query.sendAsync({
+        method: 'tol_getLatestBalance',
+        params: [address],
+      });
+      const balance = res?.balance || '0';
+      resolve(balance);
     });
   }
 
@@ -2568,6 +2577,8 @@ export default class MetamaskController extends EventEmitter {
   async submitPassword(password) {
     await this.keyringController.submitPassword(password);
 
+    console.log(password, 'submit password');
+
     try {
       await this.blockTracker.checkForLatestBlock();
     } catch (error) {
@@ -2578,10 +2589,10 @@ export default class MetamaskController extends EventEmitter {
     // keyring's iframe and have the setting initialized properly
     // Optimistically called to not block MetaMask login due to
     // Ledger Keyring GitHub downtime
-    const transportPreference =
-      this.preferencesController.getLedgerTransportPreference();
+    // const transportPreference =
+    //   this.preferencesController.getLedgerTransportPreference();
 
-    this.setLedgerTransportPreference(transportPreference);
+    // this.setLedgerTransportPreference(transportPreference);
 
     return this.keyringController.fullUpdate();
   }

@@ -201,6 +201,8 @@ export function createNewVaultAndGetSeedPhrase(
   return async (dispatch: MetaMaskReduxDispatch) => {
     dispatch(showLoadingIndication());
 
+    console.log('ovdje je new vault')
+
     try {
       await createNewVault(password);
       const seedPhrase = await verifySeedPhrase();
