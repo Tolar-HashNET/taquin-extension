@@ -61,7 +61,6 @@ import {
 } from '@metamask/snaps-controllers';
 
 ///: END:ONLY_INCLUDE_IN
-// import Web3 from '@tolar/web3';
 
 import browser from 'webextension-polyfill';
 
@@ -607,6 +606,8 @@ export default class MetamaskController extends EventEmitter {
       preferencesController: this.preferencesController,
       onboardingController: this.onboardingController,
       initState: initState.IncomingTransactionsController,
+      providerStore: this.store,
+      provider: this.provider,
     });
 
     // account tracker watches balances, nonces, and any code at their address
@@ -622,6 +623,7 @@ export default class MetamaskController extends EventEmitter {
       },
       preferencesController: this.preferencesController,
       onboardingController: this.onboardingController,
+      providerStore: this.store,
     });
 
     // start and stop polling for balances based on activeControllerConnections
@@ -2576,8 +2578,6 @@ export default class MetamaskController extends EventEmitter {
    */
   async submitPassword(password) {
     await this.keyringController.submitPassword(password);
-
-    console.log(password, 'submit password');
 
     try {
       await this.blockTracker.checkForLatestBlock();

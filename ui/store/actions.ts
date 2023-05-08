@@ -201,8 +201,6 @@ export function createNewVaultAndGetSeedPhrase(
   return async (dispatch: MetaMaskReduxDispatch) => {
     dispatch(showLoadingIndication());
 
-    console.log('ovdje je new vault')
-
     try {
       await createNewVault(password);
       const seedPhrase = await verifySeedPhrase();
@@ -261,7 +259,6 @@ export function createNewVault(password: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     callBackgroundMethod('createNewVaultAndKeychain', [password], (error) => {
       if (error) {
-        console.log(error, 'newvault', password, 'password');
         reject(error);
         return;
       }

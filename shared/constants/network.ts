@@ -165,6 +165,9 @@ export const CHAIN_IDS = {
 export const MAX_SAFE_CHAIN_ID = 4503599627370476;
 
 export const MAINNET_DISPLAY_NAME = 'Mainnet';
+export const TESTNET_DISPLAY_NAME = 'Test Tolar Network';
+export const STAGING_DISPLAY_NAME = 'Staging Tolar Network';
+
 export const GOERLI_DISPLAY_NAME = 'Goerli';
 export const SEPOLIA_DISPLAY_NAME = 'Sepolia';
 export const LOCALHOST_DISPLAY_NAME = 'Localhost 8545';
@@ -269,6 +272,12 @@ export const NETWORK_TYPE_TO_SUBDOMAIN_MAP = {
   [TESTNET]: { subdomain: TESTNET_SUBDOMAIN },
   [MAINNET]: { subdomain: MAINNET_SUBDOMAIN },
   [STAGING]: { subdomain: STAGING_SUBDOMAIN },
+};
+
+export const NETWORK_ID_TO_TYPE_MAP = {
+  [MAINNET_NETWORK_ID]: MAINNET,
+  [TESTNET_NETWORK_ID]: TESTNET,
+  [STAGING_NETWORK_ID]: STAGING,
 };
 
 export const TEST_CHAINS = [

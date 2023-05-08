@@ -9,7 +9,6 @@
 
 import EthQuery from 'eth-query';
 // import Web3 from '@tolar/web3';
-import Web3 from '@tolar/web3';
 
 import { ObservableStore } from '@metamask/obs-store';
 import log from 'loglevel';
@@ -84,6 +83,7 @@ export default class AccountTracker {
     this.getNetworkIdentifier = opts.getNetworkIdentifier;
     this.preferencesController = opts.preferencesController;
     this.onboardingController = opts.onboardingController;
+    this.providerStore = opts.providerStore;
 
     this.onboardingController.store.subscribe(
       previousValueComparator(async (prevState, currState) => {
@@ -217,13 +217,19 @@ export default class AccountTracker {
     // block gasLimit polling shouldn't be in account-tracker shouldn't be here...
     // const currentBlock = await this._query.getBlockByNumber(blockNumber, false);
 
-    const { block_index: blockIndex } = blockNumber;
+    // eslint-disable-next-line camelcase
+    const { block_index } = blockNumber;
 
-    const currentBlock = await new Web3(this._provider).tolar.getBlockByIndex(
-      blockIndex,
-    );
-    console.log(this._provider, 'provider');
-    console.log(currentBlock);
+    const currentBlock = await this._query.sendAsync({
+      method: 'tol_getBlockByIndex',
+      // eslint-disable-next-line camelcase
+      params: [block_index],
+    });
+
+    // const currentBlock = await new Web3(this._provider).tolar.getBlockByIndex(
+    //   blockIndex,
+    // );
+
     if (!currentBlock) {
       return;
     }
@@ -268,10 +274,15 @@ export default class AccountTracker {
     // const networkId = this.getNetworkIdentifier();
     // const rpcUrl = 'http://127.0.0.1:8545';
 
-    const { accounts } = this.store.getState();
-    const addresses = Object.keys(accounts);
+    const address = this.preferencesController.getSelectedAddress();
 
-    console.log(accounts);
+    // this._updateAccount.bind(this);
+
+    // const { accounts } = this.store.getState();
+
+    const accounts = { [address]: {} };
+
+    const addresses = Object.keys(accounts);
 
     await Promise.all(addresses.map(this._updateAccount.bind(this)));
 
@@ -376,11 +387,17 @@ export default class AccountTracker {
 
     const result = { address, balance };
     // update accounts state
-    const { accounts } = this.store.getState();
+    // const { accounts } = this.store.getState();
+
+    const accounts = { [address]: { ...result } };
+
+    this.store.updateState({ accounts });
+
+    // console.log(accounts, 'accounts array?');
     // only populate if the entry is still present
-    if (!accounts[address]) {
-      return;
-    }
+    // if (!accounts[address]) {
+    //   return;
+    // }
 
     // let newAccounts = accounts;
     // if (!useMultiAccountBalanceChecker) {
@@ -397,8 +414,8 @@ export default class AccountTracker {
 
     // newAccounts[address] = result;
     // this.store.updateState({ accounts: newAccounts });
-    accounts[address] = result;
-    this.store.updateState({ accounts });
+    // accounts[address] = result;
+    // this.store.updateState({ accounts });
   }
 
   /**

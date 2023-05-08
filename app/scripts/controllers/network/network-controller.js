@@ -79,7 +79,7 @@ if (process.env.IN_TEST) {
 // }
 
 const defaultProviderConfig = {
-  ticker: 'ETH',
+  ticker: 'TOL',
   ...defaultProviderConfigOpts,
   // ...defaultProviderConfigOpts,
 };

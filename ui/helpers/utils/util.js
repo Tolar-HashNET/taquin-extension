@@ -39,8 +39,8 @@ export function formatDate(date, format = "M/d/y 'at' T") {
 
 export function formatDateWithYearContext(
   date,
-  formatThisYear = 'MMM d',
-  fallback = 'MMM d, y',
+  formatThisYear = 'MMM d, HH:mm',
+  fallback = 'MMM d, y, HH:mm',
 ) {
   if (!date) {
     return '';

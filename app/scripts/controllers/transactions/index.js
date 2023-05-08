@@ -335,7 +335,7 @@ export default class TransactionController extends EventEmitter {
    */
   async newUnapprovedTransaction(txParams, opts = {}) {
     log.debug(
-      `MetaMaskController newUnapprovedTransaction ${JSON.stringify(txParams)}`,
+      `TaquinController newUnapprovedTransaction ${JSON.stringify(txParams)}`,
     );
 
     const initialTxMeta = await this.addUnapprovedTransaction(
@@ -359,7 +359,7 @@ export default class TransactionController extends EventEmitter {
               return reject(
                 cleanErrorStack(
                   ethErrors.provider.userRejectedRequest(
-                    'MetaMask Tx Signature: User denied transaction signature.',
+                    'Taquin Tx Signature: User denied transaction signature.',
                   ),
                 ),
               );
@@ -373,7 +373,7 @@ export default class TransactionController extends EventEmitter {
               return reject(
                 cleanErrorStack(
                   ethErrors.rpc.internal(
-                    `MetaMask Tx Signature: Unknown problem: ${JSON.stringify(
+                    `Taquin Tx Signature: Unknown problem: ${JSON.stringify(
                       finishedTxMeta.txParams,
                     )}`,
                   ),

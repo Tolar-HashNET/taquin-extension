@@ -285,7 +285,7 @@ const EthOverview = ({ className }) => {
         </>
       }
       className={className}
-      icon={<Identicon diameter={32} image={primaryTokenImage} imageBorder />}
+      // icon={<Identicon diameter={32} image={primaryTokenImage} imageBorder />}
     />
   );
 };

@@ -22,22 +22,29 @@ const INVALID_INITIAL_TRANSACTION_TYPES = [
   TransactionType.retry,
 ];
 
-export const incomingTxListSelector = (state) => {
-  const { showIncomingTransactions } = state.metamask.featureFlags;
-  if (!showIncomingTransactions) {
-    return [];
-  }
+export const tolarIncomingTransactions = (state) => {
+  return state.metamask.incomingTransactions;
+};
 
-  const {
-    network,
-    provider: { chainId },
-  } = state.metamask;
-  const selectedAddress = getSelectedAddress(state);
-  return Object.values(state.metamask.incomingTransactions).filter(
-    (tx) =>
-      tx.txParams.to === selectedAddress &&
-      transactionMatchesNetwork(tx, chainId, network),
-  );
+export const incomingTxListSelector = (state) => {
+  return state.metamask.incomingTransactions;
+  // const { showIncomingTransactions } = state.metamask.featureFlags;
+  // if (!showIncomingTransactions) {
+  //   return [];
+  // }
+
+  // const {
+  //   network,
+  //   provider: { chainId },
+  // } = state.metamask;
+  // console.log(state.metamask, 'state');
+
+  // const selectedAddress = getSelectedAddress(state);
+  // return Object.values(state.metamask.incomingTransactions).filter(
+  //   (tx) =>
+  //     tx.txParams.to === selectedAddress &&
+  //     transactionMatchesNetwork(tx, chainId, network),
+  // );
 };
 export const unapprovedMsgsSelector = (state) => state.metamask.unapprovedMsgs;
 export const currentNetworkTxListSelector = (state) =>

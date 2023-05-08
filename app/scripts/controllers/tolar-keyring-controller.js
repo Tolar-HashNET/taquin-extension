@@ -269,7 +269,6 @@ export class TolarKeyringController extends KeyringController {
   }
 
   submitPassword(password) {
-    console.log('dogodi se bome ovje nesto');
     return this.unlockKeyrings(password).then((keyrings) => {
       this.keyrings = keyrings;
       this.setUnlocked();

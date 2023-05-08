@@ -126,16 +126,16 @@ const AssetListItem = ({
       titleIcon={titleIcon}
       subtitle={secondary ? <h3 title={secondary}>{secondary}</h3> : null}
       onClick={onClick}
-      icon={
-        <Identicon
-          className={iconClassName}
-          diameter={32}
-          address={tokenAddress}
-          image={tokenImage}
-          alt={`${primary} ${tokenSymbol}`}
-          imageBorder={identiconBorder}
-        />
-      }
+      // icon={
+      //   <Identicon
+      //     className={iconClassName}
+      //     diameter={32}
+      //     address={tokenAddress}
+      //     image={tokenImage}
+      //     alt={`${primary} ${tokenSymbol}`}
+      //     imageBorder={identiconBorder}
+      //   />
+      // }
       midContent={midContent}
       rightContent={
         !isERC721 && (

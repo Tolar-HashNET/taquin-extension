@@ -616,7 +616,9 @@
       "@tolar/web3>web3-eth>web3-eth-accounts>@web3-js/scrypt-shim": false,
       "mockttp>ws>bufferutil": false,
       "mockttp>ws>utf-8-validate": false,
-      "taquin-provider>obs-store": false
+      "taquin-provider>obs-store": false,
+      "@tolar/web3-tolar>web3-net>web3-core>web3-core-requestmanager>web3-providers-ws>websocket>es5-ext": false,
+      "@tolar/web3-tolar>web3-tolar-accounts>@web3-js/scrypt-shim": false
     }
   },
   "packageManager": "yarn@3.2.4"

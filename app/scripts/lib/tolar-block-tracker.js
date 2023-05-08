@@ -3,10 +3,6 @@ import { PollingBlockTracker } from 'eth-block-tracker';
 const pify = require('pify');
 
 export default class TolarBlockTracker extends PollingBlockTracker {
-  constructor(opts) {
-    super(opts);
-  }
-
   async _fetchLatestBlock() {
     const reqInfo = {
       jsonrpc: '2.0',
