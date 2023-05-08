@@ -2332,15 +2332,15 @@ export default class MetamaskController extends EventEmitter {
    * Create a new Vault and restore an existent keyring.
    *
    * @param {string} password
-   * @param {number[]} encodedSeedPhrase - The seed phrase, encoded as an array
+   * @param {string} seedPhrase - The seed phrase, encoded as an array
    * of UTF-8 bytes.
    */
-  async createNewVaultAndRestore(password, encodedSeedPhrase) {
+  async createNewVaultAndRestore(password, seedPhrase) {
     const releaseLock = await this.createVaultMutex.acquire();
     try {
       let accounts, lastBalance;
 
-      const seedPhraseAsBuffer = Buffer.from(encodedSeedPhrase);
+      // const seedPhraseAsBuffer = Buffer.from(encodedSeedPhrase);
 
       const { keyringController } = this;
 
@@ -2369,31 +2369,30 @@ export default class MetamaskController extends EventEmitter {
       // create new vault
       const vault = await keyringController.createNewVaultAndRestore(
         password,
-        seedPhraseAsBuffer,
+        seedPhrase,
       );
 
-      const ethQuery = new EthQuery(this.provider);
+      // const ethQuery = new EthQuery(this.provider);
       accounts = await keyringController.getAccounts();
       lastBalance = await this.getBalance(
         accounts[accounts.length - 1],
         // ethQuery,
       );
 
-      const [primaryKeyring] = keyringController.getKeyringsByType(
-        HardwareKeyringTypes.hdKeyTree,
-      );
+      // const [primaryKeyring] = keyringController.getKeyringsByType(
+      //   HardwareKeyringTypes.hdKeyTree,
+      // );
+      const primaryKeyring =
+        keyringController.getKeyringsByType('Tolar Keyring')[0];
       if (!primaryKeyring) {
         throw new Error('MetamaskController - No HD Key Tree found');
       }
 
       // seek out the first zero balance
-      while (lastBalance !== '0x0') {
+      while (lastBalance !== '0') {
         await keyringController.addNewAccount(primaryKeyring);
         accounts = await keyringController.getAccounts();
-        lastBalance = await this.getBalance(
-          accounts[accounts.length - 1],
-          ethQuery,
-        );
+        lastBalance = await this.getBalance(accounts[accounts.length - 1]);
       }
 
       // remove extra zero balance account potentially created from seeking ahead
@@ -2979,15 +2978,22 @@ export default class MetamaskController extends EventEmitter {
    * encoded as an array of UTF-8 bytes.
    */
   async verifySeedPhrase() {
-    const [primaryKeyring] = this.keyringController.getKeyringsByType(
-      HardwareKeyringTypes.hdKeyTree,
-    );
+    // const [primaryKeyring] = this.keyringController.getKeyringsByType(
+    //   HardwareKeyringTypes.hdKeyTree,
+    // );
+
+    const primaryKeyring =
+      this.keyringController.getKeyringsByType('Tolar Keyring')[0];
+
     if (!primaryKeyring) {
-      throw new Error('MetamaskController - No HD Key Tree found');
+      throw new Error('TaquinController - No HD Key Tree found');
     }
 
     const serialized = await primaryKeyring.serialize();
-    const seedPhraseAsBuffer = Buffer.from(serialized.mnemonic);
+    const seedWords = serialized.mnemonic;
+    // const seedPhraseAsBuffer = Buffer.from(serialized.mnemonic);
+
+    log.info(seedWords);
 
     const accounts = await primaryKeyring.getAccounts();
     if (accounts.length < 1) {
@@ -2995,8 +3001,9 @@ export default class MetamaskController extends EventEmitter {
     }
 
     try {
-      await seedPhraseVerifier.verifyAccounts(accounts, seedPhraseAsBuffer);
-      return Array.from(seedPhraseAsBuffer.values());
+      await seedPhraseVerifier.verifyAccounts(accounts, seedWords);
+      return seedWords;
+      // return Array.from(seedPhraseAsBuffer.values());
     } catch (err) {
       log.error(err.message);
       throw err;

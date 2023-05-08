@@ -58,8 +58,6 @@ export class TolarKeyringController extends KeyringController {
   }
 
   getKeyringClassForType(type) {
-    log.info(type, 'type');
-    log.info(keyringTypes, 'keyring types');
     return this.keyringTypes.find((kr) => kr.type === type);
   }
 
@@ -274,5 +272,9 @@ export class TolarKeyringController extends KeyringController {
       this.setUnlocked();
       return this.fullUpdate();
     });
+  }
+
+  getKeyringsByType(type) {
+    return this.keyrings.filter((keyring) => keyring.type === type);
   }
 }
