@@ -30,31 +30,10 @@ function ethAddressToTolarAddress(ethAddress) {
 }
 
 export class TolarSimpleKeyring extends SimpleKeyring {
-  // constructor(opts) {
-  //   super(opts);
-
-  //   //this.web3 = new Web3("https://testnet-gateway.dev.tolar.io");
-  //   //this.web3 = new Web3("https://jsongw.stagenet.tolar.io");
-
-  //   // const fromPrivateFn = Account.fromPrivate;
-  //   // const recoverFn = Account.recover;
-  //   // Object.assign(Account, {
-  //   //   publicKey: (privateKey) => {
-  //   //     var buffer = Buffer.from(privateKey.slice(2), "hex");
-  //   //     var ecKey = secp256k1.keyFromPrivate(buffer);
-  //   //     return ecKey.getPublic(false, "hex").slice(2);
-  //   //   },
-  //   //   sign: Account.makeSigner(0), // v=27|28 instead of 0|1...;
-  //   //   fromPrivate: (privateKey) => {
-  //   //     const res = fromPrivateFn(privateKey);
-  //   //     return Object.assign(res, {
-  //   //       address: ethAddressToTolarAddress(res.address),
-  //   //     });
-  //   //   },
-  //   //   recover: (hash, signature) =>
-  //   //     ethAddressToTolarAddress(recoverFn(hash, signature)),
-  //   // });
-  // }
+  constructor(opts) {
+    super(opts);
+    this.type = 'Simple Key Pair';
+  }
 
   updateNetwork(netConfig) {
     const isTolar = Boolean(NETWORK_TYPE_TO_SUBDOMAIN_MAP[netConfig.network]);

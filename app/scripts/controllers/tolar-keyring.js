@@ -6,7 +6,7 @@ import {
   NETWORK_TYPE_TO_ID_MAP,
 } from '../../../shared/constants/network';
 
-// const bip39 = require('bip39');
+const bip39 = require('bip39');
 
 const Wallet = require('ethereumjs-wallet');
 const ethUtil = require('ethereumjs-util');
@@ -71,28 +71,33 @@ export default class TolarKeyring extends HdKeyring {
     return Promise.resolve([]);
   }
 
-  // addAccounts(numberOfAccounts = 1) {
-  //   // if (!this.root) {
-  //   //   this._initFromMnemonic(bip39.generateMnemonic());
-  //   // }
+  getAddress(pubKey) {
+    return ethUtil.publicToAddress(pubKey);
+  }
 
-  //   const oldLen = this.wallets.length;
-  //   const newWallets = [];
-  //   for (let i = oldLen; i < numberOfAccounts + oldLen; i++) {
-  //     const child = this.root.deriveChild(i);
-  //     const wallet = child.getWallet();
-  //     wallet.tolarAddress = ethAddressToTolarAddress(
-  //       sigUtil.normalize(wallet.getAddress().toString('hex')),
-  //     );
-  //     newWallets.push(wallet);
-  //     this.wallets.push(wallet);
-  //   }
-  //   const hexWallets = newWallets.map((w) => {
-  //     // check if this removes infinite loop on account creation
-  //     return w.getAddress().toString('hex');
-  //   });
-  //   return Promise.resolve(hexWallets);
-  // }
+  addAccounts(numberOfAccounts = 1) {
+    if (!this.root) {
+      this._initFromMnemonic(bip39.generateMnemonic());
+    }
+
+    const oldLen = this.wallets.length;
+    const newWallets = [];
+    for (let i = oldLen; i < numberOfAccounts + oldLen; i++) {
+      const child = this.root.deriveChild(i);
+      const wallet = child.getWallet();
+      wallet.tolarAddress = ethAddressToTolarAddress(
+        sigUtil.normalize(wallet.getAddress().toString('hex')),
+      );
+      newWallets.push(wallet);
+      this.wallets.push(wallet);
+    }
+
+    const hexWallets = newWallets.map((w) => {
+      // check if this removes infinite loop on account creation
+      return this.getAddress(w.pubKey).toString('hex');
+    });
+    return Promise.resolve(hexWallets);
+  }
 
   getAccounts() {
     return Promise.resolve(

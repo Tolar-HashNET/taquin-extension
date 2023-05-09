@@ -274,14 +274,9 @@ export default class AccountTracker {
     // const networkId = this.getNetworkIdentifier();
     // const rpcUrl = 'http://127.0.0.1:8545';
 
-    const address = this.preferencesController.getSelectedAddress();
-
     // this._updateAccount.bind(this);
 
-    // const { accounts } = this.store.getState();
-
-    const accounts = { [address]: {} };
-
+    const { accounts } = this.store.getState();
     const addresses = Object.keys(accounts);
 
     await Promise.all(addresses.map(this._updateAccount.bind(this)));
@@ -387,13 +382,16 @@ export default class AccountTracker {
 
     const result = { address, balance };
     // update accounts state
-    // const { accounts } = this.store.getState();
+    const { accounts } = this.store.getState();
 
-    const accounts = { [address]: { ...result } };
+    // only populate if the entry is still present
+    if (!accounts[address]) {
+      return;
+    }
 
+    // const accounts = { [address]: { ...result } };
+    accounts[address] = result;
     this.store.updateState({ accounts });
-
-    // console.log(accounts, 'accounts array?');
     // only populate if the entry is still present
     // if (!accounts[address]) {
     //   return;
@@ -412,9 +410,6 @@ export default class AccountTracker {
     //   });
     // }
 
-    // newAccounts[address] = result;
-    // this.store.updateState({ accounts: newAccounts });
-    // accounts[address] = result;
     // this.store.updateState({ accounts });
   }
 

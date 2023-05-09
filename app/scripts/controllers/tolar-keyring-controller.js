@@ -1,6 +1,7 @@
 // import bip39 from 'bip39';
 // import KeyringController from 'eth-keyring-controller';
 import { KeyringController } from 'eth-keyring-controller';
+import { ObservableStore } from '@metamask/obs-store';
 import log from 'loglevel';
 import { TolarSimpleKeyring as SimpleKeyring } from './tolar-simple-keyring';
 import TolarKeyring from './tolar-keyring';
@@ -15,6 +16,7 @@ const keyringTypes = [SimpleKeyring, HdKeyring, TolarKeyring];
 export class TolarKeyringController extends KeyringController {
   constructor(opts) {
     super(opts);
+    this.store = new ObservableStore(opts.initState);
     this.keyringTypes = opts.keyringTypes
       ? keyringTypes.concat(opts.keyringTypes)
       : keyringTypes;
@@ -27,7 +29,20 @@ export class TolarKeyringController extends KeyringController {
     }
   }
 
-  persistAllKeyrings(password) {
+  addNewAccount(selectedKeyring) {
+    return selectedKeyring
+      .addAccounts(1)
+      .then((accounts) => {
+        accounts.forEach((hexAccount) => {
+          this.emit('newAccount', hexAccount);
+        });
+      })
+      .then(this.persistAllKeyrings.bind(this))
+      .then(this._updateMemStoreKeyrings.bind(this))
+      .then(this.fullUpdate.bind(this));
+  }
+
+  persistAllKeyrings(password = this.password) {
     if (typeof password !== 'string') {
       return Promise.reject(
         new Error('KeyringController - password is not a string'),
@@ -57,6 +72,10 @@ export class TolarKeyringController extends KeyringController {
       });
   }
 
+  getKeyringsByType(type) {
+    return this.keyrings.filter((keyring) => keyring.type === type);
+  }
+
   getKeyringClassForType(type) {
     return this.keyringTypes.find((kr) => kr.type === type);
   }
@@ -65,8 +84,7 @@ export class TolarKeyringController extends KeyringController {
     const Keyring = this.getKeyringClassForType(type);
     log.info(Keyring);
     const keyring = new Keyring(opts);
-    // const keyring = new SimpleKeyring(opts);
-    // const keyring = new SimpleKeyring(opts);
+
     return keyring
       .getAccounts()
       .then((accounts) => {
@@ -272,9 +290,5 @@ export class TolarKeyringController extends KeyringController {
       this.setUnlocked();
       return this.fullUpdate();
     });
-  }
-
-  getKeyringsByType(type) {
-    return this.keyrings.filter((keyring) => keyring.type === type);
   }
 }

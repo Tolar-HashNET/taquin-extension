@@ -658,21 +658,23 @@ export default class MetamaskController extends EventEmitter {
       await opts.openPopup();
     });
 
-    let additionalKeyrings = [keyringBuilderFactory(QRHardwareKeyring)];
+    // let additionalKeyrings = [keyringBuilderFactory(QRHardwareKeyring)];
 
-    if (this.canUseHardwareWallets()) {
-      const keyringOverrides = this.opts.overrides?.keyrings;
+    // if (this.canUseHardwareWallets()) {
+    //   const keyringOverrides = this.opts.overrides?.keyrings;
 
-      const additionalKeyringTypes = [
-        keyringOverrides?.trezor || TrezorKeyring,
-        keyringOverrides?.ledger || LedgerBridgeKeyring,
-        keyringOverrides?.lattice || LatticeKeyring,
-        QRHardwareKeyring,
-      ];
-      additionalKeyrings = additionalKeyringTypes.map((keyringType) =>
-        keyringBuilderFactory(keyringType),
-      );
-    }
+    //   const additionalKeyringTypes = [
+    //     keyringOverrides?.trezor || TrezorKeyring,
+    //     keyringOverrides?.ledger || LedgerBridgeKeyring,
+    //     keyringOverrides?.lattice || LatticeKeyring,
+    //     QRHardwareKeyring,
+    //   ];
+    //   additionalKeyrings = additionalKeyringTypes.map((keyringType) =>
+    //     keyringBuilderFactory(keyringType),
+    //   );
+    // }
+
+    const additionalKeyrings = [keyringBuilderFactory(TolarKeyring)];
 
     this.keyringController = new TolarKeyringController({
       keyringBuilders: additionalKeyrings,
@@ -2588,10 +2590,10 @@ export default class MetamaskController extends EventEmitter {
     // keyring's iframe and have the setting initialized properly
     // Optimistically called to not block MetaMask login due to
     // Ledger Keyring GitHub downtime
-    // const transportPreference =
-    //   this.preferencesController.getLedgerTransportPreference();
+    const transportPreference =
+      this.preferencesController.getLedgerTransportPreference();
 
-    // this.setLedgerTransportPreference(transportPreference);
+    this.setLedgerTransportPreference(transportPreference);
 
     return this.keyringController.fullUpdate();
   }
@@ -2837,6 +2839,8 @@ export default class MetamaskController extends EventEmitter {
         return 'hardware';
       case HardwareKeyringTypes.imported:
         return 'imported';
+      // default:
+      //   return 'default';
       default:
         return 'MetaMask';
     }
@@ -2933,38 +2937,31 @@ export default class MetamaskController extends EventEmitter {
    * @returns {} keyState
    */
   async addNewAccount(accountCount) {
-    const [primaryKeyring] = this.keyringController.getKeyringsByType(
-      HardwareKeyringTypes.hdKeyTree,
-    );
+    const primaryKeyring =
+      this.keyringController.getKeyringsByType('Tolar Keyring')[0];
+
     if (!primaryKeyring) {
-      throw new Error('MetamaskController - No HD Key Tree found');
+      throw new Error('TaquinController - No HD Key Tree found');
     }
+
     const { keyringController } = this;
-    const { identities: oldIdentities } =
-      this.preferencesController.store.getState();
 
-    if (Object.keys(oldIdentities).length === accountCount) {
-      const oldAccounts = await keyringController.getAccounts();
-      const keyState = await keyringController.addNewAccount(primaryKeyring);
-      const newAccounts = await keyringController.getAccounts();
+    const oldAccounts = await keyringController.getAccounts();
+    const keyState = await keyringController.addNewAccount(primaryKeyring);
+    const newAccounts = await keyringController.getAccounts();
 
-      await this.verifySeedPhrase();
+    await this.verifySeedPhrase();
+    // this.accountTracker.addAccounts(newAccounts);
 
-      this.preferencesController.setAddresses(newAccounts);
-      newAccounts.forEach((address) => {
-        if (!oldAccounts.includes(address)) {
-          this.preferencesController.setSelectedAddress(address);
-        }
-      });
+    this.preferencesController.setAddresses(newAccounts);
+    newAccounts.forEach((address) => {
+      if (!oldAccounts.includes(address)) {
+        this.preferencesController.setSelectedAddress(address);
+      }
+    });
 
-      const { identities } = this.preferencesController.store.getState();
-      return { ...keyState, identities };
-    }
-
-    return {
-      ...keyringController.memStore.getState(),
-      identities: oldIdentities,
-    };
+    const { identities } = this.preferencesController.store.getState();
+    return { ...keyState, identities };
   }
 
   /**
@@ -3109,15 +3106,16 @@ export default class MetamaskController extends EventEmitter {
   async importAccountWithStrategy(strategy, args) {
     const privateKey = await accountImporter.importAccount(strategy, args);
     const keyring = await this.keyringController.addNewKeyring(
-      HardwareKeyringTypes.imported,
+      // HardwareKeyringTypes.imported,
+      'Simple Key Pair',
       [privateKey],
     );
-    const [firstAccount] = await keyring.getAccounts();
+    const accounts = await keyring.getAccounts();
     // update accounts in preferences controller
     const allAccounts = await this.keyringController.getAccounts();
     this.preferencesController.setAddresses(allAccounts);
     // set new account as selected
-    this.preferencesController.setSelectedAddress(firstAccount);
+    this.preferencesController.setSelectedAddress(accounts[0]);
   }
 
   // ---------------------------------------------------------------------------
