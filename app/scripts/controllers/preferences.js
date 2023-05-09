@@ -357,13 +357,14 @@ export default class PreferencesController {
     const address = normalizeAddress(_address);
 
     const { identities } = this.store.getState();
-    const selectedIdentity = identities[address];
+    const selectedIdentity = identities[_address];
+
     if (!selectedIdentity) {
       throw new Error(`Identity for '${address} not found`);
     }
 
     selectedIdentity.lastSelected = Date.now();
-    this.store.updateState({ identities, selectedAddress: address });
+    this.store.updateState({ identities, selectedAddress: _address });
   }
 
   /**

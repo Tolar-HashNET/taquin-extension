@@ -59,9 +59,11 @@ import {
   SnapController,
   IframeExecutionService,
 } from '@metamask/snaps-controllers';
+
 ///: END:ONLY_INCLUDE_IN
 
 import browser from 'webextension-polyfill';
+
 import {
   AssetType,
   TransactionStatus,
@@ -132,6 +134,8 @@ import {
   createSnapMethodMiddleware,
   ///: END:ONLY_INCLUDE_IN
 } from './lib/rpc-method-middleware';
+import { TolarKeyringController } from './controllers/tolar-keyring-controller';
+import TolarKeyring from './controllers/tolar-keyring';
 import createOriginMiddleware from './lib/createOriginMiddleware';
 import createTabIdMiddleware from './lib/createTabIdMiddleware';
 import createOnboardingMiddleware from './lib/createOnboardingMiddleware';
@@ -253,7 +257,7 @@ export default class MetamaskController extends EventEmitter {
 
     this.networkController = new NetworkController({
       state: initState.NetworkController,
-      infuraProjectId: opts.infuraProjectId,
+      // infuraProjectId: opts.infuraProjectId,
       trackMetaMetricsEvent: (...args) =>
         this.metaMetricsController.trackEvent(...args),
     });
@@ -262,6 +266,7 @@ export default class MetamaskController extends EventEmitter {
       this.networkController.getProviderAndBlockTracker().provider;
     this.blockTracker =
       this.networkController.getProviderAndBlockTracker().blockTracker;
+    // this.web3 = new Web3(this.provider);
 
     const tokenListMessenger = this.controllerMessenger.getRestricted({
       name: 'TokenListController',
@@ -601,6 +606,8 @@ export default class MetamaskController extends EventEmitter {
       preferencesController: this.preferencesController,
       onboardingController: this.onboardingController,
       initState: initState.IncomingTransactionsController,
+      providerStore: this.store,
+      provider: this.provider,
     });
 
     // account tracker watches balances, nonces, and any code at their address
@@ -616,6 +623,7 @@ export default class MetamaskController extends EventEmitter {
       },
       preferencesController: this.preferencesController,
       onboardingController: this.onboardingController,
+      providerStore: this.store,
     });
 
     // start and stop polling for balances based on activeControllerConnections
@@ -650,23 +658,25 @@ export default class MetamaskController extends EventEmitter {
       await opts.openPopup();
     });
 
-    let additionalKeyrings = [keyringBuilderFactory(QRHardwareKeyring)];
+    // let additionalKeyrings = [keyringBuilderFactory(QRHardwareKeyring)];
 
-    if (this.canUseHardwareWallets()) {
-      const keyringOverrides = this.opts.overrides?.keyrings;
+    // if (this.canUseHardwareWallets()) {
+    //   const keyringOverrides = this.opts.overrides?.keyrings;
 
-      const additionalKeyringTypes = [
-        keyringOverrides?.trezor || TrezorKeyring,
-        keyringOverrides?.ledger || LedgerBridgeKeyring,
-        keyringOverrides?.lattice || LatticeKeyring,
-        QRHardwareKeyring,
-      ];
-      additionalKeyrings = additionalKeyringTypes.map((keyringType) =>
-        keyringBuilderFactory(keyringType),
-      );
-    }
+    //   const additionalKeyringTypes = [
+    //     keyringOverrides?.trezor || TrezorKeyring,
+    //     keyringOverrides?.ledger || LedgerBridgeKeyring,
+    //     keyringOverrides?.lattice || LatticeKeyring,
+    //     QRHardwareKeyring,
+    //   ];
+    //   additionalKeyrings = additionalKeyringTypes.map((keyringType) =>
+    //     keyringBuilderFactory(keyringType),
+    //   );
+    // }
 
-    this.keyringController = new KeyringController({
+    const additionalKeyrings = [keyringBuilderFactory(TolarKeyring)];
+
+    this.keyringController = new TolarKeyringController({
       keyringBuilders: additionalKeyrings,
       initState: initState.KeyringController,
       encryptor: opts.encryptor || undefined,
@@ -1132,7 +1142,7 @@ export default class MetamaskController extends EventEmitter {
     this.metamaskMiddleware = createMetamaskMiddleware({
       static: {
         eth_syncing: false,
-        web3_clientVersion: `MetaMask/v${version}`,
+        web3_clientVersion: `Taquin/v${version}`,
       },
       version,
       // account mgmt
@@ -2324,15 +2334,15 @@ export default class MetamaskController extends EventEmitter {
    * Create a new Vault and restore an existent keyring.
    *
    * @param {string} password
-   * @param {number[]} encodedSeedPhrase - The seed phrase, encoded as an array
+   * @param {string} seedPhrase - The seed phrase, encoded as an array
    * of UTF-8 bytes.
    */
-  async createNewVaultAndRestore(password, encodedSeedPhrase) {
+  async createNewVaultAndRestore(password, seedPhrase) {
     const releaseLock = await this.createVaultMutex.acquire();
     try {
       let accounts, lastBalance;
 
-      const seedPhraseAsBuffer = Buffer.from(encodedSeedPhrase);
+      // const seedPhraseAsBuffer = Buffer.from(encodedSeedPhrase);
 
       const { keyringController } = this;
 
@@ -2361,31 +2371,30 @@ export default class MetamaskController extends EventEmitter {
       // create new vault
       const vault = await keyringController.createNewVaultAndRestore(
         password,
-        seedPhraseAsBuffer,
+        seedPhrase,
       );
 
-      const ethQuery = new EthQuery(this.provider);
+      // const ethQuery = new EthQuery(this.provider);
       accounts = await keyringController.getAccounts();
       lastBalance = await this.getBalance(
         accounts[accounts.length - 1],
-        ethQuery,
+        // ethQuery,
       );
 
-      const [primaryKeyring] = keyringController.getKeyringsByType(
-        HardwareKeyringTypes.hdKeyTree,
-      );
+      // const [primaryKeyring] = keyringController.getKeyringsByType(
+      //   HardwareKeyringTypes.hdKeyTree,
+      // );
+      const primaryKeyring =
+        keyringController.getKeyringsByType('Tolar Keyring')[0];
       if (!primaryKeyring) {
         throw new Error('MetamaskController - No HD Key Tree found');
       }
 
       // seek out the first zero balance
-      while (lastBalance !== '0x0') {
+      while (lastBalance !== '0') {
         await keyringController.addNewAccount(primaryKeyring);
         accounts = await keyringController.getAccounts();
-        lastBalance = await this.getBalance(
-          accounts[accounts.length - 1],
-          ethQuery,
-        );
+        lastBalance = await this.getBalance(accounts[accounts.length - 1]);
       }
 
       // remove extra zero balance account potentially created from seeking ahead
@@ -2417,22 +2426,31 @@ export default class MetamaskController extends EventEmitter {
    * @param {string} address - The account address
    * @param {EthQuery} ethQuery - The EthQuery instance to use when asking the network
    */
-  getBalance(address, ethQuery) {
+  async getBalance(address, ethQuery) {
     return new Promise((resolve, reject) => {
-      const cached = this.accountTracker.store.getState().accounts[address];
+      // const cached = this.accountTracker.store.getState().accounts[address];
 
-      if (cached && cached.balance) {
-        resolve(cached.balance);
-      } else {
-        ethQuery.getBalance(address, (error, balance) => {
-          if (error) {
-            reject(error);
-            log.error(error);
-          } else {
-            resolve(balance || '0x0');
-          }
-        });
-      }
+      // if (cached && cached.balance) {
+      //   resolve(cached.balance);
+      // } else {
+      //   ethQuery.getBalance(address, (error, balance) => {
+      //     if (error) {
+      //       reject(error);
+      //       log.error(error);
+      //     } else {
+      //       resolve(balance || '0x0');
+      //     }
+      //   });
+      // } const _query = new EthQuery(this.provider);
+
+      const _query = new EthQuery(this.provider);
+
+      const res = _query.sendAsync({
+        method: 'tol_getLatestBalance',
+        params: [address],
+      });
+      const balance = res?.balance || '0';
+      resolve(balance);
     });
   }
 
@@ -2495,12 +2513,22 @@ export default class MetamaskController extends EventEmitter {
     });
 
     // Accounts
-    const [hdKeyring] = this.keyringController.getKeyringsByType(
-      HardwareKeyringTypes.hdKeyTree,
+    const tolarKeyring =
+      this.keyringController.getKeyringsByType('Tolar Keyring')[0];
+    const hdKeyring =
+      this.keyringController.getKeyringsByType('HD Key Tree')[0];
+    const simpleKeyPairKeyrings =
+      this.keyringController.getKeyringsByType('Simple Key Pair');
+    const tolarAccounts = await Promise.all(
+      tolarKeyring.map((keyring) => keyring.getAccounts()),
     );
-    const simpleKeyPairKeyrings = this.keyringController.getKeyringsByType(
-      HardwareKeyringTypes.hdKeyTree,
-    );
+
+    // const [hdKeyring] = this.keyringController.getKeyringsByType(
+    //   HardwareKeyringTypes.hdKeyTree,
+    // );
+    // const simpleKeyPairKeyrings = this.keyringController.getKeyringsByType(
+    //   HardwareKeyringTypes.hdKeyTree,
+    // );
     const hdAccounts = await hdKeyring.getAccounts();
     const simpleKeyPairKeyringAccounts = await Promise.all(
       simpleKeyPairKeyrings.map((keyring) => keyring.getAccounts()),
@@ -2519,6 +2547,7 @@ export default class MetamaskController extends EventEmitter {
       ledger: [],
       trezor: [],
       lattice: [],
+      tolar: tolarAccounts,
     };
 
     // transactions
@@ -2810,6 +2839,8 @@ export default class MetamaskController extends EventEmitter {
         return 'hardware';
       case HardwareKeyringTypes.imported:
         return 'imported';
+      // default:
+      //   return 'default';
       default:
         return 'MetaMask';
     }
@@ -2906,38 +2937,31 @@ export default class MetamaskController extends EventEmitter {
    * @returns {} keyState
    */
   async addNewAccount(accountCount) {
-    const [primaryKeyring] = this.keyringController.getKeyringsByType(
-      HardwareKeyringTypes.hdKeyTree,
-    );
+    const primaryKeyring =
+      this.keyringController.getKeyringsByType('Tolar Keyring')[0];
+
     if (!primaryKeyring) {
-      throw new Error('MetamaskController - No HD Key Tree found');
+      throw new Error('TaquinController - No HD Key Tree found');
     }
+
     const { keyringController } = this;
-    const { identities: oldIdentities } =
-      this.preferencesController.store.getState();
 
-    if (Object.keys(oldIdentities).length === accountCount) {
-      const oldAccounts = await keyringController.getAccounts();
-      const keyState = await keyringController.addNewAccount(primaryKeyring);
-      const newAccounts = await keyringController.getAccounts();
+    const oldAccounts = await keyringController.getAccounts();
+    const keyState = await keyringController.addNewAccount(primaryKeyring);
+    const newAccounts = await keyringController.getAccounts();
 
-      await this.verifySeedPhrase();
+    await this.verifySeedPhrase();
+    // this.accountTracker.addAccounts(newAccounts);
 
-      this.preferencesController.setAddresses(newAccounts);
-      newAccounts.forEach((address) => {
-        if (!oldAccounts.includes(address)) {
-          this.preferencesController.setSelectedAddress(address);
-        }
-      });
+    this.preferencesController.setAddresses(newAccounts);
+    newAccounts.forEach((address) => {
+      if (!oldAccounts.includes(address)) {
+        this.preferencesController.setSelectedAddress(address);
+      }
+    });
 
-      const { identities } = this.preferencesController.store.getState();
-      return { ...keyState, identities };
-    }
-
-    return {
-      ...keyringController.memStore.getState(),
-      identities: oldIdentities,
-    };
+    const { identities } = this.preferencesController.store.getState();
+    return { ...keyState, identities };
   }
 
   /**
@@ -2951,15 +2975,22 @@ export default class MetamaskController extends EventEmitter {
    * encoded as an array of UTF-8 bytes.
    */
   async verifySeedPhrase() {
-    const [primaryKeyring] = this.keyringController.getKeyringsByType(
-      HardwareKeyringTypes.hdKeyTree,
-    );
+    // const [primaryKeyring] = this.keyringController.getKeyringsByType(
+    //   HardwareKeyringTypes.hdKeyTree,
+    // );
+
+    const primaryKeyring =
+      this.keyringController.getKeyringsByType('Tolar Keyring')[0];
+
     if (!primaryKeyring) {
-      throw new Error('MetamaskController - No HD Key Tree found');
+      throw new Error('TaquinController - No HD Key Tree found');
     }
 
     const serialized = await primaryKeyring.serialize();
-    const seedPhraseAsBuffer = Buffer.from(serialized.mnemonic);
+    const seedWords = serialized.mnemonic;
+    // const seedPhraseAsBuffer = Buffer.from(serialized.mnemonic);
+
+    log.info(seedWords);
 
     const accounts = await primaryKeyring.getAccounts();
     if (accounts.length < 1) {
@@ -2967,8 +2998,9 @@ export default class MetamaskController extends EventEmitter {
     }
 
     try {
-      await seedPhraseVerifier.verifyAccounts(accounts, seedPhraseAsBuffer);
-      return Array.from(seedPhraseAsBuffer.values());
+      await seedPhraseVerifier.verifyAccounts(accounts, seedWords);
+      return seedWords;
+      // return Array.from(seedPhraseAsBuffer.values());
     } catch (err) {
       log.error(err.message);
       throw err;
@@ -3074,15 +3106,16 @@ export default class MetamaskController extends EventEmitter {
   async importAccountWithStrategy(strategy, args) {
     const privateKey = await accountImporter.importAccount(strategy, args);
     const keyring = await this.keyringController.addNewKeyring(
-      HardwareKeyringTypes.imported,
+      // HardwareKeyringTypes.imported,
+      'Simple Key Pair',
       [privateKey],
     );
-    const [firstAccount] = await keyring.getAccounts();
+    const accounts = await keyring.getAccounts();
     // update accounts in preferences controller
     const allAccounts = await this.keyringController.getAccounts();
     this.preferencesController.setAddresses(allAccounts);
     // set new account as selected
-    this.preferencesController.setSelectedAddress(firstAccount);
+    this.preferencesController.setSelectedAddress(accounts[0]);
   }
 
   // ---------------------------------------------------------------------------
@@ -3473,7 +3506,7 @@ export default class MetamaskController extends EventEmitter {
 
     // messages between inpage and background
     this.setupProviderConnection(
-      mux.createStream('metamask-provider'),
+      mux.createStream('taquin-provider'),
       sender,
       _subjectType,
     );
@@ -3500,7 +3533,7 @@ export default class MetamaskController extends EventEmitter {
     // connect features
     this.setupControllerConnection(mux.createStream('controller'));
     this.setupProviderConnection(
-      mux.createStream('provider'),
+      mux.createStream('taquin-provider'),
       sender,
       SubjectType.Internal,
     );
@@ -3617,18 +3650,21 @@ export default class MetamaskController extends EventEmitter {
    * @param {SubjectType} subjectType - The type of the sender, i.e. subject.
    */
   setupProviderConnection(outStream, sender, subjectType) {
-    let origin;
-    if (subjectType === SubjectType.Internal) {
-      origin = ORIGIN_METAMASK;
-    }
-    ///: BEGIN:ONLY_INCLUDE_IN(flask)
-    else if (subjectType === SubjectType.Snap) {
-      origin = sender.snapId;
-    }
-    ///: END:ONLY_INCLUDE_IN
-    else {
-      origin = new URL(sender.url).origin;
-    }
+    // let origin;
+    // if (subjectType === SubjectType.Internal) {
+    //   origin = ORIGIN_METAMASK;
+    // }
+    // ///: BEGIN:ONLY_INCLUDE_IN(flask)
+    // else if (subjectType === SubjectType.Snap) {
+    //   origin = sender.snapId;
+    // }
+    // ///: END:ONLY_INCLUDE_IN
+    // else {
+    //   origin = new URL(sender.url).origin;
+    // }
+
+    const origin =
+      subjectType === 'internal' ? 'taquin' : new URL(sender.url).origin;
 
     if (sender.id && sender.id !== this.extension.runtime.id) {
       this.subjectMetadataController.addSubjectMetadata({
@@ -4031,24 +4067,26 @@ export default class MetamaskController extends EventEmitter {
   async _onKeyringControllerUpdate(state) {
     const {
       keyrings,
-      encryptionKey: loginToken,
-      encryptionSalt: loginSalt,
+      // encryptionKey: loginToken,
+      // encryptionSalt: loginSalt,
     } = state;
     const addresses = keyrings.reduce(
       (acc, { accounts }) => acc.concat(accounts),
       [],
     );
 
-    if (isManifestV3) {
-      await browser.storage.session.set({ loginToken, loginSalt });
-    }
+    // if (isManifestV3) {
+    //   await browser.storage.session.set({ loginToken, loginSalt });
+    // }
 
     if (!addresses.length) {
       return;
     }
 
+    log.info(addresses);
+
     // Ensure preferences + identities controller know about all addresses
-    this.preferencesController.syncAddresses(addresses);
+    // this.preferencesController.syncAddresses(addresses);
     this.accountTracker.syncWithAddresses(addresses);
   }
 

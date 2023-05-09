@@ -79,6 +79,8 @@ export default class AppHeader extends PureComponent {
       ///: END:ONLY_INCLUDE_IN
     } = this.props;
 
+    console.log(isUnlocked, 'is unlocked');
+
     return (
       isUnlocked && (
         <button

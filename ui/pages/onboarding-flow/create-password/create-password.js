@@ -54,6 +54,7 @@ export default function CreatePassword({
   const currentKeyring = useSelector(getCurrentKeyring);
 
   useEffect(() => {
+    console.log(currentKeyring, 'currentKeyring');
     if (currentKeyring) {
       if (firstTimeFlowType === FIRST_TIME_FLOW_TYPES.IMPORT) {
         history.replace(ONBOARDING_COMPLETION_ROUTE);

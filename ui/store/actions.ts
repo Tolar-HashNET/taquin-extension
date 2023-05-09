@@ -161,16 +161,16 @@ export function createNewVaultAndRestore(
 
     // Encode the secret recovery phrase as an array of integers so that it is
     // serialized as JSON properly.
-    const encodedSeedPhrase = Array.from(
-      Buffer.from(seedPhrase, 'utf8').values(),
-    );
+    // const encodedSeedPhrase = Array.from(
+    //   Buffer.from(seedPhrase, 'utf8').values(),
+    // );
 
     // TODO: Add types for vault
     let vault: any;
     return new Promise<void>((resolve, reject) => {
       callBackgroundMethod(
         'createNewVaultAndRestore',
-        [password, encodedSeedPhrase],
+        [password, seedPhrase],
         (err, _vault) => {
           if (err) {
             reject(err);

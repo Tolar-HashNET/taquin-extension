@@ -11,6 +11,9 @@ const mapStateToProps = (state) => {
   const { provider } = state.metamask;
   const { rpcUrl, chainId, ticker, nickname, type } = provider;
 
+  console.log(state, 'state');
+  console.log(provider, 'provider');
+
   const setProviderArgs =
     type === NETWORK_TYPES.RPC
       ? [rpcUrl, chainId, ticker, nickname]

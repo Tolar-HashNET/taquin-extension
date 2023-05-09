@@ -97,6 +97,13 @@ export const NETWORK_TYPES = {
   SEPOLIA: 'sepolia',
 } as const;
 
+export const TOLAR_NETWORK_TYPES = {
+  MAINNET: 'mainnet',
+  TESTNET: 'testnet',
+  STAGING: 'staging',
+  LOCALHOST: 'localhost',
+};
+
 /**
  * An object containing shortcut names for any non-builtin network. We need
  * this to be able to differentiate between networks that require custom
@@ -157,7 +164,10 @@ export const CHAIN_IDS = {
  */
 export const MAX_SAFE_CHAIN_ID = 4503599627370476;
 
-export const MAINNET_DISPLAY_NAME = 'Ethereum Mainnet';
+export const MAINNET_DISPLAY_NAME = 'Mainnet';
+export const TESTNET_DISPLAY_NAME = 'Test Tolar Network';
+export const STAGING_DISPLAY_NAME = 'Staging Tolar Network';
+
 export const GOERLI_DISPLAY_NAME = 'Goerli';
 export const SEPOLIA_DISPLAY_NAME = 'Sepolia';
 export const LOCALHOST_DISPLAY_NAME = 'Localhost 8545';
@@ -235,6 +245,41 @@ export const INFURA_PROVIDER_TYPES = [
   NETWORK_TYPES.SEPOLIA,
 ];
 
+// TOLAR CONSTS
+
+export const MAINNET = 'mainnet';
+export const TESTNET = 'testnet';
+export const STAGING = 'staging';
+export const LOCALHOST = 'localhost';
+
+export const MAINNET_NETWORK_ID = '1';
+export const TESTNET_NETWORK_ID = '2';
+export const STAGING_NETWORK_ID = '3';
+
+export const MAINNET_SUBDOMAIN = 'jsongw.mainnet';
+export const TESTNET_SUBDOMAIN = 'jsongw.testnet';
+export const STAGING_SUBDOMAIN = 'jsongw.stagenet';
+
+export const TOLAR_PROVIDER_TYPES = [MAINNET, TESTNET, STAGING];
+
+export const NETWORK_TYPE_TO_ID_MAP = {
+  [MAINNET]: { networkId: MAINNET_NETWORK_ID },
+  [TESTNET]: { networkId: TESTNET_NETWORK_ID },
+  [STAGING]: { networkId: STAGING_NETWORK_ID },
+};
+
+export const NETWORK_TYPE_TO_SUBDOMAIN_MAP = {
+  [TESTNET]: { subdomain: TESTNET_SUBDOMAIN },
+  [MAINNET]: { subdomain: MAINNET_SUBDOMAIN },
+  [STAGING]: { subdomain: STAGING_SUBDOMAIN },
+};
+
+export const NETWORK_ID_TO_TYPE_MAP = {
+  [MAINNET_NETWORK_ID]: MAINNET,
+  [TESTNET_NETWORK_ID]: TESTNET,
+  [STAGING_NETWORK_ID]: STAGING,
+};
+
 export const TEST_CHAINS = [
   CHAIN_IDS.GOERLI,
   CHAIN_IDS.SEPOLIA,
@@ -282,6 +327,21 @@ export const BUILT_IN_NETWORKS = {
   [NETWORK_TYPES.LOCALHOST]: {
     networkId: NETWORK_IDS.LOCALHOST,
     chainId: CHAIN_IDS.LOCALHOST,
+  },
+} as const;
+
+export const TOLAR_BUILT_IN_NETWORKS = {
+  [TOLAR_NETWORK_TYPES.TESTNET]: {
+    networkId: TESTNET,
+    blockExplorerUrl: `https://${TESTNET_SUBDOMAIN}.tolar.io`,
+  },
+  [TOLAR_NETWORK_TYPES.STAGING]: {
+    networkId: STAGING,
+    blockExplorerUrl: `https://${STAGING_SUBDOMAIN}.tolar.io`,
+  },
+  [TOLAR_NETWORK_TYPES.MAINNET]: {
+    networkId: MAINNET,
+    blockExplorerUrl: `https://${MAINNET_SUBDOMAIN}.tolar.io`,
   },
 } as const;
 

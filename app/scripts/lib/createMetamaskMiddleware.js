@@ -17,12 +17,13 @@ export default function createMetamaskMiddleware({
   processDecryptMessage,
   processEncryptionPublicKey,
   getPendingNonce,
-  getPendingTransactionByHash,
+  // getPendingTransactionByHash,
+  signTolarTransaction,
 }) {
   const metamaskMiddleware = mergeMiddleware([
     createScaffoldMiddleware({
       eth_syncing: false,
-      web3_clientVersion: `MetaMask/v${version}`,
+      web3_clientVersion: `Taquin/v${version}`,
     }),
     createWalletMiddleware({
       getAccounts,
@@ -36,7 +37,10 @@ export default function createMetamaskMiddleware({
       processEncryptionPublicKey,
     }),
     createPendingNonceMiddleware({ getPendingNonce }),
-    createPendingTxMiddleware({ getPendingTransactionByHash }),
+    // createPendingTxMiddleware({ getPendingTransactionByHash }),
+    createPendingTxMiddleware({
+      signTolarTransaction,
+    }),
   ]);
   return metamaskMiddleware;
 }

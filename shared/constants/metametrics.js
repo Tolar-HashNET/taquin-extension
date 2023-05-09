@@ -374,7 +374,7 @@ export const EVENT_NAMES = {
 
 export const EVENT = {
   ACCOUNT_TYPES: {
-    DEFAULT: 'metamask',
+    DEFAULT: 'taquin',
     IMPORTED: 'imported',
     HARDWARE: 'hardware',
   },

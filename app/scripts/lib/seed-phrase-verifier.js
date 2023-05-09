@@ -1,7 +1,7 @@
-import { KeyringController } from '@metamask/eth-keyring-controller';
 import log from 'loglevel';
-
+import { TolarKeyringController } from '../controllers/tolar-keyring-controller';
 import { HardwareKeyringTypes } from '../../../shared/constants/hardware-wallets';
+import TolarKeyring from '../controllers/tolar-keyring';
 
 const seedPhraseVerifier = {
   /**
@@ -21,16 +21,19 @@ const seedPhraseVerifier = {
       throw new Error('No created accounts defined.');
     }
 
-    const keyringController = new KeyringController({});
-    const keyringBuilder = keyringController.getKeyringBuilderForType(
-      HardwareKeyringTypes.hdKeyTree,
-    );
-    const keyring = keyringBuilder();
+    const additionalKeyrings = [TolarKeyring];
+
+    const keyringController = new TolarKeyringController({
+      keyringTypes: additionalKeyrings,
+    });
+    const Keyring = keyringController.getKeyringClassForType('Tolar Keyring');
+    // const keyring = keyringBuilder();
     const opts = {
       mnemonic: seedPhrase,
       numberOfAccounts: createdAccounts.length,
     };
 
+    const keyring = new Keyring(opts);
     await keyring.deserialize(opts);
     const restoredAccounts = await keyring.getAccounts();
     log.debug(`Created accounts: ${JSON.stringify(createdAccounts)}`);

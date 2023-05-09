@@ -1982,7 +1982,7 @@
     "message": "Future transactions will queue after this one."
   },
   "mainnet": {
-    "message": "Ethereum Mainnet"
+    "message": "Mainnet"
   },
   "mainnetToken": {
     "message": "This address matches a known Ethereum Mainnet token address. Recheck the contract address and network for the token you are trying to add."
@@ -3676,6 +3676,9 @@
   "stableLowercase": {
     "message": "stable"
   },
+  "staging": {
+    "message": "Staging"
+  },
   "stateLogError": {
     "message": "Error in retrieving state logs."
   },
@@ -4203,6 +4206,9 @@
   },
   "testNetworks": {
     "message": "Test networks"
+  },
+  "testnet": {
+    "message": "Testnet"
   },
   "theme": {
     "message": "Theme"

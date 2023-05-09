@@ -2,26 +2,27 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAccountLink } from '@metamask/etherscan-link';
+// import { getAccountLink } from '@metamask/etherscan-link';
 
 import { showModal } from '../../../store/actions';
 import {
-  CONNECTED_ROUTE,
+  // CONNECTED_ROUTE,
   NETWORKS_ROUTE,
 } from '../../../helpers/constants/routes';
 import { getURLHostName } from '../../../helpers/utils/util';
 import { Menu, MenuItem } from '../../ui/menu';
 import {
   getBlockExplorerLinkText,
-  getCurrentChainId,
-  getCurrentKeyring,
+  // getCurrentChainId,
+  // getCurrentKeyring,
+  getNetworkIdentifier,
   getRpcPrefsForCurrentProvider,
   getSelectedIdentity,
 } from '../../../selectors';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { getEnvironmentType } from '../../../../app/scripts/lib/util';
 import { ENVIRONMENT_TYPE_FULLSCREEN } from '../../../../shared/constants/app';
-import { HardwareKeyringTypes } from '../../../../shared/constants/hardware-wallets';
+// import { HardwareKeyringTypes } from '../../../../shared/constants/hardware-wallets';
 import { EVENT, EVENT_NAMES } from '../../../../shared/constants/metametrics';
 import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { ICON_NAMES } from '../../component-library';
@@ -31,18 +32,23 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const keyring = useSelector(getCurrentKeyring);
-  const chainId = useSelector(getCurrentChainId);
+  // const keyring = useSelector(getCurrentKeyring);
+  // const chainId = useSelector(getCurrentChainId);
   const rpcPrefs = useSelector(getRpcPrefsForCurrentProvider);
   const selectedIdentity = useSelector(getSelectedIdentity);
   const { address } = selectedIdentity;
-  const addressLink = getAccountLink(address, chainId, rpcPrefs);
-  const { blockExplorerUrl } = rpcPrefs;
-  const blockExplorerUrlSubTitle = getURLHostName(blockExplorerUrl);
+  const network = useSelector(getNetworkIdentifier);
+
+  // const addressLink = getAccountLink(address, chainId, rpcPrefs);
+  // const { blockExplorerUrl } = rpcPrefs;
+  const addressLink = `https://web-explorer.${network}.tolar.io/?query=${address}&page=1`;
+  // const blockExplorerUrlSubTitle = getURLHostName(blockExplorerUrl);
   const trackEvent = useContext(MetaMetricsContext);
   const blockExplorerLinkText = useSelector(getBlockExplorerLinkText);
 
-  const isRemovable = keyring.type !== HardwareKeyringTypes.hdKeyTree;
+  // const isRemovable = keyring.type !== HardwareKeyringTypes.hdKeyTree;
+
+  // const isRemovable = keyring.type !== 'Tolar Keyring';
 
   const routeToAddBlockExplorerUrl = () => {
     history.push(`${NETWORKS_ROUTE}#blockExplorerUrl`);
@@ -76,13 +82,13 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
             ? routeToAddBlockExplorerUrl
             : openBlockExplorer
         }
-        subtitle={
-          blockExplorerUrlSubTitle ? (
-            <span className="account-options-menu__explorer-origin">
-              {blockExplorerUrlSubTitle}
-            </span>
-          ) : null
-        }
+        // subtitle={
+        //   blockExplorerUrlSubTitle ? (
+        //     <span className="account-options-menu__explorer-origin">
+        //       {blockExplorerUrlSubTitle}
+        //     </span>
+        //   ) : null
+        // }
         iconName={ICON_NAMES.EXPORT}
       >
         {t(
@@ -127,7 +133,7 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
       >
         {t('accountDetails')}
       </MenuItem>
-      <MenuItem
+      {/* <MenuItem
         data-testid="account-options-menu__connected-sites"
         onClick={() => {
           trackEvent({
@@ -143,8 +149,9 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
         iconName={ICON_NAMES.CONNECT}
       >
         {t('connectedSites')}
-      </MenuItem>
-      {isRemovable ? (
+      </MenuItem> */}
+
+      {/* {isRemovable ? (
         <MenuItem
           data-testid="account-options-menu__remove-account"
           onClick={() => {
@@ -160,7 +167,7 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
         >
           {t('removeAccount')}
         </MenuItem>
-      ) : null}
+      ) : null} */}
     </Menu>
   );
 }

@@ -229,9 +229,9 @@ const TokenOverview = ({ className, token }) => {
         </>
       }
       className={className}
-      icon={
-        <Identicon diameter={32} address={token.address} image={token.image} />
-      }
+      // icon={
+      //   <Identicon diameter={32} address={token.address} image={token.image} />
+      // }
     />
   );
 };

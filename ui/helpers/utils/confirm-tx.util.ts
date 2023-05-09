@@ -64,7 +64,7 @@ export function formatCurrency(value: string, currencyCode: string): string {
 
 export function convertTokenToFiat({
   value,
-  fromCurrency = EtherDenomination.ETH,
+  fromCurrency = 'TOL',
   toCurrency,
   conversionRate,
   contractExchangeRate,

@@ -8,6 +8,7 @@
  */
 
 import EthQuery from 'eth-query';
+// import Web3 from '@tolar/web3';
 
 import { ObservableStore } from '@metamask/obs-store';
 import log from 'loglevel';
@@ -15,22 +16,22 @@ import pify from 'pify';
 import { Web3Provider } from '@ethersproject/providers';
 import { Contract } from '@ethersproject/contracts';
 import SINGLE_CALL_BALANCES_ABI from 'single-call-balance-checker-abi';
-import {
-  CHAIN_IDS,
-  LOCALHOST_RPC_URL,
-} from '../../../shared/constants/network';
+// import {
+//   CHAIN_IDS,
+//   LOCALHOST_RPC_URL,
+// } from '../../../shared/constants/network';
 
-import {
-  SINGLE_CALL_BALANCES_ADDRESS,
-  SINGLE_CALL_BALANCES_ADDRESS_GOERLI,
-  SINGLE_CALL_BALANCES_ADDRESS_SEPOLIA,
-  SINGLE_CALL_BALANCES_ADDRESS_BSC,
-  SINGLE_CALL_BALANCES_ADDRESS_OPTIMISM,
-  SINGLE_CALL_BALANCES_ADDRESS_POLYGON,
-  SINGLE_CALL_BALANCES_ADDRESS_AVALANCHE,
-  SINGLE_CALL_BALANCES_ADDRESS_FANTOM,
-  SINGLE_CALL_BALANCES_ADDRESS_ARBITRUM,
-} from '../constants/contracts';
+// import {
+//   SINGLE_CALL_BALANCES_ADDRESS,
+//   SINGLE_CALL_BALANCES_ADDRESS_GOERLI,
+//   SINGLE_CALL_BALANCES_ADDRESS_SEPOLIA,
+//   SINGLE_CALL_BALANCES_ADDRESS_BSC,
+//   SINGLE_CALL_BALANCES_ADDRESS_OPTIMISM,
+//   SINGLE_CALL_BALANCES_ADDRESS_POLYGON,
+//   SINGLE_CALL_BALANCES_ADDRESS_AVALANCHE,
+//   SINGLE_CALL_BALANCES_ADDRESS_FANTOM,
+//   SINGLE_CALL_BALANCES_ADDRESS_ARBITRUM,
+// } from '../constants/contracts';
 import { previousValueComparator } from './util';
 
 /**
@@ -82,6 +83,7 @@ export default class AccountTracker {
     this.getNetworkIdentifier = opts.getNetworkIdentifier;
     this.preferencesController = opts.preferencesController;
     this.onboardingController = opts.onboardingController;
+    this.providerStore = opts.providerStore;
 
     this.onboardingController.store.subscribe(
       previousValueComparator(async (prevState, currState) => {
@@ -213,11 +215,26 @@ export default class AccountTracker {
     this._currentBlockNumber = blockNumber;
 
     // block gasLimit polling shouldn't be in account-tracker shouldn't be here...
-    const currentBlock = await this._query.getBlockByNumber(blockNumber, false);
+    // const currentBlock = await this._query.getBlockByNumber(blockNumber, false);
+
+    // eslint-disable-next-line camelcase
+    const { block_index } = blockNumber;
+
+    const currentBlock = await this._query.sendAsync({
+      method: 'tol_getBlockByIndex',
+      // eslint-disable-next-line camelcase
+      params: [block_index],
+    });
+
+    // const currentBlock = await new Web3(this._provider).tolar.getBlockByIndex(
+    //   blockIndex,
+    // );
+
     if (!currentBlock) {
       return;
     }
     const currentBlockGasLimit = currentBlock.gasLimit;
+
     this.store.updateState({ currentBlockGasLimit });
 
     try {
@@ -238,95 +255,103 @@ export default class AccountTracker {
     if (!completedOnboarding) {
       return;
     }
-    const { useMultiAccountBalanceChecker } =
-      this.preferencesController.store.getState();
 
-    let addresses = [];
-    if (useMultiAccountBalanceChecker) {
-      const { accounts } = this.store.getState();
+    // const { useMultiAccountBalanceChecker } =
+    //   this.preferencesController.store.getState();
 
-      addresses = Object.keys(accounts);
-    } else {
-      const selectedAddress = this.preferencesController.getSelectedAddress();
+    // let addresses = [];
+    // if (useMultiAccountBalanceChecker) {
+    //   const { accounts } = this.store.getState();
 
-      addresses = [selectedAddress];
-    }
+    //   addresses = Object.keys(accounts);
+    // } else {
+    //   const selectedAddress = this.preferencesController.getSelectedAddress();
 
-    const chainId = this.getCurrentChainId();
-    const networkId = this.getNetworkIdentifier();
-    const rpcUrl = 'http://127.0.0.1:8545';
+    //   addresses = [selectedAddress];
+    // }
 
-    if (networkId === LOCALHOST_RPC_URL || networkId === rpcUrl) {
-      await Promise.all(addresses.map(this._updateAccount.bind(this)));
-    } else {
-      switch (chainId) {
-        case CHAIN_IDS.MAINNET:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS,
-          );
-          break;
+    // const chainId = this.getCurrentChainId();
+    // const networkId = this.getNetworkIdentifier();
+    // const rpcUrl = 'http://127.0.0.1:8545';
 
-        case CHAIN_IDS.GOERLI:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS_GOERLI,
-          );
-          break;
+    // this._updateAccount.bind(this);
 
-        case CHAIN_IDS.SEPOLIA:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS_SEPOLIA,
-          );
-          break;
+    const { accounts } = this.store.getState();
+    const addresses = Object.keys(accounts);
 
-        case CHAIN_IDS.BSC:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS_BSC,
-          );
-          break;
+    await Promise.all(addresses.map(this._updateAccount.bind(this)));
 
-        case CHAIN_IDS.OPTIMISM:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS_OPTIMISM,
-          );
-          break;
+    // if (networkId === LOCALHOST_RPC_URL || networkId === rpcUrl) {
+    //   await Promise.all(addresses.map(this._updateAccount.bind(this)));
+    // } else {
+    //   switch (chainId) {
+    //     case CHAIN_IDS.MAINNET:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS,
+    //       );
+    //       break;
 
-        case CHAIN_IDS.POLYGON:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS_POLYGON,
-          );
-          break;
+    //     case CHAIN_IDS.GOERLI:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS_GOERLI,
+    //       );
+    //       break;
 
-        case CHAIN_IDS.AVALANCHE:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS_AVALANCHE,
-          );
-          break;
+    //     case CHAIN_IDS.SEPOLIA:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS_SEPOLIA,
+    //       );
+    //       break;
 
-        case CHAIN_IDS.FANTOM:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS_FANTOM,
-          );
-          break;
+    //     case CHAIN_IDS.BSC:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS_BSC,
+    //       );
+    //       break;
 
-        case CHAIN_IDS.ARBITRUM:
-          await this._updateAccountsViaBalanceChecker(
-            addresses,
-            SINGLE_CALL_BALANCES_ADDRESS_ARBITRUM,
-          );
-          break;
+    //     case CHAIN_IDS.OPTIMISM:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS_OPTIMISM,
+    //       );
+    //       break;
 
-        default:
-          await Promise.all(addresses.map(this._updateAccount.bind(this)));
-      }
-    }
+    //     case CHAIN_IDS.POLYGON:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS_POLYGON,
+    //       );
+    //       break;
+
+    //     case CHAIN_IDS.AVALANCHE:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS_AVALANCHE,
+    //       );
+    //       break;
+
+    //     case CHAIN_IDS.FANTOM:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS_FANTOM,
+    //       );
+    //       break;
+
+    //     case CHAIN_IDS.ARBITRUM:
+    //       await this._updateAccountsViaBalanceChecker(
+    //         addresses,
+    //         SINGLE_CALL_BALANCES_ADDRESS_ARBITRUM,
+    //       );
+    //       break;
+
+    //     default:
+    //       await Promise.all(addresses.map(this._updateAccount.bind(this)));
+    //   }
+    // }
   }
 
   /**
@@ -337,44 +362,55 @@ export default class AccountTracker {
    * @returns {Promise} after the account balance is updated
    */
   async _updateAccount(address) {
-    const { useMultiAccountBalanceChecker } =
-      this.preferencesController.store.getState();
+    // const { useMultiAccountBalanceChecker } =
+    //   this.preferencesController.store.getState();
 
-    let balance = '0x0';
+    // let balance = '0x0';
 
     // query balance
-    try {
-      balance = await this._query.getBalance(address);
-    } catch (error) {
-      if (error.data?.request?.method !== 'eth_getBalance') {
-        throw error;
-      }
-    }
+    // try {
+    //   balance = await this._query.getBalance(address);
+    // } catch (error) {
+    //   if (error.data?.request?.method !== 'tol_getBalance') {
+    //     throw error;
+    //   }
+    // }
+    const { balance = '0' } = await this._query.sendAsync({
+      method: 'tol_getLatestBalance',
+      params: [address],
+    });
 
     const result = { address, balance };
     // update accounts state
     const { accounts } = this.store.getState();
+
     // only populate if the entry is still present
     if (!accounts[address]) {
       return;
     }
 
-    let newAccounts = accounts;
-    if (!useMultiAccountBalanceChecker) {
-      newAccounts = {};
-      Object.keys(accounts).forEach((accountAddress) => {
-        if (address !== accountAddress) {
-          newAccounts[accountAddress] = {
-            address: accountAddress,
-            balance: null,
-          };
-        }
-      });
-    }
+    // const accounts = { [address]: { ...result } };
+    accounts[address] = result;
+    this.store.updateState({ accounts });
+    // only populate if the entry is still present
+    // if (!accounts[address]) {
+    //   return;
+    // }
 
-    newAccounts[address] = result;
+    // let newAccounts = accounts;
+    // if (!useMultiAccountBalanceChecker) {
+    //   newAccounts = {};
+    //   Object.keys(accounts).forEach((accountAddress) => {
+    //     if (address !== accountAddress) {
+    //       newAccounts[accountAddress] = {
+    //         address: accountAddress,
+    //         balance: null,
+    //       };
+    //     }
+    //   });
+    // }
 
-    this.store.updateState({ accounts: newAccounts });
+    // this.store.updateState({ accounts });
   }
 
   /**

@@ -1,5 +1,7 @@
+// import Web3 from '@tolar/web3';
+import EthQuery from 'eth-query';
 import { ObservableStore } from '@metamask/obs-store';
-import log from 'loglevel';
+import pify from 'pify';
 import BN from 'bn.js';
 import createId from '../../../shared/modules/random-id';
 import { previousValueComparator } from '../lib/util';
@@ -53,11 +55,16 @@ export default class IncomingTransactionsController {
       getCurrentChainId,
       preferencesController,
       onboardingController,
+      providerStore,
+      provider,
     } = opts;
     this.blockTracker = blockTracker;
     this.getCurrentChainId = getCurrentChainId;
     this.preferencesController = preferencesController;
     this.onboardingController = onboardingController;
+    this.providerStore = providerStore;
+    this.provider = provider;
+    this._query = pify(new EthQuery(this.provider));
 
     this._onLatestBlock = async (newBlockNumberHex) => {
       const selectedAddress = this.preferencesController.getSelectedAddress();
@@ -158,104 +165,20 @@ export default class IncomingTransactionsController {
    *
    * @private
    * @param {string} address - address to lookup transactions for
-   * @param {number} [newBlockNumberDec] - block number to begin fetching from
    */
-  async _update(address, newBlockNumberDec) {
-    const { completedOnboarding } = this.onboardingController.store.getState();
-    const chainId = this.getCurrentChainId();
-    if (
-      !Object.hasOwnProperty.call(ETHERSCAN_SUPPORTED_NETWORKS, chainId) ||
-      !address ||
-      !completedOnboarding
-    ) {
-      return;
-    }
-    try {
-      const currentState = this.store.getState();
-      const currentBlock = parseInt(this.blockTracker.getCurrentBlock(), 16);
+  async _update(address) {
+    const addresses = [address];
 
-      const mostRecentlyFetchedBlock =
-        currentState.incomingTxLastFetchedBlockByChainId[chainId];
-      const blockToFetchFrom =
-        mostRecentlyFetchedBlock ?? newBlockNumberDec ?? currentBlock;
+    const response = await this._query.sendAsync({
+      method: 'tol_getTransactionList',
+      params: [addresses, 1000],
+    });
 
-      const newIncomingTxs = await this._getNewIncomingTransactions(
-        address,
-        blockToFetchFrom,
-        chainId,
-      );
+    const incomingTransactions = response.transactions;
 
-      let newMostRecentlyFetchedBlock = blockToFetchFrom;
-
-      newIncomingTxs.forEach((tx) => {
-        if (
-          tx.blockNumber &&
-          parseInt(newMostRecentlyFetchedBlock, 10) <
-            parseInt(tx.blockNumber, 10)
-        ) {
-          newMostRecentlyFetchedBlock = parseInt(tx.blockNumber, 10);
-        }
-      });
-
-      this.store.updateState({
-        incomingTxLastFetchedBlockByChainId: {
-          ...currentState.incomingTxLastFetchedBlockByChainId,
-          [chainId]: newMostRecentlyFetchedBlock + 1,
-        },
-        incomingTransactions: newIncomingTxs.reduce(
-          (transactions, tx) => {
-            transactions[tx.hash] = tx;
-            return transactions;
-          },
-          {
-            ...currentState.incomingTransactions,
-          },
-        ),
-      });
-    } catch (err) {
-      log.error(err);
-    }
-  }
-
-  /**
-   * fetches transactions for the given address and chain, via etherscan, then
-   * processes the data into the necessary shape for usage in this controller.
-   *
-   * @private
-   * @param {string} [address] - Address to fetch transactions for
-   * @param {number} [fromBlock] - Block to look for transactions at
-   * @param {string} [chainId] - The chainId for the current network
-   * @returns {TransactionMeta[]}
-   */
-  async _getNewIncomingTransactions(address, fromBlock, chainId) {
-    const etherscanDomain = ETHERSCAN_SUPPORTED_NETWORKS[chainId].domain;
-    const etherscanSubdomain = ETHERSCAN_SUPPORTED_NETWORKS[chainId].subdomain;
-
-    const apiUrl = `https://${etherscanSubdomain}.${etherscanDomain}`;
-    let url = `${apiUrl}/api?module=account&action=txlist&address=${address}&tag=latest&page=1`;
-
-    if (fromBlock) {
-      url += `&startBlock=${parseInt(fromBlock, 10)}`;
-    }
-    const response = await fetchWithTimeout(url);
-    const { status, result } = await response.json();
-    let newIncomingTxs = [];
-    if (status === '1' && Array.isArray(result) && result.length > 0) {
-      const remoteTxList = {};
-      const remoteTxs = [];
-      result.forEach((tx) => {
-        if (!remoteTxList[tx.hash]) {
-          remoteTxs.push(this._normalizeTxFromEtherscan(tx, chainId));
-          remoteTxList[tx.hash] = 1;
-        }
-      });
-
-      newIncomingTxs = remoteTxs.filter(
-        (tx) => tx.txParams?.to?.toLowerCase() === address.toLowerCase(),
-      );
-      newIncomingTxs.sort((a, b) => (a.time < b.time ? -1 : 1));
-    }
-    return newIncomingTxs;
+    this.store.updateState({
+      incomingTransactions,
+    });
   }
 
   /**

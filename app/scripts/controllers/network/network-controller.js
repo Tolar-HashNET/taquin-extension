@@ -11,12 +11,15 @@ import {
 import EthQuery from 'eth-query';
 import { v4 as random } from 'uuid';
 import {
-  INFURA_PROVIDER_TYPES,
-  BUILT_IN_NETWORKS,
+  // INFURA_PROVIDER_TYPES,
+  TOLAR_BUILT_IN_NETWORKS,
   INFURA_BLOCKED_KEY,
-  TEST_NETWORK_TICKER_MAP,
-  CHAIN_IDS,
+  // TEST_NETWORK_TICKER_MAP,
+  // CHAIN_IDS,
   NETWORK_TYPES,
+  TOLAR_PROVIDER_TYPES,
+  MAINNET,
+  NETWORK_TYPE_TO_SUBDOMAIN_MAP,
 } from '../../../../shared/constants/network';
 import getFetchWithTimeout from '../../../../shared/modules/fetch-with-timeout';
 import {
@@ -24,7 +27,7 @@ import {
   isSafeChainId,
 } from '../../../../shared/modules/network.utils';
 import { EVENT } from '../../../../shared/constants/metametrics';
-import createInfuraClient from './createInfuraClient';
+// import createInfuraClient from './createInfuraClient';
 import createJsonRpcClient from './createJsonRpcClient';
 
 /**
@@ -36,8 +39,12 @@ import createJsonRpcClient from './createJsonRpcClient';
  * @property {string} [nickname] - Personalized network name.
  */
 
+// const networks = { networkList: {} };
 const env = process.env.METAMASK_ENV;
 const fetchWithTimeout = getFetchWithTimeout();
+
+// const env = process.env.TAQUIN_ENV;
+// const { TAQUIN_DEBUG } = process.env;
 
 let defaultProviderConfigOpts;
 if (process.env.IN_TEST) {
@@ -49,20 +56,32 @@ if (process.env.IN_TEST) {
   };
 } else if (process.env.METAMASK_DEBUG || env === 'test') {
   defaultProviderConfigOpts = {
-    type: NETWORK_TYPES.GOERLI,
-    chainId: CHAIN_IDS.GOERLI,
-    ticker: TEST_NETWORK_TICKER_MAP.GOERLI,
+    type: MAINNET,
+    // chainId: CHAIN_IDS.GOERLI,
+    // ticker: TEST_NETWORK_TICKER_MAP.GOERLI,
   };
 } else {
   defaultProviderConfigOpts = {
     type: NETWORK_TYPES.MAINNET,
-    chainId: CHAIN_IDS.MAINNET,
+    // chainId: CHAIN_IDS.MAINNET,
   };
 }
 
+// let defaultProviderConfigType;
+// if (process.env.IN_TEST === 'true') {
+//   // defaultProviderConfigType = LOCALHOST
+//   defaultProviderConfigType = MAINNET;
+// } else if (TAQUIN_DEBUG || env === 'test') {
+//   // defaultProviderConfigType = RINKEBY
+//   defaultProviderConfigType = MAINNET;
+// } else {
+//   defaultProviderConfigType = MAINNET;
+// }
+
 const defaultProviderConfig = {
-  ticker: 'ETH',
+  ticker: 'TOL',
   ...defaultProviderConfigOpts,
+  // ...defaultProviderConfigOpts,
 };
 
 const defaultNetworkDetailsState = {
@@ -88,10 +107,9 @@ export default class NetworkController extends EventEmitter {
    *
    * @param {object} [options] - NetworkController options.
    * @param {object} [options.state] - Initial controller state.
-   * @param {string} [options.infuraProjectId] - The Infura project ID.
    * @param {string} [options.trackMetaMetricsEvent] - A method to forward events to the MetaMetricsController
    */
-  constructor({ state = {}, infuraProjectId, trackMetaMetricsEvent } = {}) {
+  constructor({ state = {}, trackMetaMetricsEvent } = {}) {
     super();
 
     // create stores
@@ -133,10 +151,10 @@ export default class NetworkController extends EventEmitter {
     this._providerProxy = null;
     this._blockTrackerProxy = null;
 
-    if (!infuraProjectId || typeof infuraProjectId !== 'string') {
-      throw new Error('Invalid Infura project ID');
-    }
-    this._infuraProjectId = infuraProjectId;
+    // if (!infuraProjectId || typeof infuraProjectId !== 'string') {
+    //   throw new Error('Invalid Infura project ID');
+    // }
+    // this._infuraProjectId = infuraProjectId;
     this._trackMetaMetricsEvent = trackMetaMetricsEvent;
 
     this.on(NETWORK_EVENTS.NETWORK_DID_CHANGE, () => {
@@ -155,7 +173,9 @@ export default class NetworkController extends EventEmitter {
 
   async initializeProvider() {
     const { type, rpcUrl, chainId } = this.providerStore.getState();
-    this._configureProvider({ type, rpcUrl, chainId });
+    this._configureProvider({ type });
+    log.info(rpcUrl, 'rpcUrl');
+    log.info(chainId, 'chainId');
     await this.lookupNetwork();
   }
 
@@ -195,47 +215,76 @@ export default class NetworkController extends EventEmitter {
       return;
     }
 
-    const { chainId } = this.providerStore.getState();
-    if (!chainId) {
-      log.warn(
-        'NetworkController - lookupNetwork aborted due to missing chainId',
-      );
-      this._setNetworkState('loading');
-      this._clearNetworkDetails();
-      return;
-    }
+    // const { chainId } = this.providerStore.getState();
+    // if (!chainId) {
+    //   log.warn(
+    //     'NetworkController - lookupNetwork aborted due to missing chainId',
+    //   );
+    //   this._setNetworkState('loading');
+    //   this._clearNetworkDetails();
+    //   return;
+    // }
 
     // Ping the RPC endpoint so we can confirm that it works
-    const initialNetwork = this.networkStore.getState();
+    // const initialNetwork = this.networkStore.getState();
+    // const { type } = this.providerStore.getState();
+    // const isInfura = INFURA_PROVIDER_TYPES.includes(type);
+
+    // if (isInfura) {
+    //   this._checkInfuraAvailability(type);
+    // } else {
+    //   this.emit(NETWORK_EVENTS.INFURA_IS_UNBLOCKED);
+    // }
+
+    // let networkVersion;
+    // let networkVersionError;
+    // try {
+    //   networkVersion = await this._getNetworkId();
+    // } catch (error) {
+    //   networkVersionError = error;
+    // }
+    // if (initialNetwork !== this.networkStore.getState()) {
+    //   return;
+    // }
+
+    // if (networkVersionError) {
+    //   log.error('version error network');
+    //   this._setNetworkState('loading');
+    //   // keep network details in sync with network state
+    //   this._clearNetworkDetails();
+    // } else {
+    //   this._setNetworkState(networkVersion);
+    //   // look up EIP-1559 support
+    //   await this.getEIP1559Compatibility();
+    // }
+
+    // log.ingo(this._provider, 'provider ?');
+    // const ethQuery = new EthQuery(this._provider);
+    // return await new Promise((resolve, reject) => {
+    //   ethQuery.sendAsync({ method: 'net_version' }, (error, result) => {
+    //     if (error) {
+    //       log.info(error, 'error network');
+    //       reject(error);
+    //     } else {
+    //       resolve(result);
+    //     }
+    //   });
+    // });
+
     const { type } = this.providerStore.getState();
-    const isInfura = INFURA_PROVIDER_TYPES.includes(type);
+    const ethQuery = new EthQuery(this._provider);
+    // const initialNetwork = this.getNetworkState();
+    ethQuery.sendAsync({ method: 'net_version' }, (err, network) => {
+      // const currentNetwork = this.getNetworkState();
 
-    if (isInfura) {
-      this._checkInfuraAvailability(type);
-    } else {
-      this.emit(NETWORK_EVENTS.INFURA_IS_UNBLOCKED);
-    }
+      if (err) {
+        this._setNetworkState('loading');
+        return;
+      }
+      log.info(`web3.getNetwork returned ${network}`);
 
-    let networkVersion;
-    let networkVersionError;
-    try {
-      networkVersion = await this._getNetworkId();
-    } catch (error) {
-      networkVersionError = error;
-    }
-    if (initialNetwork !== this.networkStore.getState()) {
-      return;
-    }
-
-    if (networkVersionError) {
-      this._setNetworkState('loading');
-      // keep network details in sync with network state
-      this._clearNetworkDetails();
-    } else {
-      this._setNetworkState(networkVersion);
-      // look up EIP-1559 support
-      await this.getEIP1559Compatibility();
-    }
+      this._setNetworkState(network, type);
+    });
   }
 
   /**
@@ -269,15 +318,14 @@ export default class NetworkController extends EventEmitter {
       `NetworkController - cannot call "setProviderType" with type "${NETWORK_TYPES.RPC}". Use "setActiveNetwork"`,
     );
     assert.ok(
-      INFURA_PROVIDER_TYPES.includes(type),
-      `Unknown Infura provider type "${type}".`,
+      TOLAR_PROVIDER_TYPES.includes(type),
+      `Unknown Tolar provider type "${type}".`,
     );
-    const { chainId, ticker, blockExplorerUrl } = BUILT_IN_NETWORKS[type];
+    const { blockExplorerUrl } = TOLAR_BUILT_IN_NETWORKS[type];
     this._setProviderConfig({
       type,
       rpcUrl: '',
-      chainId,
-      ticker: ticker ?? 'ETH',
+      ticker: 'TOL',
       nickname: '',
       rpcPrefs: { blockExplorerUrl },
     });
@@ -303,10 +351,12 @@ export default class NetworkController extends EventEmitter {
    * @returns {string} The network ID for the current network.
    */
   async _getNetworkId() {
+    log.ingo(this._provider, 'provider ?');
     const ethQuery = new EthQuery(this._provider);
     return await new Promise((resolve, reject) => {
       ethQuery.sendAsync({ method: 'net_version' }, (error, result) => {
         if (error) {
+          log.info(error, 'error network');
           reject(error);
         } else {
           resolve(result);
@@ -424,33 +474,56 @@ export default class NetworkController extends EventEmitter {
     this.emit(NETWORK_EVENTS.NETWORK_DID_CHANGE, opts.type);
   }
 
-  _configureProvider({ type, rpcUrl, chainId }) {
+  _configureProvider({ type }) {
+    log.info('configure provider', type);
+    this._configureTolarProvider(type, type);
+    // this._configureStandardProvider(rpcUrl);
+
     // infura type-based endpoints
-    const isInfura = INFURA_PROVIDER_TYPES.includes(type);
-    if (isInfura) {
-      this._configureInfuraProvider(type, this._infuraProjectId);
-      // url-based rpc endpoints
-    } else if (type === NETWORK_TYPES.RPC) {
-      this._configureStandardProvider(rpcUrl, chainId);
-    } else {
-      throw new Error(
-        `NetworkController - _configureProvider - unknown type "${type}"`,
-      );
-    }
+    // const isInfura = INFURA_PROVIDER_TYPES.includes(type);
+    // if (isInfura) {
+    //   this._configureInfuraProvider(type, this._infuraProjectId);
+    //   // url-based rpc endpoints
+    // } else if (type === NETWORK_TYPES.RPC) {
+    //   this._configureStandardProvider(rpcUrl, chainId);
+    // } else {
+    //   throw new Error(
+    //     `NetworkController - _configureProvider - unknown type "${type}"`,
+    //   );
+    // }
   }
 
-  _configureInfuraProvider(type, projectId) {
-    log.info('NetworkController - configureInfuraProvider', type);
-    const networkClient = createInfuraClient({
-      network: type,
-      projectId,
-    });
+  // _configureInfuraProvider(type, projectId) {
+  //   log.info('NetworkController - configureInfuraProvider', type);
+  //   const networkClient = createInfuraClient({
+  //     network: type,
+  //     projectId,
+  //   });
+  //   this._setNetworkClient(networkClient);
+  // }
+
+  _configureTolarProvider(type, chainId) {
+    log.info('NetworkController - configureTolarProvider', type);
+    const rpcUrl = `https://${NETWORK_TYPE_TO_SUBDOMAIN_MAP[type].subdomain}.tolar.io`;
+    log.info(rpcUrl);
+    const networkClient = createJsonRpcClient({ rpcUrl });
+    const settings = {
+      network: chainId,
+    };
+    // this.networks.networkList.rpc = {
+    //   chainId,
+    //   rpcUrl,
+    //   ticker: 'TOL', // 'ETH',
+    // };
+    // settings = Object.assign(settings, networks.networkList.rpc);
+    this.networkConfigurationsStore.putState(settings);
     this._setNetworkClient(networkClient);
   }
 
-  _configureStandardProvider(rpcUrl, chainId) {
+  _configureStandardProvider(rpcUrl) {
+    const rpcTarget = `${NETWORK_TYPE_TO_SUBDOMAIN_MAP[MAINNET]?.subdomain}.tolar.io`;
     log.info('NetworkController - configureStandardProvider', rpcUrl);
-    const networkClient = createJsonRpcClient({ rpcUrl, chainId });
+    const networkClient = createJsonRpcClient({ rpcUrl: rpcTarget });
     this._setNetworkClient(networkClient);
   }
 

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { useSelector } from 'react-redux';
 import {
   NETWORK_TYPES,
-  BUILT_IN_NETWORKS,
+  TOLAR_BUILT_IN_NETWORKS,
 } from '../../../../shared/constants/network';
 
 import LoadingIndicator from '../../ui/loading-indicator';
@@ -100,7 +100,7 @@ NetworkDisplay.propTypes = {
    */
   targetNetwork: PropTypes.shape({
     type: PropTypes.oneOf([
-      ...Object.keys(BUILT_IN_NETWORKS),
+      ...Object.keys(TOLAR_BUILT_IN_NETWORKS),
       NETWORK_TYPES.RPC,
     ]),
     nickname: PropTypes.string,

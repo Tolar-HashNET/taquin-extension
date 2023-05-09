@@ -4,7 +4,6 @@ import copyToClipboard from 'copy-to-clipboard';
 import { shortenAddress } from '../../../helpers/utils/util';
 
 import Tooltip from '../../ui/tooltip';
-import { toChecksumHexAddress } from '../../../../shared/modules/hexstring-utils';
 import { SECOND } from '../../../../shared/constants/time';
 import { Icon, ICON_NAMES, ICON_SIZES } from '../../component-library';
 import { IconColor } from '../../../helpers/constants/design-system';
@@ -36,7 +35,7 @@ class SelectedAccount extends Component {
   render() {
     const { t } = this.context;
     const { selectedIdentity } = this.props;
-    const checksummedAddress = toChecksumHexAddress(selectedIdentity.address);
+    const { address } = selectedIdentity;
 
     return (
       <div className="selected-account">
@@ -56,14 +55,14 @@ class SelectedAccount extends Component {
                 () => this.setState({ copied: false }),
                 SECOND * 3,
               );
-              copyToClipboard(checksummedAddress);
+              copyToClipboard(address);
             }}
           >
             <div className="selected-account__name">
               {selectedIdentity.name}
             </div>
             <div className="selected-account__address">
-              {shortenAddress(checksummedAddress)}
+              {shortenAddress(address)}
               <div className="selected-account__copy">
                 <Icon
                   name={

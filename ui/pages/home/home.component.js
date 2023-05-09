@@ -631,8 +631,8 @@ export default class Home extends PureComponent {
           exact
         />
         <div className="home__container">
-          {showWhatsNew ? <WhatsNewPopup onClose={hideWhatsNewPopup} /> : null}
-          {showWhatsNew ? <OpenSeaWhatsNewPopover /> : null}
+          {/* {showWhatsNew ? <WhatsNewPopup onClose={hideWhatsNewPopup} /> : null} */}
+          {/* {showWhatsNew ? <OpenSeaWhatsNewPopover /> : null} */}
           {!showWhatsNew && showRecoveryPhraseReminder ? (
             <RecoveryPhraseReminder
               hasBackedUp={seedPhraseBackedUp}
@@ -689,7 +689,7 @@ export default class Home extends PureComponent {
                 <TransactionList />
               </Tab>
             </Tabs>
-            <div className="home__support">
+            {/* <div className="home__support">
               {
                 ///: BEGIN:ONLY_INCLUDE_IN(main)
                 t('needHelp', [
@@ -730,7 +730,7 @@ export default class Home extends PureComponent {
                 <FlaskHomeFooter />
                 ///: END:ONLY_INCLUDE_IN
               }
-            </div>
+            </div> */}
           </div>
 
           {this.renderNotifications()}

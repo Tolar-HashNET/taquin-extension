@@ -33,12 +33,14 @@ cleanContextForImports();
 /* eslint-disable import/first */
 import log from 'loglevel';
 import { WindowPostMessageStream } from '@metamask/post-message-stream';
-import { initializeProvider } from '@metamask/providers/dist/initializeInpageProvider';
+// import { initializeProvider } from '@metamask/providers/dist/initializeInpageProvider';
+import { initProvider } from 'taquin-provider';
 import shouldInjectProvider from '../../shared/modules/provider-injection';
+import setupWeb3 from './lib/setupWeb3';
 
 // contexts
-const CONTENT_SCRIPT = 'metamask-contentscript';
-const INPAGE = 'metamask-inpage';
+// const CONTENT_SCRIPT = 'metamask-contentscript';
+// const INPAGE = 'metamask-inpage';
 
 restoreContextAfterImports();
 
@@ -50,14 +52,25 @@ log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'warn');
 
 if (shouldInjectProvider()) {
   // setup background connection
-  const metamaskStream = new WindowPostMessageStream({
-    name: INPAGE,
-    target: CONTENT_SCRIPT,
+  // const metamaskStream = new WindowPostMessageStream({
+  //   name: INPAGE,
+  //   target: CONTENT_SCRIPT,
+  // });
+
+  const taquinStream = new WindowPostMessageStream({
+    name: 'inpage',
+    target: 'contentscript',
   });
 
-  initializeProvider({
-    connectionStream: metamaskStream,
-    logger: log,
-    shouldShimWeb3: true,
+  initProvider({
+    connectionStream: taquinStream,
   });
+
+  // initializeProvider({
+  //   connectionStream: metamaskStream,
+  //   logger: log,
+  //   shouldShimWeb3: true,
+  // });
 }
+
+setupWeb3(log);
