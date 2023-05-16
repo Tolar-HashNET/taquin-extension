@@ -112,7 +112,7 @@ export default {
   },
   args: {
     decimals: 16,
-    siteImage: 'https://metamask.github.io/test-dapp/metamask-fox.svg',
+    siteImage: 'https://metamask.github.io/test-dapp/tolar-logo.svg',
     customTokenAmount: '10',
     tokenAmount: '10',
     origin: 'https://metamask.github.io/test-dapp/',

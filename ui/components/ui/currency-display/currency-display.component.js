@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useCurrencyDisplay } from '../../../hooks/useCurrencyDisplay';
 import { EtherDenomination } from '../../../../shared/constants/common';
+import Identicon from '../identicon/identicon.component';
 
 export default function CurrencyDisplay({
   value,
@@ -36,9 +37,10 @@ export default function CurrencyDisplay({
       style={style}
       title={(!hideTitle && title) || null}
     >
-      {/* <span className="currency-display-component__prefix">
-        {prefixComponent}
-      </span> */}
+      <span className="currency-display-component__prefix">
+        <Identicon image="./images/tolar_logo_black.svg" />
+        {/* {prefixComponent} */}
+      </span>
       <span className="currency-display-component__text">
         {/* {parts.prefix} */}
         {parts.value}

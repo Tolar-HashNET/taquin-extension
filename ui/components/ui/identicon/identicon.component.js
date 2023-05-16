@@ -76,18 +76,19 @@ export default class Identicon extends Component {
 
   renderImage() {
     const { className, diameter, alt, imageBorder, ipfsGateway } = this.props;
-    let { image } = this.props;
+    // let { image } = this.props;
+    const image = './images/tolar_logo_black.svg';
 
-    if (Array.isArray(image) && image.length) {
-      image = image[0];
-    }
+    // if (Array.isArray(image) && image.length) {
+    //   image = image[0];
+    // }
 
-    if (
-      typeof image === 'string' &&
-      image.toLowerCase().startsWith('ipfs://')
-    ) {
-      image = getAssetImageURL(image, ipfsGateway);
-    }
+    // if (
+    //   typeof image === 'string' &&
+    //   image.toLowerCase().startsWith('ipfs://')
+    // ) {
+    //   image = getAssetImageURL(image, ipfsGateway);
+    // }
 
     return (
       <img

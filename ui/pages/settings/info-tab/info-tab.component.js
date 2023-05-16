@@ -192,7 +192,7 @@ export default class InfoTab extends PureComponent {
         </div>
         <div className="info-tab__logo-wrapper">
           <img
-            src="./images/logo/metamask-fox.svg"
+            src="./images/logo/tolar-logo.svg"
             className="info-tab__logo"
             alt="MetaMask Logo"
           />

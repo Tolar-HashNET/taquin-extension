@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import MetaFoxHorizontalLogo from './horizontal-logo';
+// import MetaFoxHorizontalLogo from './horizontal-logo';
 
 export default class MetaFoxLogo extends PureComponent {
   static propTypes = {
@@ -23,39 +23,54 @@ export default class MetaFoxLogo extends PureComponent {
       unsetIconHeight,
       isOnboarding,
       ///: BEGIN:ONLY_INCLUDE_IN(flask)
-      src,
+      // src,
       ///: END:ONLY_INCLUDE_IN
     } = this.props;
     const iconProps = unsetIconHeight ? {} : { height: 42, width: 42 };
 
-    let renderHorizontalLogo = () => (
-      <MetaFoxHorizontalLogo
+    // let renderHorizontalLogo = () => (
+    //   <MetaFoxHorizontalLogo
+    //     className={classnames({
+    //       'app-header__metafox-logo--horizontal': !isOnboarding,
+    //       'onboarding-app-header__metafox-logo--horizontal': isOnboarding,
+    //     })}
+    //   />
+    // );
+
+    // let renderHorizontalLogo = () => null;
+
+    // const imageSrc = './images/logo/tolar-logo.svg';
+
+    ///: BEGIN:ONLY_INCLUDE_IN(flask)
+    // if (src) {
+    //   const renderHorizontalLogo = () => (
+    //     <img
+    //       {...iconProps}
+    //       src={imageSrc}
+    //       className={classnames({
+    //         'app-header__metafox-logo--horizontal': !isOnboarding,
+    //         'onboarding-app-header__metafox-logo--horizontal': isOnboarding,
+    //       })}
+    //       alt=""
+    //     />
+    //   );
+
+    //   // imageSrc = src;
+    // }
+    ///: END:ONLY_INCLUDE_IN
+
+    const renderHorizontalLogo = () => (
+      <img
+        {...iconProps}
+        src="./images/logo/logo-tolar.svg"
+        width="104"
         className={classnames({
           'app-header__metafox-logo--horizontal': !isOnboarding,
           'onboarding-app-header__metafox-logo--horizontal': isOnboarding,
         })}
+        alt=""
       />
     );
-
-    let imageSrc = './images/logo/metamask-fox.svg';
-
-    ///: BEGIN:ONLY_INCLUDE_IN(flask)
-    if (src) {
-      renderHorizontalLogo = () => (
-        <img
-          {...iconProps}
-          src={src}
-          className={classnames({
-            'app-header__metafox-logo--horizontal': !isOnboarding,
-            'onboarding-app-header__metafox-logo--horizontal': isOnboarding,
-          })}
-          alt=""
-        />
-      );
-
-      imageSrc = src;
-    }
-    ///: END:ONLY_INCLUDE_IN
 
     return (
       <div
@@ -71,7 +86,7 @@ export default class MetaFoxLogo extends PureComponent {
 
         <img
           {...iconProps}
-          src={imageSrc}
+          src="./images/icon-38.png"
           className={classnames({
             'app-header__metafox-logo--icon': !isOnboarding,
             'onboarding-app-header__metafox-logo--icon': isOnboarding,
