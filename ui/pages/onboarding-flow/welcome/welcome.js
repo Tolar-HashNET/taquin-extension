@@ -1,14 +1,14 @@
-import EventEmitter from 'events';
-import React, { useState, useEffect, useContext } from 'react';
+// import EventEmitter from 'events';
+import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Carousel } from 'react-responsive-carousel';
-import Mascot from '../../../components/ui/mascot';
+// import { Carousel } from 'react-responsive-carousel';
+// import Mascot from '../../../components/ui/mascot';
 import Button from '../../../components/ui/button';
 import Typography from '../../../components/ui/typography/typography';
 import {
-  TypographyVariant,
-  FONT_WEIGHT,
+  // TypographyVariant,
+  // FONT_WEIGHT,
   TEXT_ALIGN,
 } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
@@ -28,7 +28,7 @@ export default function OnboardingWelcome() {
   const t = useI18nContext();
   const dispatch = useDispatch();
   const history = useHistory();
-  const [eventEmitter] = useState(new EventEmitter());
+  // const [eventEmitter] = useState(new EventEmitter());
   const currentKeyring = useSelector(getCurrentKeyring);
   const firstTimeFlowType = useSelector(getFirstTimeFlowType);
 
@@ -80,7 +80,7 @@ export default function OnboardingWelcome() {
 
   return (
     <div className="onboarding-welcome" data-testid="onboarding-welcome">
-      <Carousel showThumbs={false} showStatus={false} showArrows>
+      {/* <Carousel showThumbs={false} showStatus={false} showArrows>
         <div>
           <Typography
             variant={TypographyVariant.H2}
@@ -140,7 +140,39 @@ export default function OnboardingWelcome() {
             />
           </div>
         </div>
-      </Carousel>
+      </Carousel> */}
+
+      <div className="onboarding-welcome__heading">
+        <img
+          src="./images/logo/logo-tolar.svg"
+          width="208"
+          className="onboarding-welcome__img"
+          alt="Tolar wallet logo"
+        />
+        {/* <Typography
+          variant={TypographyVariant.H1}
+          align={TEXT_ALIGN.CENTER}
+          // fontWeight={FONT_WEIGHT.BOLD}
+          className="onboarding-welcome__title"
+        >
+          {t('welcomeToMetaMask')}
+        </Typography> */}
+        <Typography
+          align={TEXT_ALIGN.CENTER}
+          marginLeft={6}
+          marginRight={6}
+          className="onboarding-welcome__text"
+        >
+          {t('welcomeToMetaMaskIntro')}
+        </Typography>
+        {/* <div className="onboarding-welcome__mascot">
+          <Mascot
+            animationEventEmitter={eventEmitter}
+            width="250"
+            height="250"
+          />
+        </div> */}
+      </div>
       <ul className="onboarding-welcome__buttons">
         <li>
           <Button
