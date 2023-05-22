@@ -38,9 +38,8 @@
   }
 
   &__highlighted {
-    background-color: var(--color-primary-muted);
+    background-color: rgba(0, 189, 222, 0.1);
     padding: 12px;
-    border-radius: 10px;
 
     @include screen-sm-min {
       margin-inline-end: 43px;

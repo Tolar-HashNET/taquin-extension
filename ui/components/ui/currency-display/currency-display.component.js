@@ -38,7 +38,7 @@ export default function CurrencyDisplay({
       title={(!hideTitle && title) || null}
     >
       <span className="currency-display-component__prefix">
-        <Identicon image="./images/tolar_logo_black.svg" />
+        <Identicon image="./images/tolar-logo-white.svg" diameter={32} />
         {/* {prefixComponent} */}
       </span>
       <span className="currency-display-component__text">

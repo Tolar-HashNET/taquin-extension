@@ -1,6 +1,6 @@
 .app-header {
   align-items: center;
-  background: var(--color-background-alternative);
+  background: $tolar-dark;
   position: relative;
   z-index: $header-z-index;
   display: flex;

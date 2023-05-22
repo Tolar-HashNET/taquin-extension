@@ -15,7 +15,7 @@ import { useI18nContext } from '../../../hooks/useI18nContext';
 import {
   DEFAULT_ROUTE,
   // ONBOARDING_PIN_EXTENSION_ROUTE,
-  ONBOARDING_PRIVACY_SETTINGS_ROUTE,
+  // ONBOARDING_PRIVACY_SETTINGS_ROUTE,
 } from '../../../helpers/constants/routes';
 import { isBeta } from '../../../helpers/utils/build-types';
 import { setCompletedOnboarding } from '../../../store/actions';
@@ -34,7 +34,7 @@ export default function CreationSuccessful() {
   return (
     <div className="creation-successful" data-testid="creation-successful">
       <Box textAlign={TEXT_ALIGN.CENTER}>
-        <img src="./images/tada.png" />
+        {/* <img src="./images/tada.png" /> */}
         <Typography
           variant={TypographyVariant.H2}
           fontWeight={FONT_WEIGHT.BOLD}
@@ -80,7 +80,7 @@ export default function CreationSuccessful() {
             ])}
           </Typography>
         </li>
-        <li>
+        {/* <li>
           <Button
             href="https://community.metamask.io/t/what-is-a-secret-recovery-phrase-and-how-to-keep-your-crypto-wallet-secure/3440"
             target="_blank"
@@ -89,15 +89,15 @@ export default function CreationSuccessful() {
           >
             {t('learnMoreUpperCase')}
           </Button>
-        </li>
+        </li> */}
       </ul>
       <Box marginTop={6} className="creation-successful__actions">
-        <Button
+        {/* <Button
           type="link"
           onClick={() => history.push(ONBOARDING_PRIVACY_SETTINGS_ROUTE)}
         >
           {t('advancedConfiguration')}
-        </Button>
+        </Button> */}
         <Button
           data-testid="onboarding-complete-done"
           type="primary"

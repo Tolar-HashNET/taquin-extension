@@ -43,6 +43,7 @@ import {
   ICON_NAMES,
 } from '../../component-library';
 import { IconColor } from '../../../helpers/constants/design-system';
+import Button from '../../ui/button';
 // import useRamps from '../../../hooks/experiences/useRamps';
 import WalletOverview from './wallet-overview';
 
@@ -142,7 +143,29 @@ const EthOverview = ({ className }) => {
       }
       buttons={
         <>
-          <IconButton
+          <Button
+            type="primary"
+            data-testid="eth-overview-send"
+            onClick={() => {
+              trackEvent({
+                event: EVENT_NAMES.NAV_SEND_BUTTON_CLICKED,
+                category: EVENT.CATEGORIES.NAVIGATION,
+                properties: {
+                  token_symbol: 'TOL',
+                  location: 'Home',
+                  text: 'Send',
+                },
+              });
+              dispatch(
+                startNewDraftTransaction({ type: AssetType.native }),
+              ).then(() => {
+                history.push(SEND_ROUTE);
+              });
+            }}
+          >
+            {t('send')}
+          </Button>
+          {/* <IconButton
             className="eth-overview__button"
             data-testid="eth-overview-send"
             Icon={
@@ -168,7 +191,7 @@ const EthOverview = ({ className }) => {
                 history.push(SEND_ROUTE);
               });
             }}
-          />
+          /> */}
           {/* <IconButton
             className="eth-overview__button"
             Icon={

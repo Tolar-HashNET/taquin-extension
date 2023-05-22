@@ -13,7 +13,7 @@
     align-self: stretch;
     justify-content: center;
     flex: 1 0 auto;
-    background: var(--color-background-default);
+    background: $tolar-dark;
   }
 
   &__mascot-container {
@@ -57,6 +57,7 @@
   &__link {
     font-size: unset;
     font-weight: bold;
+    color: $tolar-action;
   }
 
   &__support {
