@@ -15,6 +15,7 @@ export default function UserPreferencedCurrencyDisplay({
   type,
   showFiat,
   showCurrencySuffix,
+  diameter,
   ...restProps
 }) {
   const { currency, numberOfDecimals } = useUserPreferencedCurrency(type, {
@@ -45,6 +46,7 @@ export default function UserPreferencedCurrencyDisplay({
       currency={currency}
       data-testid={dataTestId}
       numberOfDecimals={numberOfDecimals}
+      diameter={diameter}
       // prefixComponent={prefixComponent}
       suffix={showCurrencySuffix && !showEthLogo && currency}
     />
@@ -73,4 +75,5 @@ UserPreferencedCurrencyDisplay.propTypes = {
   ]),
   showFiat: PropTypes.bool,
   showCurrencySuffix: PropTypes.bool,
+  diameter: PropTypes.number,
 };

@@ -19,6 +19,7 @@ export default function CurrencyDisplay({
   denomination,
   currency,
   suffix,
+  diameter,
 }) {
   const [title, parts] = useCurrencyDisplay(value, {
     displayValue,
@@ -38,7 +39,10 @@ export default function CurrencyDisplay({
       title={(!hideTitle && title) || null}
     >
       <span className="currency-display-component__prefix">
-        <Identicon image="./images/tolar-logo-white.svg" diameter={32} />
+        <Identicon
+          image="./images/tolar-logo-white.svg"
+          diameter={diameter ?? 32}
+        />
         {/* {prefixComponent} */}
       </span>
       <span className="currency-display-component__text">
@@ -72,4 +76,5 @@ CurrencyDisplay.propTypes = {
   style: PropTypes.object,
   suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   value: PropTypes.string,
+  diameter: PropTypes.number,
 };

@@ -45,6 +45,8 @@ $color-map: (
   'transparent': --transparent,
   'flask-purple': --color-flask-default,
   'inherit': --inherit,
+  'testnet': --color-network-goerli-default,
+  'staging': --color-network-sepolia-default
 );
 
 $tolar-dark: #1E202D;
@@ -52,4 +54,5 @@ $tolar-light: #fff;
 $tolar-action: #00BDDE;
 $tolar-text: #BEF1FA;
 $tolar-border: rgba(255, 255, 255, 0.1);
-$tolar-bg: #1A1D2E
+$tolar-bg: #181a24;
+$tolar-hover: rgba(0, 189, 222, 0.05);

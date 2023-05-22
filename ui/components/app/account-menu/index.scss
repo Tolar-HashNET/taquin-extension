@@ -4,10 +4,10 @@
   top: 58px;
   width: 320px;
   border-radius: 4px;
-  background: var(--color-background-default);
+  background: $tolar-bg;
   box-shadow: var(--shadow-size-sm) var(--color-shadow-default);
   min-width: 150px;
-  color: var(--color-text-default);
+  color: $tolar-light;
 
   @include screen-sm-max {
     right: 16px;
@@ -45,11 +45,11 @@
       cursor: pointer;
 
       &:hover {
-        background-color: var(--color-background-default-hover);
+        background-color: $tolar-hover;
       }
 
       &:active {
-        background-color: var(--color-background-default-hover);
+        background-color: $tolar-hover;
       }
     }
 
