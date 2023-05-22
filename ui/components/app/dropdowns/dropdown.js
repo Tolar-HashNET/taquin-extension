@@ -15,7 +15,7 @@ export class Dropdown extends Component {
     } = this.props;
 
     const innerStyleDefaults = {
-      borderRadius: '4px',
+      // borderRadius: '4px',
       padding: '8px 16px',
       // background: 'var(--color-background-default)',
       boxShadow: 'var(--shadow-size-sm) var(--color-shadow-default)',

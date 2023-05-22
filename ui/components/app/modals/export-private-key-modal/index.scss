@@ -43,8 +43,8 @@
     padding: 10px 0 13px 17px;
     width: 291px;
     height: 44px;
-    background: var(--color-background-default);
-    color: var(--color-text-default);
+    background: $tolar-bg-dark;
+    color: $tolar-light;
     border: 1px solid var(--color-border-default);
   }
 
@@ -55,7 +55,7 @@
   &__password--warning {
     @include H7;
 
-    border-radius: 8px;
+    // border-radius: 8px;
     background-color: var(--color-error-muted);
     font-weight: 500;
     color: var(--color-text-default);

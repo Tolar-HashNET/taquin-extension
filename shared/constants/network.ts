@@ -104,6 +104,10 @@ export const TOLAR_NETWORK_TYPES = {
   LOCALHOST: 'localhost',
 };
 
+export const TOLAR_EXPLORER_URL = (network: string, address: string) => {
+  return `https://web-explorer.${network}.tolar.io/?query=${address}&page=1`;
+};
+
 /**
  * An object containing shortcut names for any non-builtin network. We need
  * this to be able to differentiate between networks that require custom

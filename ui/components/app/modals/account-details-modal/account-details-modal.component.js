@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getAccountLink } from '@metamask/etherscan-link';
+// import { getAccountLink } from '@metamask/etherscan-link';
 
 import AccountModalContainer from '../account-modal-container';
 import QrView from '../../../ui/qr-code';
@@ -12,7 +12,8 @@ import {
   EVENT,
   EVENT_NAMES,
 } from '../../../../../shared/constants/metametrics';
-import { NETWORKS_ROUTE } from '../../../../helpers/constants/routes';
+// import { NETWORKS_ROUTE } from '../../../../helpers/constants/routes';
+import { TOLAR_EXPLORER_URL } from '../../../../../shared/constants/network';
 
 export default class AccountDetailsModal extends Component {
   static propTypes = {
@@ -25,6 +26,7 @@ export default class AccountDetailsModal extends Component {
     accounts: PropTypes.array,
     history: PropTypes.object,
     hideModal: PropTypes.func,
+    network: PropTypes.string,
     blockExplorerLinkText: PropTypes.object,
   };
 
@@ -43,9 +45,12 @@ export default class AccountDetailsModal extends Component {
       rpcPrefs,
       history,
       hideModal,
+      network,
       blockExplorerLinkText,
     } = this.props;
     const { name, address } = selectedIdentity;
+
+    console.log(network);
 
     const keyring = keyrings.find((kr) => {
       return kr.accounts.includes(address);
@@ -57,13 +62,14 @@ export default class AccountDetailsModal extends Component {
       exportPrivateKeyFeatureEnabled = false;
     }
 
-    const routeToAddBlockExplorerUrl = () => {
-      hideModal();
-      history.push(`${NETWORKS_ROUTE}#blockExplorerUrl`);
-    };
+    // const routeToAddBlockExplorerUrl = () => {
+    //   hideModal();
+    //   history.push(`${NETWORKS_ROUTE}#blockExplorerUrl`);
+    // };
 
     const openBlockExplorer = () => {
-      const accountLink = getAccountLink(address, chainId, rpcPrefs);
+      const accountLink = TOLAR_EXPLORER_URL(network, address);
+      // const accountLink = getAccountLink(address, chainId, rpcPrefs);
       this.context.trackEvent({
         category: EVENT.CATEGORIES.NAVIGATION,
         event: EVENT_NAMES.EXTERNAL_LINK_CLICKED,
@@ -80,12 +86,14 @@ export default class AccountDetailsModal extends Component {
 
     return (
       <AccountModalContainer className="account-details-modal">
-        <EditableLabel
+        {/* <EditableLabel
           className="account-details-modal__name"
           defaultValue={name}
           onSubmit={(label) => setAccountLabel(address, label)}
           accounts={this.props.accounts}
-        />
+        /> */}
+
+        <p className="account-details-modal__name">{name}</p>
 
         <QrView
           Qr={{
@@ -96,22 +104,19 @@ export default class AccountDetailsModal extends Component {
         <div className="account-details-modal__divider" />
 
         <Button
-          type="secondary"
+          type="primary"
           className="account-details-modal__button"
-          onClick={
-            blockExplorerLinkText.firstPart === 'addBlockExplorer'
-              ? routeToAddBlockExplorerUrl
-              : openBlockExplorer
-          }
+          onClick={openBlockExplorer}
         >
-          {this.context.t(blockExplorerLinkText.firstPart, [
+          Explorer
+          {/* {this.context.t(blockExplorerLinkText.firstPart, [
             blockExplorerLinkText.secondPart,
-          ])}
+          ])} */}
         </Button>
 
         {exportPrivateKeyFeatureEnabled && (
           <Button
-            type="secondary"
+            type="primary"
             className="account-details-modal__button"
             onClick={() => {
               this.context.trackEvent({
