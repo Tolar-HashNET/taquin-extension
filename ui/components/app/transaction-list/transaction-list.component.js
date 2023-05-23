@@ -44,7 +44,7 @@ export default function TransactionList({
         {tolarTransactions.length > limit && (
           <Button
             className="transaction-list__view-more"
-            type="secondary"
+            type="primary"
             onClick={viewMore}
           >
             {t('viewMore')}

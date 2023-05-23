@@ -11,10 +11,10 @@
 
     @include H6;
 
-    color: var(--color-text-default);
+    color: $tolar-light;
     border: 1px solid var(--color-border-default);
-    border-radius: 4px;
-    background-color: var(--color-background-default);
+    // border-radius: 4px;
+    background-color: $tolar-bg-dark;
     padding: 8px 40px 8px 16px;
     width: 100%;
 
