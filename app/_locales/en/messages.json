@@ -3683,7 +3683,7 @@
     "message": "Error in retrieving state logs."
   },
   "stateLogFileName": {
-    "message": "MetaMask state logs"
+    "message": "Taquin state logs"
   },
   "stateLogs": {
     "message": "State logs"

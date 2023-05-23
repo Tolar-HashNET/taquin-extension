@@ -171,7 +171,7 @@ export default class AdvancedTab extends PureComponent {
         <div className="settings-page__content-item">
           <div className="settings-page__content-item-col">
             <Button
-              type="secondary"
+              type="primary"
               large
               onClick={() => {
                 window.logStateString((err, result) => {
@@ -752,19 +752,19 @@ export default class AdvancedTab extends PureComponent {
       <div className="settings-page__body">
         {warning ? <div className="settings-tab__error">{warning}</div> : null}
         {this.renderStateLogs()}
-        {this.renderMobileSync()}
-        {this.renderResetAccount()}
-        {this.renderAdvancedGasInputInline()}
+        {/* {this.renderMobileSync()} */}
+        {/* {this.renderResetAccount()} */}
+        {/* {this.renderAdvancedGasInputInline()} */}
         {this.renderHexDataOptIn()}
-        {this.renderShowConversionInTestnets()}
-        {this.renderToggleTestNetworks()}
-        {this.renderUseNonceOptIn()}
+        {/* {this.renderShowConversionInTestnets()}
+        {this.renderToggleTestNetworks()} */}
+        {/* {this.renderUseNonceOptIn()} */}
         {this.renderAutoLockTimeLimit()}
-        {this.renderUserDataBackup()}
+        {/* {this.renderUserDataBackup()}
         {this.renderRestoreUserData()}
-        {notUsingFirefox ? this.renderLedgerLiveControl() : null}
-        {this.renderDismissSeedBackupReminderControl()}
-        {this.renderToggleEthSignControl()}
+        {notUsingFirefox ? this.renderLedgerLiveControl() : null} */}
+        {/* {this.renderDismissSeedBackupReminderControl()} */}
+        {/* {this.renderToggleEthSignControl()} */}
       </div>
     );
   }

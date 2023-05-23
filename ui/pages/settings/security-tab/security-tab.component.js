@@ -487,7 +487,7 @@ export default class SecurityTab extends PureComponent {
         <div className="settings-page__content-padded">
           {this.renderSeedWords()}
         </div>
-        <span className="settings-page__security-tab-sub-header__bold">
+        {/* <span className="settings-page__security-tab-sub-header__bold">
           {this.context.t('privacy')}
         </span>
         <div>
@@ -523,7 +523,7 @@ export default class SecurityTab extends PureComponent {
         </span>
         <div className="settings-page__content-padded">
           {this.renderMetaMetricsOptIn()}
-        </div>
+        </div> */}
       </div>
     );
   }

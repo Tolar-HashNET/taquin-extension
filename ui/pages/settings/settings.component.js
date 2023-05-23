@@ -146,7 +146,7 @@ class SettingsPage extends PureComponent {
             />
           </div>
 
-          <div className="settings-page__header__search">
+          {/* <div className="settings-page__header__search">
             <SettingsSearch
               onSearch={({ searchQuery = '', results = [] }) => {
                 this.setState({
@@ -163,7 +163,7 @@ class SettingsPage extends PureComponent {
                 onClickSetting={(setting) => this.handleClickSetting(setting)}
               />
             )}
-          </div>
+          </div> */}
         </div>
 
         <div className="settings-page__content">
@@ -290,21 +290,21 @@ class SettingsPage extends PureComponent {
         icon: <i className="fa fa-lock" />,
         key: SECURITY_ROUTE,
       },
-      {
-        content: t('alerts'),
-        icon: <Icon name={ICON_NAMES.NOTIFICATION} />,
-        key: ALERTS_ROUTE,
-      },
+      // {
+      //   content: t('alerts'),
+      //   icon: <Icon name={ICON_NAMES.NOTIFICATION} />,
+      //   key: ALERTS_ROUTE,
+      // },
       {
         content: t('networks'),
         icon: <i className="fa fa-plug" />,
         key: NETWORKS_ROUTE,
       },
-      {
-        content: t('experimental'),
-        icon: <i className="fa fa-flask" />,
-        key: EXPERIMENTAL_ROUTE,
-      },
+      // {
+      //   content: t('experimental'),
+      //   icon: <i className="fa fa-flask" />,
+      //   key: EXPERIMENTAL_ROUTE,
+      // },
       {
         content: t('about'),
         icon: <i className="fa fa-info-circle" />,
