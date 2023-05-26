@@ -53,7 +53,7 @@ export default class InfoTab extends PureComponent {
         <div ref={this.settingsRefs[1]} className="info-tab__link-header">
           {t('links')}
         </div>
-        <div ref={this.settingsRefs[2]} className="info-tab__link-item">
+        {/* <div ref={this.settingsRefs[2]} className="info-tab__link-item">
           <Button
             type="link"
             href="https://metamask.io/privacy.html"
@@ -125,11 +125,11 @@ export default class InfoTab extends PureComponent {
           >
             {t('supportCenter')}
           </Button>
-        </div>
+        </div> */}
         <div ref={this.settingsRefs[6]} className="info-tab__link-item">
           <Button
             type="link"
-            href="https://metamask.io/"
+            href="https://tolar.io/"
             target="_blank"
             rel="noopener noreferrer"
             className="info-tab__link-text"
@@ -140,24 +140,25 @@ export default class InfoTab extends PureComponent {
         <div ref={this.settingsRefs[7]} className="info-tab__link-item">
           <Button
             type="link"
-            href={SUPPORT_REQUEST_LINK}
+            // href={SUPPORT_REQUEST_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="info-tab__link-text"
-            onClick={() => {
-              this.context.trackEvent(
-                {
-                  category: EVENT.CATEGORIES.SETTINGS,
-                  event: EVENT_NAMES.SUPPORT_LINK_CLICKED,
-                  properties: {
-                    url: SUPPORT_REQUEST_LINK,
-                  },
-                },
-                {
-                  contextPropsIntoEventProperties: [CONTEXT_PROPS.PAGE_TITLE],
-                },
-              );
-            }}
+            href="mailto:info@tolar.io"
+            // onClick={() => {
+            //   this.context.trackEvent(
+            //     {
+            //       category: EVENT.CATEGORIES.SETTINGS,
+            //       event: EVENT_NAMES.SUPPORT_LINK_CLICKED,
+            //       properties: {
+            //         url: SUPPORT_REQUEST_LINK,
+            //       },
+            //     },
+            //     {
+            //       contextPropsIntoEventProperties: [CONTEXT_PROPS.PAGE_TITLE],
+            //     },
+            //   );
+            // }}
           >
             {t('contactUs')}
           </Button>
@@ -173,12 +174,19 @@ export default class InfoTab extends PureComponent {
       <div className="settings-page__body">
         <div className="settings-page__content-row">
           <div className="settings-page__content-item settings-page__content-item--without-height">
+            <div className="info-tab__logo-wrapper">
+              <img
+                src="images/icon-128.png"
+                className="info-tab__logo"
+                alt="Taquin Logo"
+              />
+            </div>
             <div className="info-tab__item">
               <div
                 ref={this.settingsRefs[0]}
                 className="info-tab__version-header"
               >
-                {isBeta() ? t('betaMetamaskVersion') : t('metamaskVersion')}
+                Version
               </div>
               <div className="info-tab__version-number">
                 {this.state.version}
@@ -189,13 +197,6 @@ export default class InfoTab extends PureComponent {
             </div>
           </div>
           {this.renderInfoLinks()}
-        </div>
-        <div className="info-tab__logo-wrapper">
-          <img
-            src="./images/logo/metamask-fox.svg"
-            className="info-tab__logo"
-            alt="MetaMask Logo"
-          />
         </div>
       </div>
     );

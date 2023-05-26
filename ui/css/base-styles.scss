@@ -47,10 +47,12 @@ html {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--color-background-alternative);
+  background: $tolar-dark;
+  background-color: $tolar-dark;
 
   @include screen-sm-max {
-    background-color: var(--color-background-default);
+    // background-color: var(--color-background-default);
+    background: $tolar-dark;
   }
 }
 /* stylelint-enable */

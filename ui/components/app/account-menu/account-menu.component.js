@@ -237,6 +237,7 @@ export default class AccountMenu extends Component {
               data-testid="account-menu__balance"
               value={identity.balance}
               type={PRIMARY}
+              diameter={18}
             />
           </div>
           <KeyRingLabel keyring={keyring} />
@@ -392,7 +393,7 @@ export default class AccountMenu extends Component {
           }
           text={t('importAccount')}
         />
-        <AccountMenuItem
+        {/* <AccountMenuItem
           onClick={() => {
             toggleAccountMenu();
             trackEvent({
@@ -416,7 +417,7 @@ export default class AccountMenu extends Component {
             />
           }
           text={t('connectHardwareWallet')}
-        />
+        /> */}
         <div className="account-menu__divider" />
         {
           ///: BEGIN:ONLY_INCLUDE_IN(flask)
@@ -442,7 +443,7 @@ export default class AccountMenu extends Component {
           </>
           ///: END:ONLY_INCLUDE_IN
         }
-        <AccountMenuItem
+        {/* <AccountMenuItem
           onClick={() => {
             trackEvent(
               {
@@ -465,7 +466,7 @@ export default class AccountMenu extends Component {
             />
           }
           text={supportText}
-        />
+        /> */}
 
         <AccountMenuItem
           onClick={() => {

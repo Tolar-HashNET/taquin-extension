@@ -15,9 +15,9 @@
     position: absolute;
     width: 328px;
     max-height: 94vh;
-    box-shadow: var(--shadow-size-lg) var(--color-shadow-default);
-    border-radius: 10px;
-    background: var(--color-background-default);
+    // box-shadow: var(--shadow-size-lg) var(--color-shadow-default);
+    background: $tolar-dark;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   &-header {

@@ -7,9 +7,11 @@ import {
   BUTTON_SECONDARY_SIZES,
 } from '../../../components/component-library';
 import Box from '../../../components/ui/box/box';
+// import { Button } from '../../../components/ui/button';
 import { DISPLAY } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import * as actions from '../../../store/actions';
+import Button from '../../../components/ui/button';
 
 BottomButtons.propTypes = {
   importAccountFunc: PropTypes.func.isRequired,
@@ -25,7 +27,24 @@ export default function BottomButtons({
 
   return (
     <Box display={DISPLAY.FLEX} gap={4}>
-      <ButtonSecondary
+      <Button
+        type="secondary"
+        onClick={() => {
+          dispatch(actions.hideWarning());
+          window.history.back();
+        }}
+      >
+        {t('cancel')}
+      </Button>
+
+      <Button
+        type="primary"
+        onClick={importAccountFunc}
+        disabled={isPrimaryDisabled}
+      >
+        {t('import')}
+      </Button>
+      {/* <ButtonSecondary
         onClick={() => {
           dispatch(actions.hideWarning());
           window.history.back();
@@ -34,15 +53,15 @@ export default function BottomButtons({
         block
       >
         {t('cancel')}
-      </ButtonSecondary>
-      <ButtonPrimary
+      </ButtonSecondary> */}
+      {/* <ButtonPrimary
         onClick={importAccountFunc}
         disabled={isPrimaryDisabled}
         size={BUTTON_SECONDARY_SIZES.LG}
         block
       >
         {t('import')}
-      </ButtonPrimary>
+      </ButtonPrimary> */}
     </Box>
   );
 }

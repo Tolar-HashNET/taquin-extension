@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useCurrencyDisplay } from '../../../hooks/useCurrencyDisplay';
 import { EtherDenomination } from '../../../../shared/constants/common';
+import Identicon from '../identicon/identicon.component';
 
 export default function CurrencyDisplay({
   value,
@@ -18,6 +19,7 @@ export default function CurrencyDisplay({
   denomination,
   currency,
   suffix,
+  diameter,
 }) {
   const [title, parts] = useCurrencyDisplay(value, {
     displayValue,
@@ -36,9 +38,13 @@ export default function CurrencyDisplay({
       style={style}
       title={(!hideTitle && title) || null}
     >
-      {/* <span className="currency-display-component__prefix">
-        {prefixComponent}
-      </span> */}
+      <span className="currency-display-component__prefix">
+        <Identicon
+          image="./images/tolar-logo-white.svg"
+          diameter={diameter ?? 32}
+        />
+        {/* {prefixComponent} */}
+      </span>
       <span className="currency-display-component__text">
         {/* {parts.prefix} */}
         {parts.value}
@@ -70,4 +76,5 @@ CurrencyDisplay.propTypes = {
   style: PropTypes.object,
   suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   value: PropTypes.string,
+  diameter: PropTypes.number,
 };

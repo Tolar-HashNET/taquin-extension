@@ -29,11 +29,11 @@ export default function MenuBar() {
 
   return (
     <div className="menu-bar">
-      {showStatus ? (
+      {/* {showStatus ? (
         <ConnectedStatusIndicator
           onClick={() => history.push(CONNECTED_ACCOUNTS_ROUTE)}
         />
-      ) : null}
+      ) : null} */}
       <SelectedAccount />
       <span style={{ display: 'inherit' }} ref={ref}>
         <ButtonIcon

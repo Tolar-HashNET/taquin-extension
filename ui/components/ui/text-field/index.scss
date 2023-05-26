@@ -1,6 +1,12 @@
 .MuiInput-input,
 .MuiInputBase-input {
   color: var(--color-text-default) !important;
+
+
+}
+
+.TextField-materialUnderline-3::after {
+  border: 1px solid $tolar-action !important;
 }
 
 .MuiFormHelperText-root.Mui-error {

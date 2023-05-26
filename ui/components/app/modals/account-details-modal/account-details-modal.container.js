@@ -23,6 +23,7 @@ const mapStateToProps = (state) => {
     rpcPrefs: getRpcPrefsForCurrentProvider(state),
     accounts: getMetaMaskAccountsOrdered(state),
     blockExplorerLinkText: getBlockExplorerLinkText(state, true),
+    network: state.metamask.provider.type,
   };
 };
 

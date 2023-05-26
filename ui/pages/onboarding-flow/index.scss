@@ -10,7 +10,7 @@
 @import 'metametrics/index';
 
 .onboarding-flow {
-  background-color: var(--color-background-default);
+  background-color: $tolar-dark;
   padding: 0 16px;
   width: 100%;
 
@@ -18,8 +18,8 @@
     margin: 24px auto;
     padding: 32px 16px;
     max-width: 600px;
-    border: 1px solid var(--color-border-muted);
-    border-radius: 24px;
+    // border: 1px solid rgba(255, 255, 255, 0.1);
+    // border-radius: 24px;
 
     @include screen-sm-min {
       margin: 64px auto 40px;

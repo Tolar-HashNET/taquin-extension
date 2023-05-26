@@ -30,8 +30,8 @@ import ConvertTokenToNftModal from './convert-token-to-nft-modal/convert-token-t
 const modalContainerBaseStyle = {
   transform: 'translate3d(-50%, 0, 0px)',
   border: '1px solid var(--color-border-default)',
-  borderRadius: '8px',
-  backgroundColor: 'var(--color-background-default)',
+  // borderRadius: '8px',
+  backgroundColor: '$tolar-bg',
   boxShadow: 'var(--shadow-size-sm) var(--color-shadow-default)',
 };
 
@@ -52,7 +52,6 @@ const accountModalStyle = {
     width: '95%',
     // top: isPopupOrNotification() === 'popup' ? '52vh' : '36.5vh',
     boxShadow: 'var(--shadow-size-xs) var(--color-shadow-default)',
-    borderRadius: '4px',
     top: '10%',
     transform: 'none',
     left: '0',
@@ -63,7 +62,6 @@ const accountModalStyle = {
     width: '335px',
     // top: 'calc(33% + 45px)',
     boxShadow: 'var(--shadow-size-xs) var(--color-shadow-default)',
-    borderRadius: '4px',
     top: '10%',
     transform: 'none',
     left: '0',
@@ -71,7 +69,7 @@ const accountModalStyle = {
     margin: '0 auto',
   },
   contentStyle: {
-    borderRadius: '4px',
+    // borderRadius: '4px',
   },
 };
 
@@ -90,7 +88,7 @@ const MODALS = {
       left: '0',
       right: '0',
       margin: '0 auto',
-      borderRadius: '10px',
+      // borderRadius: '10px',
     },
     laptopModalStyle: {
       width: '375px',
@@ -100,10 +98,10 @@ const MODALS = {
       left: '0',
       right: '0',
       margin: '0 auto',
-      borderRadius: '10px',
+      // borderRadius: '10px',
     },
     contentStyle: {
-      borderRadius: '10px',
+      // borderRadius: '10px',
     },
   },
 
@@ -126,7 +124,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -156,7 +154,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -169,7 +167,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -182,7 +180,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -195,7 +193,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -220,7 +218,7 @@ const MODALS = {
       position: 'relative',
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -234,7 +232,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -247,7 +245,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -260,7 +258,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 
@@ -273,7 +271,7 @@ const MODALS = {
       ...modalContainerLaptopStyle,
     },
     contentStyle: {
-      borderRadius: '8px',
+      // borderRadius: '8px',
     },
   },
 

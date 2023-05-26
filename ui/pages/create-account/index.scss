@@ -2,8 +2,8 @@
 
 .new-account {
   width: 375px;
-  background-color: var(--color-background-default);
-  box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
+  background-color: $tolar-bg;
+  // box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
   z-index: 25;
   height: unset;
   overflow: auto;
@@ -17,9 +17,9 @@
     position: absolute;
   }
 
-  .bottom-border-1px {
-    border-width: 0 0 1px 0;
-  }
+  // .bottom-border-1px {
+  //   border-width: 0 0 1px 0;
+  // }
 }
 
 
@@ -41,12 +41,13 @@
 
     height: 54px;
     width: 315.84px;
-    border: 1px solid var(--color-border-muted);
-    border-radius: 4px;
-    background-color: var(--color-background-default);
-    color: var(--color-text-default);
+    border: 1px solid $tolar-border;
+    // border-radius: 4px;
+    background-color: $tolar-bg;
+    color: $tolar-light;
     margin-top: 15px;
     padding: 0 20px;
+    transition: border 0.2s ease-in-out;
 
     &__error {
       border: 1px solid var(--color-error-alternative);
@@ -55,6 +56,10 @@
     &::placeholder {
       color: var(--color-text-muted);
       opacity: 1;
+    }
+
+    &:focus, &:active {
+      border: 1px solid $tolar-action;
     }
   }
 

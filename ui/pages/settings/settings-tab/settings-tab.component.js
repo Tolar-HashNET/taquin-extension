@@ -133,7 +133,7 @@ export default class SettingsTab extends PureComponent {
             {currentLocaleName}
           </span>
         </div>
-        <div className="settings-page__content-item">
+        {/* <div className="settings-page__content-item">
           <div className="settings-page__content-item-col">
             <Dropdown
               data-testid="locale-select"
@@ -143,7 +143,7 @@ export default class SettingsTab extends PureComponent {
               onChange={async (newLocale) => updateCurrentLocale(newLocale)}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -393,12 +393,12 @@ export default class SettingsTab extends PureComponent {
     return (
       <div className="settings-page__body">
         {warning ? <div className="settings-tab__error">{warning}</div> : null}
-        {this.renderCurrentConversion()}
-        {this.renderUsePrimaryCurrencyOptions()}
+        {/* {this.renderCurrentConversion()} */}
+        {/* {this.renderUsePrimaryCurrencyOptions()} */}
         {this.renderCurrentLocale()}
-        {this.renderTheme()}
+        {/* {this.renderTheme()} */}
         {this.renderBlockieOptIn()}
-        {this.renderHideZeroBalanceTokensOptIn()}
+        {/* {this.renderHideZeroBalanceTokensOptIn()} */}
       </div>
     );
   }

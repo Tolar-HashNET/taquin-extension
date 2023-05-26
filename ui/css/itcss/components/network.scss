@@ -48,8 +48,8 @@
 }
 
 .network-droppo {
-  background-color: var(--color-background-default);
-  border-radius: 4px;
+  background-color: $tolar-bg;
+  // border-radius: 4px;
   right: 2px;
 
   .color-indicator {

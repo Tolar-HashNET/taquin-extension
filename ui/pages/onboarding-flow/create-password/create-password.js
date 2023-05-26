@@ -27,7 +27,7 @@ import {
   twoStepStages,
 } from '../../../components/app/step-progress-bar';
 import { PASSWORD_MIN_LENGTH } from '../../../helpers/constants/common';
-import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
+// import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import { getFirstTimeFlowType, getCurrentKeyring } from '../../../selectors';
 import { FIRST_TIME_FLOW_TYPES } from '../../../helpers/constants/onboarding';
 import { MetaMetricsContext } from '../../../contexts/metametrics';
@@ -242,19 +242,7 @@ export default function CreatePassword({
                 variant={TypographyVariant.H5}
                 boxProps={{ marginLeft: 3 }}
               >
-                {t('passwordTermsWarning', [
-                  <a
-                    onClick={(e) => e.stopPropagation()}
-                    key="create-password__link-text"
-                    href={ZENDESK_URLS.PASSWORD_ARTICLE}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="create-password__link-text">
-                      {t('learnMoreUpperCase')}
-                    </span>
-                  </a>,
-                ])}
+                {t('passwordTermsWarning')}
               </Typography>
             </label>
           </Box>

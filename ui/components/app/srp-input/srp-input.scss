@@ -70,3 +70,13 @@
     grid-area: too-many-words-error;
   }
 }
+
+.TextField-inputRoot-12 {
+  border-radius: 0 !important;
+  background: $tolar-bg-dark !important;
+  color: $tolar-light !important;
+
+  &:active, &:focus {
+    border: 1px solid $tolar-action !important;
+  }
+}

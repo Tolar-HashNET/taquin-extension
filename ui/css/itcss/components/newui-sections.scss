@@ -60,7 +60,7 @@
     width: 85vw;
     margin-bottom: 10vh;
     min-height: 90vh;
-    box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
+    // box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
   }
 }
 
@@ -68,7 +68,7 @@
   .main-container {
     width: 80vw;
     min-height: 82vh;
-    box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
+    // box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
   }
 }
 
@@ -76,7 +76,7 @@
   .main-container {
     width: 62vw;
     min-height: 82vh;
-    box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
+    // box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
   }
 }
 
@@ -92,7 +92,7 @@
   .main-container {
     width: 100%;
     overflow-y: auto;
-    background-color: var(--color-background-default);
+    background-color: $tolar-bg;
   }
 
   .main-container-wrapper {

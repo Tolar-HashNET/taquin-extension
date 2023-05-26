@@ -18,7 +18,7 @@ ul.two-steps {
   list-style-type: none;
   position: relative;
   text-align: center;
-  color: var(--color-text-alternative);
+  color: $tolar-light;
   z-index: 2;
   align-items: center;
   display: flex;
@@ -32,14 +32,14 @@ ul.two-steps {
   content: counter(step);
   counter-increment: step;
   line-height: 30px;
-  border: 2px solid var(--color-border-muted);
+  border: 2px solid $tolar-light;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   margin: 0 auto 10px auto;
   border-radius: 50%;
-  background-color: var(--color-background-default);
+  background-color: transparent;
 }
 
 .progressbar li::after {
@@ -47,7 +47,7 @@ ul.two-steps {
   height: 2px;
   content: '';
   position: absolute;
-  background-color: var(--color-background-alternative);
+  background-color: $tolar-light;
   top: 15px;
   left: $progress-bar-position-left;
 
@@ -56,7 +56,7 @@ ul.two-steps {
     height: 2px;
     content: '';
     position: absolute;
-    background-color: var(--color-background-alternative);
+    background-color: $tolar-light;
   }
 }
 
@@ -69,40 +69,40 @@ ul.two-steps {
 }
 
 .progressbar li.active {
-  color: var(--color-primary-default);
+  color: $tolar-action;
 
   [dir='rtl'] & {
-    color: var(--color-primary-default);
+    color: $tolar-action;
   }
 }
 
 .progressbar li.active::before {
-  border-color: var(--color-primary-default);
+  border-color: $tolar-action;
   z-index: 1;
 
   [dir='rtl'] & {
-    border-color: var(--color-primary-default);
+    border-color: $tolar-action;
     z-index: 1;
   }
 }
 
 .progressbar li.complete + li::after {
-  background-color: var(--color-primary-default);
+  background-color: $tolar-action;
   z-index: -1;
 
   [dir='rtl'] & {
-    background-color: var(--color-primary-default);
+    background-color: $tolar-action;
     z-index: -1;
   }
 }
 
 .progressbar li.complete::before {
-  background-color: var(--color-primary-default);
-  color: var(--color-primary-inverse);
+  background-color: $tolar-action;
+  color: $tolar-light;
 
   [dir='rtl'] & {
-    background-color: var(--color-primary-default);
-    color: var(--color-primary-inverse);
+    background-color: $tolar-action;
+    color: $tolar-light;
   }
 }
 

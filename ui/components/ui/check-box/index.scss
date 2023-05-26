@@ -1,7 +1,7 @@
 .check-box {
   -webkit-appearance: none;
   appearance: none;
-  background: var(--color-background-default);
+  background: transparent;
   color: var(--color-icon-muted);
   width: 18px;
   height: 18px;
@@ -12,8 +12,8 @@
 
   &__checked,
   &__indeterminate {
-    color: var(--color-primary-default);
-    border-color: var(--color-primary-default);
+    color: $tolar-action;
+    border-color: $tolar-action;
   }
 
   &:disabled {

@@ -8,7 +8,7 @@
 
 .settings-page {
   position: relative;
-  background: var(--color-background-default);
+  background: $tolar-dark;
   display: flex;
   flex-flow: column nowrap;
 
@@ -27,7 +27,7 @@
     position: relative;
 
     @include screen-sm-max {
-      background: var(--color-background-alternative);
+      background: $tolar-bg;
     }
 
     &__title-container {

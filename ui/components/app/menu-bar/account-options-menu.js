@@ -77,11 +77,7 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
       onHide={onClose}
     >
       <MenuItem
-        onClick={
-          blockExplorerLinkText.firstPart === 'addBlockExplorer'
-            ? routeToAddBlockExplorerUrl
-            : openBlockExplorer
-        }
+        onClick={openBlockExplorer}
         // subtitle={
         //   blockExplorerUrlSubTitle ? (
         //     <span className="account-options-menu__explorer-origin">
@@ -91,12 +87,7 @@ export default function AccountOptionsMenu({ anchorElement, onClose }) {
         // }
         iconName={ICON_NAMES.EXPORT}
       >
-        {t(
-          blockExplorerLinkText.firstPart,
-          blockExplorerLinkText.secondPart === ''
-            ? null
-            : [t(blockExplorerLinkText.secondPart)],
-        )}
+        Explorer
       </MenuItem>
       {getEnvironmentType() === ENVIRONMENT_TYPE_FULLSCREEN ? null : (
         <MenuItem
