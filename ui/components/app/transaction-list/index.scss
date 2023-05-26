@@ -48,6 +48,11 @@
     margin: 16px auto;
     max-width: 200px;
   }
+
+  &__no-transactions {
+    padding: 20px;
+    text-align: center;
+  }
 }
 
 .transaction {

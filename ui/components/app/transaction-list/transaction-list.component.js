@@ -30,7 +30,7 @@ export default function TransactionList({
   return (
     <div className="transaction-list">
       <div className="transaction-list__transactions">
-        {tolarTransactions.length > 0 && (
+        {tolarTransactions.length > 0 ? (
           <div className="transaction-list__pending-transactions">
             {transactions.map((transaction) => (
               <SmartTransactionListItem
@@ -39,6 +39,10 @@ export default function TransactionList({
               />
             ))}
           </div>
+        ) : (
+          <p className="transaction-list__no-transactions">
+            {t('noTransactions')}
+          </p>
         )}
 
         {tolarTransactions.length > limit && (

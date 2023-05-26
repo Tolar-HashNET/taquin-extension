@@ -103,6 +103,21 @@
   "SIWEWarningTitle": {
     "message": "Are you sure?"
   },
+  "TaquinConnectStatusParagraphOne": {
+    "message": "You now have more control over your account connections in Taquin."
+  },
+  "TaquinConnectStatusParagraphThree": {
+    "message": "Click it to manage your connected accounts."
+  },
+  "TaquinConnectStatusParagraphTwo": {
+    "message": "The connection status button shows if the website you’re visiting is connected to your currently selected account."
+  },
+  "TaquinSwapsOfflineDescription": {
+    "message": "Taquin Swaps is undergoing maintenance. Please check back later."
+  },
+  "TaquinVersion": {
+    "message": "Taquin Version"
+  },
   "about": {
     "message": "About"
   },
@@ -118,8 +133,7 @@
     "message": "Access your wallet with your Secret Recovery Phrase"
   },
   "accessYourWalletWithSRPDescription": {
-    "message": "MetaMask cannot recover your password. We will use your Secret Recovery Phrase to validate your ownership, restore your wallet and set up a new password. First, enter the Secret Recovery Phrase that you were given when you created your wallet. $1",
-    "description": "$1 is the words 'Learn More' from key 'learnMore', separated here so that it can be added as a link"
+    "message": "Taquin cannot recover your password. We will use your Secret Recovery Phrase to validate your ownership, restore your wallet and set up a new password. First, enter the Secret Recovery Phrase that you were given when you created your wallet."
   },
   "accessingYourCamera": {
     "message": "Accessing your camera..."
@@ -172,7 +186,7 @@
     "message": "Add a nickname"
   },
   "addAcquiredTokens": {
-    "message": "Add the tokens you've acquired using MetaMask"
+    "message": "Add the tokens you've acquired using Taquin"
   },
   "addAlias": {
     "message": "Add alias"
@@ -200,10 +214,10 @@
     "description": "$1 is a blockchain explorer for a specific network, e.g. Etherscan for Ethereum"
   },
   "addEthereumChainConfirmationDescription": {
-    "message": "This will allow this network to be used within MetaMask."
+    "message": "This will allow this network to be used within Taquin."
   },
   "addEthereumChainConfirmationRisks": {
-    "message": "MetaMask does not verify custom networks."
+    "message": "Taquin does not verify custom networks."
   },
   "addEthereumChainConfirmationRisksLearnMore": {
     "message": "Learn about $1.",
@@ -350,19 +364,19 @@
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "Taquin",
     "description": "The name of the application"
   },
   "appNameBeta": {
-    "message": "MetaMask Beta",
+    "message": "Taquin Beta",
     "description": "The name of the application (Beta)"
   },
   "appNameFlask": {
-    "message": "MetaMask Flask",
+    "message": "Taquin Flask",
     "description": "The name of the application (Flask)"
   },
   "appNameMmi": {
-    "message": "MetaMask Institutional",
+    "message": "Taquin Institutional",
     "description": "The name of the application (MMI)"
   },
   "approve": {
@@ -445,7 +459,7 @@
     "message": "Auto-lock timer (minutes)"
   },
   "autoLockTimeLimitDescription": {
-    "message": "Set the idle time in minutes before MetaMask will become locked."
+    "message": "Set the idle time in minutes before Taquin will become locked."
   },
   "average": {
     "message": "Average"
@@ -460,7 +474,7 @@
     "message": "Backup"
   },
   "backupApprovalInfo": {
-    "message": "This secret code is required to recover your wallet in case you lose your device, forget your password, have to re-install MetaMask, or want to access your wallet on another device."
+    "message": "This secret code is required to recover your wallet in case you lose your device, forget your password, have to re-install Taquin, or want to access your wallet on another device."
   },
   "backupApprovalNotice": {
     "message": "Backup your Secret Recovery Phrase to keep your wallet and funds secure."
@@ -496,17 +510,17 @@
     "message": "This is a beta version. Please report bugs $1",
     "description": "$1 represents the word 'here' in a hyperlink"
   },
-  "betaMetamaskVersion": {
-    "message": "MetaMask Beta Version"
+  "betaTaquinVersion": {
+    "message": "Taquin Beta Version"
   },
   "betaTerms": {
     "message": "Beta Terms of use"
   },
   "betaWalletCreationSuccessReminder1": {
-    "message": "MetaMask Beta can’t recover your Secret Recovery Phrase."
+    "message": "Taquin Beta can’t recover your Secret Recovery Phrase."
   },
   "betaWalletCreationSuccessReminder2": {
-    "message": "MetaMask Beta will never ask you for your Secret Recovery Phrase."
+    "message": "Taquin Beta will never ask you for your Secret Recovery Phrase."
   },
   "blockExplorerAccountAction": {
     "message": "Account",
@@ -543,7 +557,7 @@
     "message": "Build your contact list"
   },
   "builtAroundTheWorld": {
-    "message": "MetaMask is designed and built around the world."
+    "message": "Taquin is designed and built around the world."
   },
   "busy": {
     "message": "Busy"
@@ -615,7 +629,7 @@
     "description": "$1 is a link to the privacy policy"
   },
   "chromeRequiredForHardwareWallets": {
-    "message": "You need to use MetaMask on Google Chrome in order to connect to your Hardware Wallet."
+    "message": "You need to use Taquin on Google Chrome in order to connect to your Hardware Wallet."
   },
   "clear": {
     "message": "Clear"
@@ -677,7 +691,7 @@
   },
   "connectTo": {
     "message": "Connect to $1",
-    "description": "$1 is the name/origin of a web3 site/application that the user can connect to metamask"
+    "description": "$1 is the name/origin of a web3 site/application that the user can connect to Taquin"
   },
   "connectToAll": {
     "message": "Connect to all your $1",
@@ -695,8 +709,8 @@
     "message": "$1 accounts",
     "description": "$1 is the number of accounts to which the web3 site/application is asking to connect; this will substitute $1 in connectToMultiple"
   },
-  "connectWithMetaMask": {
-    "message": "Connect with MetaMask"
+  "connectWithTaquin": {
+    "message": "Connect with Taquin"
   },
   "connectedAccountsDescriptionPlural": {
     "message": "You have $1 accounts connected to this site.",
@@ -706,7 +720,7 @@
     "message": "You have 1 account connected to this site."
   },
   "connectedAccountsEmptyDescription": {
-    "message": "MetaMask is not connected to this site. To connect to a web3 site, find and click the connect button."
+    "message": "Taquin is not connected to this site. To connect to a web3 site, find and click the connect button."
   },
   "connectedSites": {
     "message": "Connected sites"
@@ -788,7 +802,7 @@
     "message": "Token contract"
   },
   "convertTokenToNFTDescription": {
-    "message": "We've detected that this asset is an NFT. MetaMask now has full native support for NFTs. Would you like to remove it from your token list and add it as an NFT?"
+    "message": "We've detected that this asset is an NFT. Taquin now has full native support for NFTs. Would you like to remove it from your token list and add it as an NFT?"
   },
   "convertTokenToNFTExistDescription": {
     "message": "We’ve detected that this asset has been added as an NFT. Would you like to remove it from your token list?"
@@ -952,11 +966,11 @@
     "message": "$1 would like to read this message to complete your action",
     "description": "$1 is the web3 site name"
   },
-  "decryptMetamask": {
-    "message": "Decrypt message"
-  },
   "decryptRequest": {
     "message": "Decrypt request"
+  },
+  "decryptTaquin": {
+    "message": "Decrypt message"
   },
   "delete": {
     "message": "Delete"
@@ -983,22 +997,22 @@
     "message": "Description"
   },
   "desktopConnectionCriticalErrorDescription": {
-    "message": "This error could be intermittent, so try restarting the extension or disable MetaMask Desktop."
+    "message": "This error could be intermittent, so try restarting the extension or disable Taquin Desktop."
   },
   "desktopConnectionCriticalErrorTitle": {
-    "message": "MetaMask had trouble starting"
+    "message": "Taquin had trouble starting"
   },
   "desktopConnectionLostErrorDescription": {
-    "message": "Please make sure you have the desktop app up and running or disable MetaMask Desktop."
+    "message": "Please make sure you have the desktop app up and running or disable Taquin Desktop."
   },
   "desktopConnectionLostErrorTitle": {
-    "message": "MetaMask Desktop connection was lost"
+    "message": "Taquin Desktop connection was lost"
   },
   "desktopDisableButton": {
     "message": "Disable Desktop App"
   },
   "desktopDisableErrorCTA": {
-    "message": "Disable MetaMask Desktop"
+    "message": "Disable Taquin Desktop"
   },
   "desktopEnableButton": {
     "message": "Enable Desktop App"
@@ -1010,52 +1024,52 @@
     "message": "Return to Settings Page"
   },
   "desktopErrorRestartMMCTA": {
-    "message": "Restart MetaMask"
+    "message": "Restart Taquin"
   },
   "desktopNotFoundErrorCTA": {
-    "message": "Download MetaMask Desktop"
+    "message": "Download Taquin Desktop"
   },
   "desktopNotFoundErrorDescription1": {
     "message": "Please make sure you have the desktop app up and running."
   },
   "desktopNotFoundErrorDescription2": {
-    "message": "If you have no desktop app installed, please download it on the MetaMask website."
+    "message": "If you have no desktop app installed, please download it on the Taquin website."
   },
   "desktopNotFoundErrorTitle": {
-    "message": "MetaMask Desktop was not found"
+    "message": "Taquin Desktop was not found"
   },
   "desktopOpenOrDownloadCTA": {
-    "message": "Open MetaMask Desktop"
+    "message": "Open Taquin Desktop"
   },
   "desktopOutdatedErrorCTA": {
-    "message": "Update MetaMask Desktop"
+    "message": "Update Taquin Desktop"
   },
   "desktopOutdatedErrorDescription": {
-    "message": "Your MetaMask desktop app needs to be upgraded."
+    "message": "Your Taquin desktop app needs to be upgraded."
   },
   "desktopOutdatedErrorTitle": {
-    "message": "MetaMask Desktop is outdated"
+    "message": "Taquin Desktop is outdated"
   },
   "desktopOutdatedExtensionErrorCTA": {
-    "message": "Update MetaMask Extension"
+    "message": "Update Taquin Extension"
   },
   "desktopOutdatedExtensionErrorDescription": {
-    "message": "Your MetaMask extension needs to be upgraded."
+    "message": "Your Taquin extension needs to be upgraded."
   },
   "desktopOutdatedExtensionErrorTitle": {
-    "message": "MetaMask Extension is outdated"
+    "message": "Taquin Extension is outdated"
   },
   "desktopPageDescription": {
     "message": "If the pairing is successful, extension will restart and you'll have to re-enter your password."
   },
   "desktopPageSubTitle": {
-    "message": "Open your MetaMask Desktop and type this code"
+    "message": "Open your Taquin Desktop and type this code"
   },
   "desktopPageTitle": {
     "message": "Pair with Desktop"
   },
   "desktopPairedWarningDeepLink": {
-    "message": "Go to Settings in MetaMask Desktop"
+    "message": "Go to Settings in Taquin Desktop"
   },
   "desktopPairedWarningDescription": {
     "message": "If you want to start a new pairing, please remove the current connection."
@@ -1073,10 +1087,10 @@
     "message": "desktopRouteNotFoundErrorTitle"
   },
   "desktopUnexpectedErrorCTA": {
-    "message": "Return MetaMask Home"
+    "message": "Return Taquin Home"
   },
   "desktopUnexpectedErrorDescription": {
-    "message": "Check your MetaMask Desktop to restore connection"
+    "message": "Check your Taquin Desktop to restore connection"
   },
   "desktopUnexpectedErrorTitle": {
     "message": "Something went wrong..."
@@ -1319,7 +1333,7 @@
     "description": "Message displayed on generic error page in the popup UI, $1 is a clickable link with text defined by the 'here' key. The link will open to a form where users can file support tickets."
   },
   "errorPageTitle": {
-    "message": "MetaMask encountered an error",
+    "message": "Taquin encountered an error",
     "description": "Title of generic error page"
   },
   "errorStack": {
@@ -1345,7 +1359,7 @@
     "message": "View on Etherscan"
   },
   "expandExperience": {
-    "message": "Expand your web3 experience with MetaMask Snaps"
+    "message": "Expand your web3 experience with Taquin Snaps"
   },
   "expandView": {
     "message": "Expand view"
@@ -1410,15 +1424,15 @@
   },
   "flaskWelcomeWarning2": {
     "message": "We do not guarantee the safety or stability of this extension. The new APIs offered by Flask are not hardened against phishing attacks, meaning that any site or snap that requires Flask might be a malicious attempt to steal your assets.",
-    "description": "This explains the risks of using MetaMask Flask"
+    "description": "This explains the risks of using Taquin Flask"
   },
   "flaskWelcomeWarning3": {
-    "message": "All Flask APIs are experimental. They may be changed or removed without notice, or they might stay on Flask indefinitely without ever being migrated to stable MetaMask. Use them at your own risk.",
+    "message": "All Flask APIs are experimental. They may be changed or removed without notice, or they might stay on Flask indefinitely without ever being migrated to stable Taquin. Use them at your own risk.",
     "description": "This message warns developers about unstable Flask APIs"
   },
   "flaskWelcomeWarning4": {
-    "message": "Make sure to disable your regular MetaMask extension when using Flask.",
-    "description": "This message calls to pay attention about multiple versions of MetaMask running on the same site (Flask + Prod)"
+    "message": "Make sure to disable your regular Taquin extension when using Flask.",
+    "description": "This message calls to pay attention about multiple versions of Taquin running on the same site (Flask + Prod)"
   },
   "flaskWelcomeWarningAcceptButton": {
     "message": "I accept the risks",
@@ -1581,7 +1595,7 @@
     "message": "Connect a hardware wallet"
   },
   "hardwareWalletsMsg": {
-    "message": "Select a hardware wallet you'd like to use with MetaMask."
+    "message": "Select a hardware wallet you'd like to use with Taquin."
   },
   "here": {
     "message": "here",
@@ -1641,7 +1655,7 @@
     "description": "$1 is a message from 'holdToRevealContent4' and $2 is a text link with the message from 'holdToRevealContent5'"
   },
   "holdToRevealContent4": {
-    "message": "MetaMask Support will not request this,",
+    "message": "Taquin Support will not request this,",
     "description": "Part of 'holdToRevealContent3'"
   },
   "holdToRevealContent5": {
@@ -1677,13 +1691,13 @@
     "message": "This is not a valid private key. You must enter a hexadecimal string of length 64."
   },
   "importAccountJsonLoading1": {
-    "message": "Expect this JSON import to take a few minutes and freeze MetaMask."
+    "message": "Expect this JSON import to take a few minutes and freeze Taquin."
   },
   "importAccountJsonLoading2": {
     "message": "We apologize, and we will make it faster in the future."
   },
   "importAccountMsg": {
-    "message": "Imported accounts won’t be associated with your MetaMask Secret Recovery Phrase. Learn more about imported accounts"
+    "message": "Imported accounts won’t be associated with your Taquin Secret Recovery Phrase."
   },
   "importMyWallet": {
     "message": "Import my wallet"
@@ -1733,7 +1747,7 @@
     "message": "in your Settings"
   },
   "infuraBlockedNotification": {
-    "message": "MetaMask is unable to connect to the blockchain host. Review possible reasons $1.",
+    "message": "Taquin is unable to connect to the blockchain host. Review possible reasons $1.",
     "description": "$1 is a clickable link with with text defined by the 'here' key"
   },
   "initialTransactionConfirmed": {
@@ -1902,7 +1916,7 @@
     "message": "Open and unlock Ledger Live App"
   },
   "ledgerConnectionPreferenceDescription": {
-    "message": "Customize how you connect your Ledger to MetaMask. $1 is recommended, but other options are available. Read more here: $2",
+    "message": "Customize how you connect your Ledger to Taquin. $1 is recommended, but other options are available. Read more here: $2",
     "description": "A description that appears above a dropdown where users can select between up to three options - Ledger Live, U2F or WebHID - depending on what is supported in their browser. $1 is the recommended browser option, it will be either WebHID or U2f. $2 is a link to an article where users can learn more, but will be the translation of the learnMore message."
   },
   "ledgerDeviceOpenFailureMessage": {
@@ -1910,7 +1924,7 @@
   },
   "ledgerLive": {
     "message": "Ledger Live",
-    "description": "The name of a desktop app that can be used with your ledger device. We can also use it to connect a users Ledger device to MetaMask."
+    "description": "The name of a desktop app that can be used with your ledger device. We can also use it to connect a users Ledger device to Taquin."
   },
   "ledgerLiveApp": {
     "message": "Ledger Live App"
@@ -2025,21 +2039,6 @@
   "message": {
     "message": "Message"
   },
-  "metaMaskConnectStatusParagraphOne": {
-    "message": "You now have more control over your account connections in MetaMask."
-  },
-  "metaMaskConnectStatusParagraphThree": {
-    "message": "Click it to manage your connected accounts."
-  },
-  "metaMaskConnectStatusParagraphTwo": {
-    "message": "The connection status button shows if the website you’re visiting is connected to your currently selected account."
-  },
-  "metamaskSwapsOfflineDescription": {
-    "message": "MetaMask Swaps is undergoing maintenance. Please check back later."
-  },
-  "metamaskVersion": {
-    "message": "MetaMask Version"
-  },
   "metrics": {
     "message": "Metrics"
   },
@@ -2076,7 +2075,7 @@
     "message": "Don't see your token?"
   },
   "mobileSyncWarning": {
-    "message": "The 'Sync with extension' feature is temporarily disabled. If you want to use your extension wallet on MetaMask mobile, then on your mobile app: go back to the wallet setup options and select the 'Import with Secret Recovery Phrase' option. Use your extension wallet's secret phrase to then import your wallet into mobile."
+    "message": "The 'Sync with extension' feature is temporarily disabled. If you want to use your extension wallet on Taquin mobile, then on your mobile app: go back to the wallet setup options and select the 'Import with Secret Recovery Phrase' option. Use your extension wallet's secret phrase to then import your wallet into mobile."
   },
   "moreComingSoon": {
     "message": "More coming soon..."
@@ -2102,7 +2101,7 @@
     "message": "Share your feedback"
   },
   "needHelpLinkText": {
-    "message": "MetaMask support"
+    "message": "Taquin support"
   },
   "needHelpSubmitTicket": {
     "message": "Submit a ticket"
@@ -2205,7 +2204,7 @@
     "message": "New contract"
   },
   "newNFTDetectedMessage": {
-    "message": "Allow MetaMask to automatically detect NFTs from Opensea and display in your wallet."
+    "message": "Allow Taquin to automatically detect NFTs from Opensea and display in your wallet."
   },
   "newNFTsDetected": {
     "message": "New! NFT detection"
@@ -2234,7 +2233,7 @@
   },
   "nextNonceWarning": {
     "message": "Nonce is higher than suggested nonce of $1",
-    "description": "The next nonce according to MetaMask's internal logic"
+    "description": "The next nonce according to Taquin's internal logic"
   },
   "nftAddFailedMessage": {
     "message": "NFT can’t be added as the ownership details do not match. Make sure you have entered correct information."
@@ -2244,7 +2243,7 @@
     "description": "$1 is a clickable link with text defined by the 'importNFTPage' key"
   },
   "nftDisclaimer": {
-    "message": "Disclaimer: MetaMask pulls the media file from the source url. This url sometimes is changed by the marketplace the NFT was minted on."
+    "message": "Disclaimer: Taquin pulls the media file from the source url. This url sometimes is changed by the marketplace the NFT was minted on."
   },
   "nftOptions": {
     "message": "NFT Options"
@@ -2421,19 +2420,19 @@
     "message": "See your NFTs like never before"
   },
   "notifications1Description": {
-    "message": "MetaMask Mobile users can now swap tokens inside their mobile wallet. Scan the QR code to get the mobile app and start swapping.",
+    "message": "Taquin Mobile users can now swap tokens inside their mobile wallet. Scan the QR code to get the mobile app and start swapping.",
     "description": "Description of a notification in the 'See What's New' popup. Describes the swapping on mobile feature."
   },
   "notifications1Title": {
     "message": "Swapping on mobile is here!",
-    "description": "Title for a notification in the 'See What's New' popup. Tells users that they can now use MetaMask Swaps on Mobile."
+    "description": "Title for a notification in the 'See What's New' popup. Tells users that they can now use Taquin Swaps on Mobile."
   },
   "notifications3ActionText": {
     "message": "Read more",
-    "description": "The 'call to action' on the button, or link, of the 'Stay secure' notification. Upon clicking, users will be taken to a page about security on the metamask support website."
+    "description": "The 'call to action' on the button, or link, of the 'Stay secure' notification. Upon clicking, users will be taken to a page about security on the Taquin support website."
   },
   "notifications3Description": {
-    "message": "Stay up to date on MetaMask security best practices and get the latest security tips from official MetaMask support.",
+    "message": "Stay up to date on Taquin security best practices and get the latest security tips from official Taquin support.",
     "description": "Description of a notification in the 'See What's New' popup. Describes the information they can get on security from the linked support page."
   },
   "notifications3Title": {
@@ -2445,7 +2444,7 @@
     "description": "The 'call to action' on the button, or link, of the 'Swap on Binance Smart Chain!' notification. Upon clicking, users will be taken to a page where then can swap tokens on Binance Smart Chain."
   },
   "notifications4Description": {
-    "message": "Get the best prices on token swaps right inside your wallet. MetaMask now connects you to multiple decentralized exchange aggregators and professional market makers on Binance Smart Chain.",
+    "message": "Get the best prices on token swaps right inside your wallet. Taquin now connects you to multiple decentralized exchange aggregators and professional market makers on Binance Smart Chain.",
     "description": "Description of a notification in the 'See What's New' popup."
   },
   "notifications4Title": {
@@ -2457,11 +2456,11 @@
     "description": "Description of a notification in the 'See What's New' popup. Describes the seed phrase wording update."
   },
   "notifications6DescriptionOne": {
-    "message": "As of Chrome version 91, the API that enabled our Ledger support (U2F) no longer supports hardware wallets. MetaMask has implemented a new Ledger Live support that allows you to continue to connect to your Ledger device via the Ledger Live desktop app.",
+    "message": "As of Chrome version 91, the API that enabled our Ledger support (U2F) no longer supports hardware wallets. Taquin has implemented a new Ledger Live support that allows you to continue to connect to your Ledger device via the Ledger Live desktop app.",
     "description": "Description of a notification in the 'See What's New' popup. Describes the Ledger support update."
   },
   "notifications6DescriptionThree": {
-    "message": "When interacting with your Ledger account in MetaMask, a new tab will open and you will be asked to open the Ledger Live app.  Once the app opens, you'll be asked to allow a WebSocket connection to your MetaMask account.  That's all!",
+    "message": "When interacting with your Ledger account in Taquin, a new tab will open and you will be asked to open the Ledger Live app.  Once the app opens, you'll be asked to allow a WebSocket connection to your Taquin account.  That's all!",
     "description": "Description of a notification in the 'See What's New' popup. Describes the Ledger support update."
   },
   "notifications6DescriptionTwo": {
@@ -2473,7 +2472,7 @@
     "description": "Title for a notification in the 'See What's New' popup. Lets users know about the Ledger support update"
   },
   "notifications7DescriptionOne": {
-    "message": "MetaMask v10.1.0 included new support for EIP-1559 transactions when using Ledger devices.",
+    "message": "Taquin v10.1.0 included new support for EIP-1559 transactions when using Ledger devices.",
     "description": "Description of a notification in the 'See What's New' popup. Describes changes for ledger and EIP1559 in v10.1.0"
   },
   "notifications7DescriptionTwo": {
@@ -2489,7 +2488,7 @@
     "description": "Description on an action button that appears in the What's New popup. Tells the user that if they click it, they will go to our Advanced settings page."
   },
   "notifications8DescriptionOne": {
-    "message": "As of MetaMask v10.4.0, you no longer need Ledger Live to connect your Ledger device to MetaMask.",
+    "message": "As of Taquin v10.4.0, you no longer need Ledger Live to connect your Ledger device to Taquin.",
     "description": "Description of a notification in the 'See What's New' popup. Describes changes for how Ledger Live is no longer needed to connect the device."
   },
   "notifications8DescriptionTwo": {
@@ -2581,16 +2580,16 @@
     "message": "This data is aggregated and is therefore anonymous for the purposes of General Data Protection Regulation (EU) 2016/679."
   },
   "onboardingMetametricsDescription": {
-    "message": "MetaMask would like to gather usage data to better understand how our users interact with MetaMask. This data will be used to provide the service, which includes improving the service based on your use."
+    "message": "Taquin would like to gather usage data to better understand how our users interact with Taquin. This data will be used to provide the service, which includes improving the service based on your use."
   },
   "onboardingMetametricsDescription2": {
-    "message": "MetaMask will..."
+    "message": "Taquin will..."
   },
   "onboardingMetametricsDisagree": {
     "message": "No thanks"
   },
   "onboardingMetametricsInfuraTerms": {
-    "message": "* When you use Infura as your default RPC provider in MetaMask, Infura will collect your IP address and your Ethereum wallet address when you send a transaction. We don’t store this information in a way that allows our systems to associate those two pieces of data. For more information on how MetaMask and Infura interact from a data collection perspective, see our update $1. For more information on our privacy practices in general, see our $2.",
+    "message": "* When you use Infura as your default RPC provider in Taquin, Infura will collect your IP address and your Ethereum wallet address when you send a transaction. We don’t store this information in a way that allows our systems to associate those two pieces of data. For more information on how Taquin and Infura interact from a data collection perspective, see our update $1. For more information on our privacy practices in general, see our $2.",
     "description": "$1 represents `onboardingMetametricsInfuraTermsPolicyLink`, $2 represents `onboardingMetametricsInfuraTermsPolicy`"
   },
   "onboardingMetametricsInfuraTermsPolicy": {
@@ -2621,7 +2620,7 @@
     "message": "Send anonymized click and pageview events"
   },
   "onboardingMetametricsTitle": {
-    "message": "Help us improve MetaMask"
+    "message": "Help us improve Taquin"
   },
   "onboardingPinExtensionBillboardAccess": {
     "message": "Full access"
@@ -2639,16 +2638,16 @@
     "message": "Click the browser extension icon"
   },
   "onboardingPinExtensionDescription": {
-    "message": "Pin MetaMask on your browser so it's accessible and easy to view transaction confirmations."
+    "message": "Pin Taquin on your browser so it's accessible and easy to view transaction confirmations."
   },
   "onboardingPinExtensionDescription2": {
-    "message": "You can open MetaMask by clicking on the extension and access your wallet with 1 click."
+    "message": "You can open Taquin by clicking on the extension and access your wallet with 1 click."
   },
   "onboardingPinExtensionDescription3": {
     "message": "Click browser extension icon to access it instantly"
   },
   "onboardingPinExtensionLabel": {
-    "message": "Pin MetaMask"
+    "message": "Pin Taquin"
   },
   "onboardingPinExtensionStep1": {
     "message": "1"
@@ -2657,7 +2656,7 @@
     "message": "2"
   },
   "onboardingPinExtensionTitle": {
-    "message": "Your MetaMask install is complete!"
+    "message": "Your Taquin install is complete!"
   },
   "onboardingShowIncomingTransactionsDescription": {
     "message": "Showing incoming transactions in your wallet relies on communication with $1. Etherscan will have access to your Ethereum address and your IP address. View $2.",
@@ -2674,8 +2673,8 @@
     "message": "Only connect with sites you trust."
   },
   "openFullScreenForLedgerWebHid": {
-    "message": "Open MetaMask in full screen to connect your ledger via WebHID.",
-    "description": "Shown to the user on the confirm screen when they are viewing MetaMask in a popup window but need to connect their ledger via webhid."
+    "message": "Open Taquin in full screen to connect your ledger via WebHID.",
+    "description": "Shown to the user on the confirm screen when they are viewing Taquin in a popup window but need to connect their ledger via webhid."
   },
   "openInBlockExplorer": {
     "message": "Open in block explorer"
@@ -2715,7 +2714,7 @@
     "description": "Used in the 'permission_rpc' message."
   },
   "outdatedBrowserNotification": {
-    "message": "Your browser is out of date. If you don't update your browser, you won't be able to get security patches and new features from MetaMask."
+    "message": "Your browser is out of date. If you don't update your browser, you won't be able to get security patches and new features from Taquin."
   },
   "padlock": {
     "message": "Padlock"
@@ -2727,7 +2726,7 @@
     "message": "Participate in MetaMetrics"
   },
   "participateInMetaMetricsDescription": {
-    "message": "Participate in MetaMetrics to help us make MetaMask better"
+    "message": "Participate in MetaMetrics to help us make Taquin better"
   },
   "password": {
     "message": "Password"
@@ -2736,7 +2735,7 @@
     "message": "Password not long enough"
   },
   "passwordSetupDetails": {
-    "message": "This password will unlock your MetaMask wallet only on this device. MetaMask can not recover this password."
+    "message": "This password will unlock your Taquin wallet only on this device. Taquin can not recover this password."
   },
   "passwordStrength": {
     "message": "Password strength: $1",
@@ -2746,7 +2745,7 @@
     "message": "A strong password can improve the security of your wallet should your device be stolen or compromised."
   },
   "passwordTermsWarning": {
-    "message": "I understand that MetaMask cannot recover this password for me. $1"
+    "message": "I understand that Taquin cannot recover this password for me."
   },
   "passwordsDontMatch": {
     "message": "Passwords don't match"
@@ -2809,19 +2808,19 @@
     "description": "An extended description for the `snap_cronjob` permission"
   },
   "permission_customConfirmation": {
-    "message": "Display a confirmation in MetaMask.",
+    "message": "Display a confirmation in Taquin.",
     "description": "The description for the `snap_confirm` permission"
   },
   "permission_customConfirmationDescription": {
-    "message": "Allow the snap to display MetaMask popups with custom text, and buttons to approve or reject an action.",
+    "message": "Allow the snap to display Taquin popups with custom text, and buttons to approve or reject an action.",
     "description": "An extended description for the `snap_confirm` permission"
   },
   "permission_dialog": {
-    "message": "Display dialog windows in MetaMask.",
+    "message": "Display dialog windows in Taquin.",
     "description": "The description for the `snap_dialog` permission"
   },
   "permission_dialogDescription": {
-    "message": "Allow the snap to display MetaMask popups with custom text, input field, and buttons to approve or reject an action.\nCan be used to create e.g. alerts, confirmations, and opt-in flows for a snap.",
+    "message": "Allow the snap to display Taquin popups with custom text, input field, and buttons to approve or reject an action.\nCan be used to create e.g. alerts, confirmations, and opt-in flows for a snap.",
     "description": "An extended description for the `snap_dialog` permission"
   },
   "permission_ethereumAccounts": {
@@ -2833,7 +2832,7 @@
     "description": "The description for the `endowment:ethereum-provider` permission"
   },
   "permission_ethereumProviderDescription": {
-    "message": "Allow the snap to communicate with MetaMask directly, in order for it to read data from the blockchain and suggest messages and transactions.",
+    "message": "Allow the snap to communicate with Taquin directly, in order for it to read data from the blockchain and suggest messages and transactions.",
     "description": "An extended description for the `endowment:ethereum-provider` permission"
   },
   "permission_getEntropy": {
@@ -2841,7 +2840,7 @@
     "description": "The description for the `snap_getEntropy` permission"
   },
   "permission_getEntropyDescription": {
-    "message": "Allow the snap to derive arbitrary keys unique to this snap, without exposing them. These keys are separate from your MetaMask account(s) and not related to your private keys or Secret Recovery Phrase. Other snaps cannot access this information.",
+    "message": "Allow the snap to derive arbitrary keys unique to this snap, without exposing them. These keys are separate from your Taquin account(s) and not related to your private keys or Secret Recovery Phrase. Other snaps cannot access this information.",
     "description": "An extended description for the `snap_getEntropy` permission"
   },
   "permission_longRunning": {
@@ -2885,7 +2884,7 @@
     "description": "The description for the `snap_notify` permission"
   },
   "permission_notificationsDescription": {
-    "message": "Allow the snap to display notifications within MetaMask. A short notification text can be triggered by a snap for actionable or time-sensitive information.",
+    "message": "Allow the snap to display notifications within Taquin. A short notification text can be triggered by a snap for actionable or time-sensitive information.",
     "description": "An extended description for the `snap_notify` permission"
   },
   "permission_rpc": {
@@ -2901,7 +2900,7 @@
     "description": "The description for the `endowment:transaction-insight` permission"
   },
   "permission_transactionInsightDescription": {
-    "message": "Allow the snap to decode transactions and show insights within the MetaMask UI. This can be used for anti-phishing and security solutions.",
+    "message": "Allow the snap to decode transactions and show insights within the Taquin UI. This can be used for anti-phishing and security solutions.",
     "description": "An extended description for the `endowment:transaction-insight` permission"
   },
   "permission_transactionInsightOrigin": {
@@ -3048,7 +3047,7 @@
     "message": "Never share your Secret Recovery Phrase with anyone"
   },
   "recoveryPhraseReminderItemTwo": {
-    "message": "The MetaMask team will never ask for your Secret Recovery Phrase"
+    "message": "The Taquin team will never ask for your Secret Recovery Phrase"
   },
   "recoveryPhraseReminderSubText": {
     "message": "Your Secret Recovery Phrase controls all of your accounts."
@@ -3145,7 +3144,7 @@
     "message": "Reset wallet"
   },
   "resetWalletSubHeader": {
-    "message": "MetaMask does not keep a copy of your password. If you’re having trouble unlocking your account, you will need to reset your wallet. You can do this by providing the Secret Recovery Phrase you used when you set up your wallet."
+    "message": "Taquin does not keep a copy of your password. If you’re having trouble unlocking your account, you will need to reset your wallet. You can do this by providing the Secret Recovery Phrase you used when you set up your wallet."
   },
   "resetWalletUsingSRP": {
     "message": "This action will delete your current wallet and Secret Recovery Phrase from this device, along with the list of accounts you’ve curated. After resetting with a Secret Recovery Phrase, you’ll see a list of accounts based on the Secret Recovery Phrase you use to reset. This new list will automatically include accounts that have a balance. You’ll also be able to $1 created previously. Custom accounts that you’ve imported will need to be $2, and any custom tokens you’ve added to an account will need to be $3 as well."
@@ -3153,8 +3152,8 @@
   "resetWalletWarning": {
     "message": "Make sure you’re using the correct Secret Recovery Phrase before proceeding. You will not be able to undo this."
   },
-  "restartMetamask": {
-    "message": "Restart MetaMask"
+  "restartTaquin": {
+    "message": "Restart Taquin"
   },
   "restore": {
     "message": "Restore"
@@ -3185,7 +3184,7 @@
     "description": "This is a sentence consisting of link using 'revealSeedWordsSRPName' as $1 and bolded text using 'revealSeedWordsDescription3' as $2."
   },
   "revealSeedWordsDescription2": {
-    "message": "MetaMask is a $1. That means you're the owner of your SRP.",
+    "message": "Taquin is a $1. That means you're the owner of your SRP.",
     "description": "$1 is text link with the message from 'revealSeedWordsNonCustodialWallet'"
   },
   "revealSeedWordsDescription3": {
@@ -3208,7 +3207,7 @@
     "description": "$1 is bolded text using the message from 'revealSeedWordsWarning2'"
   },
   "revealSeedWordsWarning2": {
-    "message": "MetaMask Support will never request this.",
+    "message": "Taquin Support will never request this.",
     "description": "The bolded texted in the second part of 'revealSeedWordsWarning'"
   },
   "revealTheSeedPhrase": {
@@ -3313,7 +3312,7 @@
     "message": "If someone asks for your recovery phrase they are likely trying to scam you and steal your wallet funds."
   },
   "seedPhraseIntroSidebarCopyTwo": {
-    "message": "Never, ever share your Secret Recovery Phrase, not even with MetaMask!"
+    "message": "Never, ever share your Secret Recovery Phrase, not even with Taquin!"
   },
   "seedPhraseIntroSidebarTitleOne": {
     "message": "What is a Secret Recovery Phrase?"
@@ -3349,7 +3348,7 @@
     "message": "Select an account"
   },
   "selectAnAccountAlreadyConnected": {
-    "message": "This account has already been connected to MetaMask"
+    "message": "This account has already been connected to Taquin"
   },
   "selectHdPath": {
     "message": "Select HD path"
@@ -3403,7 +3402,7 @@
     "message": "Sepolia test network"
   },
   "setAdvancedPrivacySettingsDetails": {
-    "message": "MetaMask uses these trusted third-party services to enhance product usability and safety."
+    "message": "Taquin uses these trusted third-party services to enhance product usability and safety."
   },
   "setApprovalForAll": {
     "message": "Set approval for all"
@@ -3707,7 +3706,7 @@
     "message": "Connect your Lattice1"
   },
   "step1LatticeWalletMsg": {
-    "message": "You can connect MetaMask to your Lattice1 device once it is set up and online. Unlock your device and have your Device ID ready.",
+    "message": "You can connect Taquin to your Lattice1 device once it is set up and online. Unlock your device and have your Device ID ready.",
     "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
   },
   "step1LedgerWallet": {
@@ -3762,7 +3761,7 @@
     "message": "Try your swap again. We’ll be here to protect you against similar risks next time."
   },
   "stxDescription": {
-    "message": "MetaMask Swaps just got a whole lot smarter! Enabling Smart Transactions will allow MetaMask to programmatically optimize your Swap to help:"
+    "message": "Taquin Swaps just got a whole lot smarter! Enabling Smart Transactions will allow Taquin to programmatically optimize your Swap to help:"
   },
   "stxErrorNotEnoughFunds": {
     "message": "Not enough funds for a smart transaction."
@@ -3775,7 +3774,7 @@
   },
   "stxFailureDescription": {
     "message": "Sudden market changes can cause failures. If the problem persists, please reach out to $1.",
-    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.metamask.io"
+    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.Taquin.io"
   },
   "stxPendingPrivatelySubmittingSwap": {
     "message": "Privately submitting your Swap..."
@@ -3884,7 +3883,7 @@
     "message": "Edit limit"
   },
   "swapEnableDescription": {
-    "message": "This is required and gives MetaMask permission to swap your $1.",
+    "message": "This is required and gives Taquin permission to swap your $1.",
     "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
   },
   "swapEnableTokenForSwapping": {
@@ -3899,7 +3898,7 @@
   },
   "swapFailedErrorDescriptionWithSupportLink": {
     "message": "Transaction failures happen and we are here to help. If this issue persists, you can reach our customer support at $1 for further assistance.",
-    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.metamask.io"
+    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.Taquin.io"
   },
   "swapFailedErrorTitle": {
     "message": "Swap failed"
@@ -3934,28 +3933,21 @@
     "message": "Gas fees on the previous screen are split between these two transactions."
   },
   "swapGasFeesSummary": {
-    "message": "Gas fees are paid to crypto miners who process transactions on the $1 network. MetaMask does not profit from gas fees.",
+    "message": "Gas fees are paid to crypto miners who process transactions on the $1 network. Taquin does not profit from gas fees.",
     "description": "$1 is the selected network, e.g. Ethereum or BSC"
   },
   "swapHighSlippageWarning": {
     "message": "Slippage amount is very high."
   },
   "swapIncludesMMFee": {
-    "message": "Includes a $1% MetaMask fee.",
-    "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
+    "message": "Includes a $1% Taquin fee.",
+    "description": "Provides information about the fee that Taquin takes for swaps. $1 is a decimal number."
   },
   "swapLowSlippageError": {
     "message": "Transaction may fail, max slippage too low."
   },
   "swapMaxSlippage": {
     "message": "Max slippage"
-  },
-  "swapMetaMaskFee": {
-    "message": "MetaMask fee"
-  },
-  "swapMetaMaskFeeDescription": {
-    "message": "The fee of $1% is automatically factored into this quote. You pay it in exchange for a license to use MetaMask's liquidity provider information aggregation software.",
-    "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapNQuotesWithDot": {
     "message": "$1 quotes.",
@@ -4068,6 +4060,13 @@
   "swapSwapTo": {
     "message": "Swap to"
   },
+  "swapTaquinFee": {
+    "message": "Taquin fee"
+  },
+  "swapTaquinFeeDescription": {
+    "message": "The fee of $1% is automatically factored into this quote. You pay it in exchange for a license to use Taquin's liquidity provider information aggregation software.",
+    "description": "Provides information about the fee that Taquin takes for swaps. $1 is a decimal number."
+  },
   "swapToConfirmWithHwWallet": {
     "message": "to confirm with your hardware wallet"
   },
@@ -4138,7 +4137,7 @@
     "message": "View in activity"
   },
   "switchEthereumChainConfirmationDescription": {
-    "message": "This will switch the selected network within MetaMask to a previously added network:"
+    "message": "This will switch the selected network within Taquin to a previously added network:"
   },
   "switchEthereumChainConfirmationTitle": {
     "message": "Allow this site to switch the network?"
@@ -4181,16 +4180,16 @@
     "message": "Make sure nobody else is looking at your screen when you scan this code"
   },
   "syncWithMobileComplete": {
-    "message": "Your data has been synced successfully. Enjoy the MetaMask mobile app!"
+    "message": "Your data has been synced successfully. Enjoy the Taquin mobile app!"
   },
   "syncWithMobileDesc": {
-    "message": "You can sync your accounts and information with your mobile device. Open the MetaMask mobile app, go to \"Settings\" and tap on \"Sync from Browser Extension\""
+    "message": "You can sync your accounts and information with your mobile device. Open the Taquin mobile app, go to \"Settings\" and tap on \"Sync from Browser Extension\""
   },
   "syncWithMobileDescNewUsers": {
-    "message": "If you just open the MetaMask Mobile app for the first time, just follow the steps in your phone."
+    "message": "If you just open the Taquin Mobile app for the first time, just follow the steps in your phone."
   },
   "syncWithMobileScanThisCode": {
-    "message": "Scan this code with your MetaMask mobile app"
+    "message": "Scan this code with your Taquin mobile app"
   },
   "syncWithMobileTitle": {
     "message": "Sync with mobile"
@@ -4214,7 +4213,7 @@
     "message": "Theme"
   },
   "themeDescription": {
-    "message": "Choose your preferred MetaMask theme."
+    "message": "Choose your preferred Taquin theme."
   },
   "thingsToKeep": {
     "message": "Things to keep in mind:"
@@ -4334,7 +4333,7 @@
     "message": "Site suggested"
   },
   "transactionDetailDappGasTooltip": {
-    "message": "Edit to use MetaMask's recommended gas fee based on the latest block."
+    "message": "Edit to use Taquin's recommended gas fee based on the latest block."
   },
   "transactionDetailGasHeading": {
     "message": "Estimated gas fee"
@@ -4349,7 +4348,7 @@
     "message": "Gas fees are set by the network and fluctuate based on network traffic and transaction complexity."
   },
   "transactionDetailGasTooltipIntro": {
-    "message": "Gas fees are paid to crypto miners who process transactions on the $1 network. MetaMask does not profit from gas fees."
+    "message": "Gas fees are paid to crypto miners who process transactions on the $1 network. Taquin does not profit from gas fees."
   },
   "transactionDetailGasTotalSubtitle": {
     "message": "Amount + gas fee"
@@ -4428,7 +4427,7 @@
     "description": "$1 is the wallet device name; $2 is a link to wallet connection guide"
   },
   "troubleStarting": {
-    "message": "MetaMask had trouble starting. This error could be intermittent, so try restarting the extension."
+    "message": "Taquin had trouble starting. This error could be intermittent, so try restarting the extension."
   },
   "troubleTokenBalances": {
     "message": "We had trouble loading your token balances. You can view them ",
@@ -4453,14 +4452,14 @@
     "message": "Transaction insights not supported for this contract at this time."
   },
   "typePassword": {
-    "message": "Type your MetaMask password"
+    "message": "Type your Taquin password"
   },
   "typeYourSRP": {
     "message": "Type your Secret Recovery Phrase"
   },
   "u2f": {
     "message": "U2F",
-    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect MetaMask to Ledger devices."
+    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect Taquin to Ledger devices."
   },
   "unapproved": {
     "message": "Unapproved"
@@ -4628,10 +4627,10 @@
     "message": "You’ve successfully protected your wallet. Keep your Secret Recovery Phrase safe and secret -- it’s your responsibility!"
   },
   "walletCreationSuccessReminder1": {
-    "message": "MetaMask can’t recover your Secret Recovery Phrase."
+    "message": "Taquin can’t recover your Secret Recovery Phrase."
   },
   "walletCreationSuccessReminder2": {
-    "message": "MetaMask will never ask you for your Secret Recovery Phrase."
+    "message": "Taquin will never ask you for your Secret Recovery Phrase."
   },
   "walletCreationSuccessReminder3": {
     "message": "$1 with anyone or risk your funds being stolen",
@@ -4679,20 +4678,20 @@
     "message": "Explore decentralized apps"
   },
   "welcomeLoginDescription": {
-    "message": "Use your MetaMask to login to decentralized apps - no signup needed."
+    "message": "Use your Taquin to login to decentralized apps - no signup needed."
   },
   "welcomeLoginTitle": {
     "message": "Say hello to your wallet"
   },
-  "welcomeToMetaMask": {
+  "welcomeToTaquin": {
     "message": "Let's get started"
   },
-  "welcomeToMetaMaskIntro": {
+  "welcomeToTaquinIntro": {
     "message": "Fastest and most secure crypto wallet out there based on Hashnet."
   },
   "whatsNew": {
     "message": "What's new",
-    "description": "This is the title of a popup that gives users notifications about new features and updates to MetaMask."
+    "description": "This is the title of a popup that gives users notifications about new features and updates to Taquin."
   },
   "whatsThis": {
     "message": "What's this?"

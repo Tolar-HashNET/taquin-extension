@@ -1,10 +1,10 @@
 .asset {
   &__container {
-    background-color: var(--color-background-default);
+    background-color: $tolar-dark;
   }
 
   &__overview {
-    box-shadow: var(--shadow-size-xs) var(--color-shadow-default);
+    border-bottom: 1px solid $tolar-border;
   }
 }
 

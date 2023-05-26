@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { EVENT, EVENT_NAMES } from '../../../../shared/constants/metametrics';
-import { ButtonLink, Label, Text } from '../../../components/component-library';
+import { Label, Text } from '../../../components/component-library';
 import Box from '../../../components/ui/box';
 import Dropdown from '../../../components/ui/dropdown';
 import { MetaMetricsContext } from '../../../contexts/metametrics';
@@ -10,10 +10,10 @@ import {
   BorderColor,
   FONT_WEIGHT,
   JustifyContent,
-  Size,
+  // Size,
   TextVariant,
 } from '../../../helpers/constants/design-system';
-import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
+// import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { useRouting } from '../../../hooks/useRouting';
 import * as actions from '../../../store/actions';
@@ -124,15 +124,7 @@ export default function NewAccountImportForm() {
       >
         <Text variant={TextVariant.headingLg}>{t('importAccount')}</Text>
         <Text variant={TextVariant.bodySm} marginTop={2}>
-          {t('importAccountMsg')}{' '}
-          <ButtonLink
-            size={Size.inherit}
-            href={ZENDESK_URLS.IMPORTED_ACCOUNTS}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t('here')}
-          </ButtonLink>
+          {t('importAccountMsg')}
         </Text>
       </Box>
 
