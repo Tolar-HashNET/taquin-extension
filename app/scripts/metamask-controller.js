@@ -7,7 +7,7 @@ import { createEngineStream } from 'json-rpc-middleware-stream';
 import { providerAsMiddleware } from '@metamask/eth-json-rpc-middleware';
 import { debounce } from 'lodash';
 import {
-  KeyringController,
+  // KeyringController,
   keyringBuilderFactory,
 } from '@metamask/eth-keyring-controller';
 import createFilterMiddleware from 'eth-json-rpc-filters';
@@ -2424,10 +2424,9 @@ export default class MetamaskController extends EventEmitter {
    * Get an account balance from the AccountTracker or request it directly from the network.
    *
    * @param {string} address - The account address
-   * @param {EthQuery} ethQuery - The EthQuery instance to use when asking the network
    */
-  async getBalance(address, ethQuery) {
-    return new Promise((resolve, reject) => {
+  async getBalance(address) {
+    return new Promise((resolve) => {
       // const cached = this.accountTracker.store.getState().accounts[address];
 
       // if (cached && cached.balance) {
@@ -2933,10 +2932,9 @@ export default class MetamaskController extends EventEmitter {
   /**
    * Adds a new account to the default (first) HD seed phrase Keyring.
    *
-   * @param accountCount
    * @returns {} keyState
    */
-  async addNewAccount(accountCount) {
+  async addNewAccount() {
     const primaryKeyring =
       this.keyringController.getKeyringsByType('Tolar Keyring')[0];
 

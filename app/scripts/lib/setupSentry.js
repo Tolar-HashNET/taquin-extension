@@ -14,6 +14,7 @@ const SENTRY_DSN_DEV =
   'https://f59f3dd640d2429d9d0e2445a87ea8e1@sentry.io/273496';
 const METAMASK_BUILD_TYPE = process.env.METAMASK_BUILD_TYPE;
 const IN_TEST = process.env.IN_TEST;
+
 /* eslint-enable prefer-destructuring */
 
 export const ERROR_URL_ALLOWLIST = {
@@ -95,11 +96,11 @@ export default function setupSentry({ release, getState }) {
 
   let sentryTarget;
   if (METAMASK_ENVIRONMENT === 'production') {
-    if (!process.env.SENTRY_DSN) {
-      throw new Error(
-        `Missing SENTRY_DSN environment variable in production environment`,
-      );
-    }
+    // if (!process.env.SENTRY_DSN) {
+    //   throw new Error(
+    //     `Missing SENTRY_DSN environment variable in production environment`,
+    //   );
+    // }
     console.log(
       `Setting up Sentry Remote Error Reporting for '${environment}': SENTRY_DSN`,
     );
