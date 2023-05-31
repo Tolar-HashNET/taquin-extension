@@ -6,7 +6,8 @@ import { addHexPrefix } from '../../../../../app/scripts/lib/util';
 import { isValidDomainName } from '../../../../helpers/utils/util';
 import {
   isBurnAddress,
-  isValidHexAddress,
+  // isValidHexAddress,
+  isValidTolarAddress,
 } from '../../../../../shared/modules/hexstring-utils';
 import {
   ButtonIcon,
@@ -47,11 +48,9 @@ export default class DomainInput extends Component {
       const clipboardItem = event.clipboardData.items[0];
       clipboardItem?.getAsString((text) => {
         const input = text.trim();
-        if (
-          !isBurnAddress(input) &&
-          isValidHexAddress(input, { mixedCaseUseChecksum: true })
-        ) {
-          this.props.onPaste(addHexPrefix(input));
+        if (!isBurnAddress(input) && isValidTolarAddress(input)) {
+          // this.props.onPaste(addHexPrefix(input));
+          this.props.onPaste(input);
         }
       });
     }
@@ -80,9 +79,10 @@ export default class DomainInput extends Component {
       if (
         onValidAddressTyped &&
         !isBurnAddress(input) &&
-        isValidHexAddress(input, { mixedCaseUseChecksum: true })
+        isValidTolarAddress(input)
       ) {
         onValidAddressTyped(addHexPrefix(input));
+        onValidAddressTyped(input);
       }
     }
 

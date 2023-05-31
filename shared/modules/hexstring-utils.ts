@@ -56,6 +56,14 @@ export function isValidHexAddress(
   return isValidAddress(addressToCheck);
 }
 
+export function isValidTolarAddress(address: string) {
+  if (!/^54|^0x54/u.test(address)) {
+    return false;
+  }
+  const cleanAddress = address.replace(/^0x54/u, '');
+  return cleanAddress.length === 50;
+}
+
 export function toChecksumHexAddress(address: string) {
   if (!address) {
     // our internal checksumAddress function that this method replaces would

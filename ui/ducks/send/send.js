@@ -86,6 +86,7 @@ import {
   isBurnAddress,
   isValidHexAddress,
   toChecksumHexAddress,
+  isValidTolarAddress,
 } from '../../../shared/modules/hexstring-utils';
 import { isSmartContractAddress } from '../../helpers/utils/transactions.util';
 import fetchEstimatedL1Fee from '../../helpers/utils/optimism/fetchEstimatedL1Fee';
@@ -1339,7 +1340,7 @@ const slice = createSlice({
 
           if (
             isBurnAddress(state.recipientInput) ||
-            (!isValidHexAddress(state.recipientInput, {
+            (!isValidTolarAddress(state.recipientInput, {
               mixedCaseUseChecksum: true,
             }) &&
               !isValidDomainName(state.recipientInput))
@@ -1358,7 +1359,7 @@ const slice = createSlice({
             draftTransaction.recipient.error = null;
           }
           if (
-            (isValidHexAddress(state.recipientInput) &&
+            (isValidTolarAddress(state.recipientInput) &&
               (tokenAddressList.find((address) =>
                 isEqualCaseInsensitive(address, state.recipientInput),
               ) ||
@@ -1910,7 +1911,7 @@ export function updateRecipientUserInput(userInput) {
     const tokenMap = getTokenList(state);
     const tokenAddressList = Object.keys(tokenMap);
 
-    const inputIsValidHexAddress = isValidHexAddress(userInput);
+    const inputIsValidHexAddress = isValidTolarAddress(userInput);
     let isProbablyAnAssetContract = false;
     if (inputIsValidHexAddress) {
       const smartContractAddress = await isSmartContractAddress(userInput);
