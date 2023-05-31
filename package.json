@@ -1,16 +1,14 @@
 {
-  "name": "metamask-crx",
-  "version": "10.26.1",
+  "name": "taquin",
+  "version": "2.0.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MetaMask/metamask-extension.git"
-  },
   "scripts": {
     "start": "yarn build:dev dev --apply-lavamoat=false --snow=false",
     "start:lavamoat": "yarn build:dev dev --apply-lavamoat=true",
     "start:mv3": "ENABLE_MV3=true yarn build:dev dev --apply-lavamoat=false",
     "dist": "yarn build dist",
+    "dist:prod": "yarn build prod --apply-lavamoat=false",
+    "dist:prod:mv3": "ENABLE_MV3=true yarn build prod --apply-lavamoat=false",
     "build": "yarn lavamoat:build",
     "build:dev": "node development/build/index.js",
     "start:test": "SEGMENT_HOST='https://api.segment.io' SEGMENT_WRITE_KEY='FAKE' SENTRY_DSN_DEV=https://fake@sentry.io/0000000 PORTFOLIO_URL=http://127.0.0.1:8080 yarn build:dev testDev",

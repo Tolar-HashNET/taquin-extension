@@ -1,5 +1,5 @@
 {
-  "author": "https://metamask.io",
+  "author": "https://tolar.io",
   "background": {
     "page": "background.html",
     "persistent": true
@@ -14,7 +14,7 @@
       "128": "images/icon-128.png",
       "512": "images/icon-512.png"
     },
-    "default_title": "MetaMask",
+    "default_title": "Taquin",
     "default_popup": "popup.html"
   },
   "commands": {
@@ -53,7 +53,6 @@
     "19": "images/icon-19.png",
     "32": "images/icon-32.png",
     "38": "images/icon-38.png",
-    "48": "images/icon-48.png",
     "64": "images/icon-64.png",
     "128": "images/icon-128.png",
     "512": "images/icon-512.png"
@@ -65,10 +64,7 @@
     "unlimitedStorage",
     "clipboardWrite",
     "http://localhost:8545/",
-    "https://*.infura.io/",
-    "https://*.codefi.network/",
-    "https://chainid.network/chains.json",
-    "https://lattice.gridplus.io/*",
+    "https://*.tolar.io/",
     "activeTab",
     "webRequest",
     "*://*.eth/",

@@ -95,32 +95,32 @@ async function getProductionConfig(buildType) {
 
   const prodConfig = {
     ...ini.parse(prodConfigContents),
-    ...environmentVariables,
+    // ...environmentVariables,
   };
 
-  const requiredEnvironmentVariables = {
-    all: ['PUBNUB_PUB_KEY', 'PUBNUB_SUB_KEY', 'SENTRY_DSN'],
-    [BuildType.beta]: ['INFURA_BETA_PROJECT_ID', 'SEGMENT_BETA_WRITE_KEY'],
-    [BuildType.flask]: ['INFURA_FLASK_PROJECT_ID', 'SEGMENT_FLASK_WRITE_KEY'],
-    [BuildType.main]: ['INFURA_PROD_PROJECT_ID', 'SEGMENT_PROD_WRITE_KEY'],
-    [BuildType.mmi]: ['INFURA_MMI_PROJECT_ID', 'SEGMENT_MMI_WRITE_KEY'],
-  };
+  // const requiredEnvironmentVariables = {
+  //   all: ['PUBNUB_PUB_KEY', 'PUBNUB_SUB_KEY', 'SENTRY_DSN'],
+  //   [BuildType.beta]: ['INFURA_BETA_PROJECT_ID', 'SEGMENT_BETA_WRITE_KEY'],
+  //   [BuildType.flask]: ['INFURA_FLASK_PROJECT_ID', 'SEGMENT_FLASK_WRITE_KEY'],
+  //   [BuildType.main]: ['INFURA_PROD_PROJECT_ID', 'SEGMENT_PROD_WRITE_KEY'],
+  //   [BuildType.mmi]: ['INFURA_MMI_PROJECT_ID', 'SEGMENT_MMI_WRITE_KEY'],
+  // };
 
-  for (const required of [
-    ...requiredEnvironmentVariables.all,
-    ...requiredEnvironmentVariables[buildType],
-  ]) {
-    if (!prodConfig[required]) {
-      throw new Error(`Missing '${required}' environment variable`);
-    }
-  }
+  // for (const required of [
+  //   ...requiredEnvironmentVariables.all,
+  //   ...requiredEnvironmentVariables[buildType],
+  // ]) {
+  //   if (!prodConfig[required]) {
+  //     throw new Error(`Missing '${required}' environment variable`);
+  //   }
+  // }
 
-  const allValid = Object.values(requiredEnvironmentVariables).flat();
-  for (const environmentVariable of Object.keys(prodConfig)) {
-    if (!allValid.includes(environmentVariable)) {
-      throw new Error(`Invalid environment variable: '${environmentVariable}'`);
-    }
-  }
+  // const allValid = Object.values(requiredEnvironmentVariables).flat();
+  // for (const environmentVariable of Object.keys(prodConfig)) {
+  //   if (!allValid.includes(environmentVariable)) {
+  //     throw new Error(`Invalid environment variable: '${environmentVariable}'`);
+  //   }
+  // }
   return prodConfig;
 }
 
