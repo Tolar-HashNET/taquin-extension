@@ -19,28 +19,50 @@ export {
 };
 
 function isBalanceSufficient({
-  amount = '0x0',
-  balance = '0x0',
+  amount = '0',
+  balance = '0',
   conversionRate = 1,
-  gasTotal = '0x0',
+  gasTotal = '0',
   primaryCurrency,
 }) {
-  let totalAmount = new Numeric(amount, 16).add(new Numeric(gasTotal, 16));
-  let balanceNumeric = new Numeric(balance, 16);
+  const gasValue = 21000;
 
-  if (typeof primaryCurrency !== 'undefined' && primaryCurrency !== null) {
-    totalAmount = totalAmount.applyConversionRate(conversionRate);
-    balanceNumeric = balanceNumeric.applyConversionRate(conversionRate);
-  }
+  const normalizedAmount = amount === '0x0' ? '0' : amount;
+  const normalizedBalance = balance === '0x0' ? '0' : balance;
 
-  return balanceNumeric.greaterThanOrEqualTo(totalAmount);
+  return Number(normalizedAmount) + gasValue <= Number(normalizedBalance);
+
+  // const amountValue = Number(amount === '0x0' ? '0' : amount);
+  // const balanceValue = Number(parseTolarDisplay(balance).value);
+
+  // return balanceValue > amountValue;
+
+  // console.log(
+  //   parseTolarDisplay(balance) > Number(amountNormalized),
+  //   'ovo da vidimo',
+  // );
+
+  // const balanceValue = Number(balance);
+  // const amountValue = new BN(amountNormalized).mul(new BN(1e15)).toNumber();
+
+  // let totalAmount = new Numeric(amount, 16).add(new Numeric(gasTotal, 16));
+  // let balanceNumeric = new Numeric(balance, 16);
+
+  // if (typeof primaryCurrency !== 'undefined' && primaryCurrency !== null) {
+  //   totalAmount = totalAmount.applyConversionRate(conversionRate);
+  //   balanceNumeric = balanceNumeric.applyConversionRate(conversionRate);
+  // }
+
+  // return balanceNumeric.greaterThanOrEqualTo(totalAmount);
 }
 
-function isTokenBalanceSufficient({ amount = '0x0', tokenBalance, decimals }) {
-  const amountNumeric = new Numeric(amount, 16).shiftedBy(decimals);
-  const tokenBalanceNumeric = new Numeric(tokenBalance, 16);
+function isTokenBalanceSufficient({ amount = '0', tokenBalance, decimals }) {
+  return Number(tokenBalance) >= Number(amount);
 
-  return tokenBalanceNumeric.greaterThanOrEqualTo(amountNumeric);
+  // const amountNumeric = new Numeric(amount, 16).shiftedBy(decimals);
+  // const tokenBalanceNumeric = new Numeric(tokenBalance, 16);
+
+  // return tokenBalanceNumeric.greaterThanOrEqualTo(amountNumeric);
 }
 
 function addGasBuffer(

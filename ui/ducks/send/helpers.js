@@ -189,7 +189,7 @@ export function generateTransactionParams(sendState) {
       // is generated from the recipient address, token being sent and
       // amount.
       txParams.to = draftTransaction.asset.details.address;
-      txParams.value = '0x0';
+      txParams.value = '0';
       txParams.data = generateERC20TransferData({
         toAddress: draftTransaction.recipient.address,
         amount: draftTransaction.amount.value,
@@ -202,7 +202,7 @@ export function generateTransactionParams(sendState) {
       // is generated from the recipient address, token being sent and
       // amount.
       txParams.to = draftTransaction.asset.details.address;
-      txParams.value = '0x0';
+      txParams.value = '0';
       txParams.data = generateERC721TransferData({
         toAddress: draftTransaction.recipient.address,
         fromAddress:
@@ -230,13 +230,13 @@ export function generateTransactionParams(sendState) {
     txParams.maxFeePerGas = draftTransaction.gas.maxFeePerGas;
     txParams.maxPriorityFeePerGas = draftTransaction.gas.maxPriorityFeePerGas;
 
-    if (!txParams.maxFeePerGas || txParams.maxFeePerGas === '0x0') {
+    if (!txParams.maxFeePerGas || txParams.maxFeePerGas === '0') {
       txParams.maxFeePerGas = draftTransaction.gas.gasPrice;
     }
 
     if (
       !txParams.maxPriorityFeePerGas ||
-      txParams.maxPriorityFeePerGas === '0x0'
+      txParams.maxPriorityFeePerGas === '0'
     ) {
       txParams.maxPriorityFeePerGas = txParams.maxFeePerGas;
     }

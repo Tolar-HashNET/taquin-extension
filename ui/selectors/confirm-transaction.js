@@ -8,29 +8,29 @@ import {
 } from '../helpers/utils/confirm-tx.util';
 import { transactionMatchesNetwork } from '../../shared/modules/transaction.utils';
 import {
-  getGasEstimateType,
+  // getGasEstimateType,
   getGasFeeEstimates,
   getNativeCurrency,
 } from '../ducks/metamask/metamask';
-import { TransactionEnvelopeType } from '../../shared/constants/transaction';
+// import { TransactionEnvelopeType } from '../../shared/constants/transaction';
 import {
-  GasEstimateTypes,
+  // GasEstimateTypes,
   CUSTOM_GAS_ESTIMATE,
 } from '../../shared/constants/gas';
 import {
   getMaximumGasTotalInHexWei,
-  getMinimumGasTotalInHexWei,
+  // getMinimumGasTotalInHexWei,
 } from '../../shared/modules/gas.utils';
 import { isEqualCaseInsensitive } from '../../shared/modules/string-utils';
 import { calcTokenAmount } from '../../shared/lib/transactions-controller-utils';
 import {
   decGWEIToHexWEI,
   getValueFromWeiHex,
-  sumHexes,
+  // sumHexes,
 } from '../../shared/modules/conversion.utils';
-import { getAveragePriceEstimateInHexWEI } from './custom-gas';
+// import { getAveragePriceEstimateInHexWEI } from './custom-gas';
 import { getCurrentChainId, deprecatedGetCurrentNetworkId } from './selectors';
-import { checkNetworkAndAccountSupports1559 } from '.';
+// import { checkNetworkAndAccountSupports1559 } from '.';
 
 const unapprovedTxsSelector = (state) => state.metamask.unapprovedTxs;
 const unapprovedMsgsSelector = (state) => state.metamask.unapprovedMsgs;
@@ -264,62 +264,83 @@ export const transactionFeeSelector = function (state, txData) {
   const conversionRate = conversionRateSelector(state);
   const nativeCurrency = getNativeCurrency(state);
   const gasFeeEstimates = getGasFeeEstimates(state) || {};
-  const gasEstimateType = getGasEstimateType(state);
-  const networkAndAccountSupportsEIP1559 =
-    checkNetworkAndAccountSupports1559(state);
+  // const gasEstimateType = getGasEstimateType(state);
+  // const networkAndAccountSupportsEIP1559 =
+  //   checkNetworkAndAccountSupports1559(state);
 
   const gasEstimationObject = {
-    gasLimit: txData.txParams?.gas ?? '0x0',
+    gasLimit: txData.txParams?.gas ?? '21000',
   };
 
-  if (networkAndAccountSupportsEIP1559) {
-    const { gasPrice = '0' } = gasFeeEstimates;
-    const selectedGasEstimates = gasFeeEstimates[txData.userFeeLevel] || {};
-    if (txData.txParams?.type === TransactionEnvelopeType.legacy) {
-      gasEstimationObject.gasPrice =
-        txData.txParams?.gasPrice ?? decGWEIToHexWEI(gasPrice);
-    } else {
-      const { suggestedMaxPriorityFeePerGas, suggestedMaxFeePerGas } =
-        selectedGasEstimates;
-      gasEstimationObject.maxFeePerGas =
-        txData.txParams?.maxFeePerGas &&
-        (txData.userFeeLevel === CUSTOM_GAS_ESTIMATE || !suggestedMaxFeePerGas)
-          ? txData.txParams?.maxFeePerGas
-          : decGWEIToHexWEI(suggestedMaxFeePerGas || gasPrice);
-      gasEstimationObject.maxPriorityFeePerGas =
-        txData.txParams?.maxPriorityFeePerGas &&
-        (txData.userFeeLevel === CUSTOM_GAS_ESTIMATE ||
-          !suggestedMaxPriorityFeePerGas)
-          ? txData.txParams?.maxPriorityFeePerGas
-          : (suggestedMaxPriorityFeePerGas &&
-              decGWEIToHexWEI(suggestedMaxPriorityFeePerGas)) ||
-            gasEstimationObject.maxFeePerGas;
-      gasEstimationObject.baseFeePerGas = decGWEIToHexWEI(
-        gasFeeEstimates.estimatedBaseFee,
-      );
-    }
-  } else {
-    switch (gasEstimateType) {
-      case GasEstimateTypes.none:
-        gasEstimationObject.gasPrice = txData.txParams?.gasPrice ?? '0x0';
-        break;
-      case GasEstimateTypes.ethGasPrice:
-        gasEstimationObject.gasPrice =
-          txData.txParams?.gasPrice ??
-          decGWEIToHexWEI(gasFeeEstimates.gasPrice);
-        break;
-      case GasEstimateTypes.legacy:
-        gasEstimationObject.gasPrice =
-          txData.txParams?.gasPrice ?? getAveragePriceEstimateInHexWEI(state);
-        break;
-      case GasEstimateTypes.feeMarket:
-        break;
-      default:
-        break;
-    }
-  }
+  const { gasPrice = '0' } = gasFeeEstimates;
+  const selectedGasEstimates = gasFeeEstimates[txData.userFeeLevel] || {};
+  const { suggestedMaxPriorityFeePerGas, suggestedMaxFeePerGas } =
+    selectedGasEstimates;
+  gasEstimationObject.maxFeePerGas =
+    txData.txParams?.maxFeePerGas &&
+    (txData.userFeeLevel === CUSTOM_GAS_ESTIMATE || !suggestedMaxFeePerGas)
+      ? txData.txParams?.maxFeePerGas
+      : decGWEIToHexWEI(suggestedMaxFeePerGas || gasPrice);
+  gasEstimationObject.maxPriorityFeePerGas =
+    txData.txParams?.maxPriorityFeePerGas &&
+    (txData.userFeeLevel === CUSTOM_GAS_ESTIMATE ||
+      !suggestedMaxPriorityFeePerGas)
+      ? txData.txParams?.maxPriorityFeePerGas
+      : (suggestedMaxPriorityFeePerGas &&
+          decGWEIToHexWEI(suggestedMaxPriorityFeePerGas)) ||
+        gasEstimationObject.maxFeePerGas;
+  gasEstimationObject.baseFeePerGas = decGWEIToHexWEI(
+    gasFeeEstimates.estimatedBaseFee,
+  );
 
-  const { txParams: { value = '0x0' } = {} } = txData;
+  // if (networkAndAccountSupportsEIP1559) {
+  //   const { gasPrice = '0' } = gasFeeEstimates;
+  //   const selectedGasEstimates = gasFeeEstimates[txData.userFeeLevel] || {};
+  //   if (txData.txParams?.type === TransactionEnvelopeType.legacy) {
+  //     gasEstimationObject.gasPrice =
+  //       txData.txParams?.gasPrice ?? decGWEIToHexWEI(gasPrice);
+  //   } else {
+  //     const { suggestedMaxPriorityFeePerGas, suggestedMaxFeePerGas } =
+  //       selectedGasEstimates;
+  //     gasEstimationObject.maxFeePerGas =
+  //       txData.txParams?.maxFeePerGas &&
+  //       (txData.userFeeLevel === CUSTOM_GAS_ESTIMATE || !suggestedMaxFeePerGas)
+  //         ? txData.txParams?.maxFeePerGas
+  //         : decGWEIToHexWEI(suggestedMaxFeePerGas || gasPrice);
+  //     gasEstimationObject.maxPriorityFeePerGas =
+  //       txData.txParams?.maxPriorityFeePerGas &&
+  //       (txData.userFeeLevel === CUSTOM_GAS_ESTIMATE ||
+  //         !suggestedMaxPriorityFeePerGas)
+  //         ? txData.txParams?.maxPriorityFeePerGas
+  //         : (suggestedMaxPriorityFeePerGas &&
+  //             decGWEIToHexWEI(suggestedMaxPriorityFeePerGas)) ||
+  //           gasEstimationObject.maxFeePerGas;
+  //     gasEstimationObject.baseFeePerGas = decGWEIToHexWEI(
+  //       gasFeeEstimates.estimatedBaseFee,
+  //     );
+  //   }
+  // } else {
+  //   switch (gasEstimateType) {
+  //     case GasEstimateTypes.none:
+  //       gasEstimationObject.gasPrice = txData.txParams?.gasPrice ?? '0x0';
+  //       break;
+  //     case GasEstimateTypes.ethGasPrice:
+  //       gasEstimationObject.gasPrice =
+  //         txData.txParams?.gasPrice ??
+  //         decGWEIToHexWEI(gasFeeEstimates.gasPrice);
+  //       break;
+  //     case GasEstimateTypes.legacy:
+  //       gasEstimationObject.gasPrice =
+  //         txData.txParams?.gasPrice ?? getAveragePriceEstimateInHexWEI(state);
+  //       break;
+  //     case GasEstimateTypes.feeMarket:
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
+
+  const { txParams: { value = '0' } = {} } = txData;
 
   const fiatTransactionAmount = getValueFromWeiHex({
     value,
@@ -336,8 +357,9 @@ export const transactionFeeSelector = function (state, txData) {
     numberOfDecimals: 6,
   });
 
-  const hexMinimumTransactionFee =
-    getMinimumGasTotalInHexWei(gasEstimationObject);
+  // const hexMinimumTransactionFee =
+  //   getMinimumGasTotalInHexWei(gasEstimationObject);
+  const hexMinimumTransactionFee = '21000';
   const hexMaximumTransactionFee =
     getMaximumGasTotalInHexWei(gasEstimationObject);
 
@@ -370,7 +392,11 @@ export const transactionFeeSelector = function (state, txData) {
     fiatTransactionAmount,
   );
   const ethTransactionTotal = addEth(ethTransactionFee, ethTransactionAmount);
-  const hexTransactionTotal = sumHexes(value, hexMinimumTransactionFee);
+  // const hexTransactionTotal = sumHexes(value, hexMinimumTransactionFee);
+
+  const hexTransactionTotal = String(
+    Number(value) + Number(hexMinimumTransactionFee),
+  );
 
   return {
     hexTransactionAmount: value,

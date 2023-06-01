@@ -15,11 +15,24 @@ import { getCurrentCurrency } from '../selectors';
 
 export function parseTolarDisplay(val) {
   if (!val) {
-    return 0;
+    return {
+      value: '0',
+      suffix: 'aTOL',
+    };
   }
+
   const bnVal = new BN(val.toString());
 
-  return bnVal ? bnVal.divRound(new BN(1e15)).toNumber() / 1000 : val;
+  return {
+    value: bnVal.gt(new BN(1e15))
+      ? bnVal.divRound(new BN(1e15)).toNumber() / 1000
+      : val,
+    suffix: bnVal.gt(new BN(1e15)) ? 'TOL' : 'aTOL',
+  };
+}
+
+export function numberToBigint(val) {
+  return new BN(val);
 }
 
 /**
@@ -65,7 +78,7 @@ export function useCurrencyDisplay(
   // const isUserPreferredCurrency = currency === currentCurrency;
 
   const value = useMemo(() => {
-    return parseTolarDisplay(inputValue);
+    return parseTolarDisplay(inputValue).value;
     // if (displayValue) {
     //   return displayValue;
     // }
@@ -104,6 +117,11 @@ export function useCurrencyDisplay(
     // isUserPreferredCurrency,
   ]);
 
+  const suffix = useMemo(
+    () => parseTolarDisplay(inputValue).suffix,
+    [inputValue],
+  );
+
   // let suffix;
 
   // if (!opts.hideLabel) {
@@ -117,7 +135,7 @@ export function useCurrencyDisplay(
 
   //   suffix = opts.suffix || currencyTickerSymbol;
   // }
-  const suffix = 'TOL';
+  // const suffix = 'TOL';
 
   return [
     `${prefix || ''}${value}${suffix ? ` ${suffix}` : ''}`,

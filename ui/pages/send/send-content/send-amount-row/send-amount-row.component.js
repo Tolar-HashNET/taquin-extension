@@ -4,7 +4,7 @@ import SendRowWrapper from '../send-row-wrapper';
 import UserPreferencedCurrencyInput from '../../../../components/app/user-preferenced-currency-input';
 import UserPreferencedTokenInput from '../../../../components/app/user-preferenced-token-input';
 import { AssetType } from '../../../../../shared/constants/transaction';
-import AmountMaxButton from './amount-max-button';
+// import AmountMaxButton from './amount-max-button';
 
 export default class SendAmountRow extends Component {
   static propTypes = {
@@ -31,12 +31,14 @@ export default class SendAmountRow extends Component {
         onChange={this.handleChange}
         token={asset.details}
         value={amount}
+        diameter={18}
       />
     ) : (
       <UserPreferencedCurrencyInput
         error={inError}
         onChange={this.handleChange}
         hexValue={amount}
+        diameter={18}
       />
     );
   }
@@ -54,7 +56,7 @@ export default class SendAmountRow extends Component {
         showError={inError}
         errorType="amount"
       >
-        <AmountMaxButton inError={inError} />
+        {/* <AmountMaxButton inError={inError} /> */}
         {this.renderInput()}
       </SendRowWrapper>
     );

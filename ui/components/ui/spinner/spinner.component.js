@@ -15,7 +15,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
         style={{ background: 'none' }}
       >
         <g transform="rotate(0 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -26,7 +34,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(30 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -37,7 +53,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(60 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -48,7 +72,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(90 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -59,7 +91,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(120 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -70,7 +110,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(150 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -81,7 +129,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(180 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -92,7 +148,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(210 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -103,7 +167,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(240 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -114,7 +186,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(270 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -125,7 +205,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(300 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"
@@ -136,7 +224,15 @@ const Spinner = ({ className = '', color = '$tolar-action' }) => {
           </rect>
         </g>
         <g transform="rotate(330 50 50)">
-          <rect x={45} y={0} rx={0} ry={0} width={10} height={30} fill={color}>
+          <rect
+            x={45}
+            y={0}
+            rx={0}
+            ry={0}
+            width={10}
+            height={30}
+            fill="#00BDDE"
+          >
             <animate
               attributeName="opacity"
               values="1;0"

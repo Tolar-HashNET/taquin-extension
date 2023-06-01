@@ -234,9 +234,10 @@ export default class TransactionStateManager extends EventEmitter {
    */
   addTransaction(txMeta) {
     // normalize and validate txParams if present
-    if (txMeta.txParams) {
-      txMeta.txParams = normalizeAndValidateTxParams(txMeta.txParams, false);
-    }
+
+    // if (txMeta.txParams) {
+    //   txMeta.txParams = normalizeAndValidateTxParams(txMeta.txParams, false);
+    // }
 
     this.once(`${txMeta.id}:signed`, () => {
       this.removeAllListeners(`${txMeta.id}:rejected`);

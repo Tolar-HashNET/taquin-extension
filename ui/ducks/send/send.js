@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import BigNumber from 'bignumber.js';
+// import BigNumber from 'bignumber.js';
 import { addHexPrefix } from 'ethereumjs-util';
 import { cloneDeep, debounce } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import { BN } from 'bn.js';
 import {
   decimalToHex,
-  getValueFromWeiHex,
+  // getValueFromWeiHex,
 } from '../../../shared/modules/conversion.utils';
 import { GasEstimateTypes, GAS_LIMITS } from '../../../shared/constants/gas';
 import {
@@ -358,10 +359,10 @@ export const RECIPIENT_SEARCH_MODES = {
 export const draftTransactionInitialState = {
   amount: {
     error: null,
-    value: '0x0',
+    value: '0',
   },
   asset: {
-    balance: '0x0',
+    balance: '0',
     details: null,
     error: null,
     type: AssetType.native,
@@ -369,11 +370,11 @@ export const draftTransactionInitialState = {
   fromAccount: null,
   gas: {
     error: null,
-    gasLimit: '0x0',
-    gasPrice: '0x0',
-    gasTotal: '0x0',
-    maxFeePerGas: '0x0',
-    maxPriorityFeePerGas: '0x0',
+    gasLimit: '0',
+    gasPrice: '0',
+    gasTotal: '0',
+    maxFeePerGas: '0',
+    maxPriorityFeePerGas: '0',
     wasManuallyEdited: false,
   },
   history: [],
@@ -449,14 +450,14 @@ export const initialState = {
   gasEstimateIsLoading: true,
   gasEstimatePollToken: null,
   gasIsSetInModal: false,
-  gasPriceEstimate: '0x0',
+  gasPriceEstimate: '0',
   gasLimitMinimum: GAS_LIMITS.SIMPLE,
-  gasTotalForLayer1: '0x0',
+  gasTotalForLayer1: '0',
   recipientMode: RECIPIENT_SEARCH_MODES.CONTACT_LIST,
   recipientInput: '',
   selectedAccount: {
     address: null,
-    balance: '0x0',
+    balance: '0',
   },
   stage: SEND_STAGES.INACTIVE,
 };
@@ -613,7 +614,7 @@ export const initializeSendState = createAsyncThunk(
     let gasPrice =
       sendState.stage === SEND_STAGES.EDIT
         ? draftTransaction.gas.gasPrice
-        : '0x1';
+        : '1';
     let gasEstimatePollToken = null;
 
     // Instruct the background process that polling for gas prices should begin
@@ -899,7 +900,7 @@ const slice = createSlice({
     updateAmountToMax: (state) => {
       const draftTransaction =
         state.draftTransactions[state.currentTransactionUUID];
-      let amount = '0x0';
+      let amount = '0';
       if (draftTransaction.asset.type === AssetType.token) {
         const decimals = draftTransaction.asset.details?.decimals ?? 0;
 
@@ -910,9 +911,9 @@ const slice = createSlice({
           .toString();
       } else {
         const _gasTotal = new Numeric(
-          draftTransaction.gas.gasTotal || '0x0',
+          draftTransaction.gas.gasTotal || '0',
           16,
-        ).add(new Numeric(state.gasTotalForLayer1 || '0x0', 16));
+        ).add(new Numeric(state.gasTotalForLayer1 || '0', 16));
 
         amount = new Numeric(draftTransaction.asset.balance, 16)
           .minus(_gasTotal)
@@ -974,7 +975,7 @@ const slice = createSlice({
      */
     updateGasFeeEstimates: (state, action) => {
       const { gasFeeEstimates, gasEstimateType } = action.payload;
-      let gasPriceEstimate = '0x0';
+      let gasPriceEstimate = '0';
       switch (gasEstimateType) {
         case GasEstimateTypes.feeMarket:
           slice.caseReducers.updateGasFees(state, {
@@ -1197,7 +1198,8 @@ const slice = createSlice({
     updateSendAmount: (state, action) => {
       const draftTransaction =
         state.draftTransactions[state.currentTransactionUUID];
-      draftTransaction.amount.value = addHexPrefix(action.payload);
+      // draftTransaction.amount.value = addHexPrefix(action.payload);
+      draftTransaction.amount.value = action.payload;
       // Once amount has changed, validate the field
       slice.caseReducers.validateAmountField(state);
       if (draftTransaction.asset.type === AssetType.native) {
@@ -1266,7 +1268,7 @@ const slice = createSlice({
           !isBalanceSufficient({
             amount: draftTransaction.amount.value,
             balance: draftTransaction.asset.balance,
-            gasTotal: draftTransaction.gas.gasTotal ?? '0x0',
+            gasTotal: draftTransaction.gas.gasTotal ?? '0',
           }):
           draftTransaction.amount.error = INSUFFICIENT_FUNDS_FOR_GAS_ERROR;
           break;
@@ -1274,7 +1276,7 @@ const slice = createSlice({
         // than the amount of token the user is attempting to send.
         case draftTransaction.asset.type === AssetType.token &&
           !isTokenBalanceSufficient({
-            tokenBalance: draftTransaction.asset.balance ?? '0x0',
+            tokenBalance: draftTransaction.asset.balance ?? '0',
             amount: draftTransaction.amount.value,
             decimals: draftTransaction.asset.details.decimals,
           }):
@@ -1307,11 +1309,10 @@ const slice = createSlice({
         amount:
           draftTransaction.asset.type === AssetType.native
             ? draftTransaction.amount.value
-            : '0x0',
+            : '0',
         balance:
-          draftTransaction.fromAccount?.balance ??
-          state.selectedAccount.balance,
-        gasTotal: draftTransaction.gas.gasTotal ?? '0x0',
+          draftTransaction.asset?.balance ?? state.selectedAccount.balance,
+        gasTotal: draftTransaction.gas.gasTotal ?? '0',
       });
 
       draftTransaction.gas.error = insufficientFunds
@@ -1445,15 +1446,15 @@ const slice = createSlice({
             });
             draftTransaction.status = SEND_STATUSES.INVALID;
             break;
-          case new BigNumber(draftTransaction.gas.gasLimit, 16).lessThan(
-            new BigNumber(state.gasLimitMinimum),
-          ):
-            slice.caseReducers.addHistoryEntry(state, {
-              payload: `Form is invalid because ${draftTransaction.gas.gasLimit} is lessThan ${state.gasLimitMinimum}`,
-            });
+          // case new BigNumber(draftTransaction.gas.gasLimit, 16).lessThan(
+          //   new BigNumber(state.gasLimitMinimum),
+          // ):
+          //   slice.caseReducers.addHistoryEntry(state, {
+          //     payload: `Form is invalid because ${draftTransaction.gas.gasLimit} is lessThan ${state.gasLimitMinimum}`,
+          //   });
 
-            draftTransaction.status = SEND_STATUSES.INVALID;
-            break;
+          //   draftTransaction.status = SEND_STATUSES.INVALID;
+          //   break;
           case draftTransaction.recipient.warning === 'loading':
             slice.caseReducers.addHistoryEntry(state, {
               payload: `Form is invalid because recipient warning is loading`,
@@ -1964,39 +1965,39 @@ export function updateRecipientUserInput(userInput) {
 export function updateSendAmount(amount) {
   return async (dispatch, getState) => {
     const state = getState();
-    const { metamask } = state;
-    const draftTransaction =
-      state[name].draftTransactions[state[name].currentTransactionUUID];
-    let logAmount = amount;
-    if (draftTransaction.asset.type === AssetType.token) {
-      const multiplier = Math.pow(
-        10,
-        Number(draftTransaction.asset.details?.decimals || 0),
-      );
-      const decimalValueString = new Numeric(addHexPrefix(amount), 16)
-        .toBase(10)
-        .applyConversionRate(
-          draftTransaction.asset.details?.symbol ? multiplier : 1,
-          true,
-        )
-        .toString();
-      logAmount = `${Number(decimalValueString) ? decimalValueString : ''} ${
-        draftTransaction.asset.details?.symbol
-      }`;
-    } else {
-      const ethValue = getValueFromWeiHex({
-        value: amount,
-        toCurrency: EtherDenomination.ETH,
-        numberOfDecimals: 8,
-      });
-      logAmount = `${ethValue} ${
-        metamask?.provider?.ticker || EtherDenomination.ETH
-      }`;
-    }
-    await dispatch(
-      addHistoryEntry(`sendFlow - user set amount to ${logAmount}`),
-    );
-    await dispatch(actions.updateSendAmount(amount));
+    // const { metamask } = state;
+    // const draftTransaction =
+    //   state[name].draftTransactions[state[name].currentTransactionUUID];
+    // let logAmount = amount;
+    // if (draftTransaction.asset.type === AssetType.token) {
+    //   const multiplier = Math.pow(
+    //     10,
+    //     Number(draftTransaction.asset.details?.decimals || 0),
+    //   );
+    //   const decimalValueString = new Numeric(addHexPrefix(amount), 16)
+    //     .toBase(10)
+    //     .applyConversionRate(
+    //       draftTransaction.asset.details?.symbol ? multiplier : 1,
+    //       true,
+    //     )
+    //     .toString();
+    //   logAmount = `${Number(decimalValueString) ? decimalValueString : ''} ${
+    //     draftTransaction.asset.details?.symbol
+    //   }`;
+    // } else {
+    //   const ethValue = getValueFromWeiHex({
+    //     value: amount,
+    //     toCurrency: EtherDenomination.ETH,
+    //     numberOfDecimals: 8,
+    //   });
+    //   logAmount = `${ethValue} ${
+    //     metamask?.provider?.ticker || EtherDenomination.ETH
+    //   }`;
+    // }
+
+    const newAmount = String(Number(amount) * 1e18);
+    await dispatch(addHistoryEntry(`sendFlow - user set amount to ${amount}`));
+    await dispatch(actions.updateSendAmount(newAmount));
     if (state[name].amountMode === AMOUNT_MODES.MAX) {
       await dispatch(actions.updateAmountMode(AMOUNT_MODES.INPUT));
     }
@@ -2264,6 +2265,11 @@ export function signTransaction() {
     const txParams = generateTransactionParams(state[name]);
     const draftTransaction =
       state[name].draftTransactions[state[name].currentTransactionUUID];
+
+    txParams.from = txParams.from
+      ? txParams.from
+      : state.metamask.selectedAddress;
+
     if (stage === SEND_STAGES.EDIT) {
       // When dealing with the edit flow there is already a transaction in
       // state that we must update, this branch is responsible for that logic.
@@ -2352,7 +2358,7 @@ export function toggleSendMaxMode() {
     const state = getState();
     if (state[name].amountMode === AMOUNT_MODES.MAX) {
       await dispatch(actions.updateAmountMode(AMOUNT_MODES.INPUT));
-      await dispatch(actions.updateSendAmount('0x0'));
+      await dispatch(actions.updateSendAmount('0'));
       await dispatch(addHistoryEntry(`sendFlow - user toggled max mode off`));
     } else {
       await dispatch(actions.updateAmountMode(AMOUNT_MODES.MAX));

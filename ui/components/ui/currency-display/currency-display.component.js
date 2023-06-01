@@ -20,6 +20,7 @@ export default function CurrencyDisplay({
   currency,
   suffix,
   diameter,
+  showIcon = true,
 }) {
   const [title, parts] = useCurrencyDisplay(value, {
     displayValue,
@@ -38,13 +39,16 @@ export default function CurrencyDisplay({
       style={style}
       title={(!hideTitle && title) || null}
     >
-      <span className="currency-display-component__prefix">
-        <Identicon
-          image="./images/tolar-logo-white.svg"
-          diameter={diameter ?? 32}
-        />
-        {/* {prefixComponent} */}
-      </span>
+      {showIcon && (
+        <span className="currency-display-component__prefix">
+          <Identicon
+            image="./images/tolar-logo-white.svg"
+            diameter={diameter ?? 32}
+          />
+          {/* {prefixComponent} */}
+        </span>
+      )}
+
       <span className="currency-display-component__text">
         {/* {parts.prefix} */}
         {parts.value}
@@ -77,4 +81,5 @@ CurrencyDisplay.propTypes = {
   suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   value: PropTypes.string,
   diameter: PropTypes.number,
+  showIcon: PropTypes.bool,
 };

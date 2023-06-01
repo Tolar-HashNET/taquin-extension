@@ -165,7 +165,7 @@ export default class TokenInput extends PureComponent {
         onBlur={this.handleBlur}
         value={decimalValue}
       >
-        {this.renderConversionComponent()}
+        {/* {this.renderConversionComponent()} */}
       </UnitInput>
     );
   }

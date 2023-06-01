@@ -795,10 +795,12 @@ export default class TransactionController extends EventEmitter {
     }
 
     // validate
-    const normalizedTxParams = txUtils.normalizeTxParams(txParams);
-    const eip1559Compatibility = await this.getEIP1559Compatibility();
+    // const normalizedTxParams = txUtils.normalizeTxParams(txParams);
+    // const eip1559Compatibility = await this.getEIP1559Compatibility();
 
-    txUtils.validateTxParams(normalizedTxParams, eip1559Compatibility);
+    // console.log(normalizedTxParams, 'normalizirani kao');
+
+    // txUtils.validateTxParams(normalizedTxParams, eip1559Compatibility);
 
     /**
      * `generateTxMeta` adds the default txMeta properties to the passed object.
@@ -807,7 +809,7 @@ export default class TransactionController extends EventEmitter {
      * method `determineTransactionType` after `generateTxMeta`.
      */
     let txMeta = this.txStateManager.generateTxMeta({
-      txParams: normalizedTxParams,
+      txParams,
       origin,
       sendFlowHistory,
     });
@@ -818,46 +820,41 @@ export default class TransactionController extends EventEmitter {
       txMeta.actionId = actionId;
     }
 
-    if (origin === ORIGIN_METAMASK) {
-      // Assert the from address is the selected address
-      if (normalizedTxParams.from !== this.getSelectedAddress()) {
-        throw ethErrors.rpc.internal({
-          message: `Internally initiated transaction is using invalid account.`,
-          data: {
-            origin,
-            fromAddress: normalizedTxParams.from,
-            selectedAddress: this.getSelectedAddress(),
-          },
-        });
-      }
-    } else {
-      // Assert that the origin has permissions to initiate transactions from
-      // the specified address
-      const permittedAddresses = await this.getPermittedAccounts(origin);
-      if (!permittedAddresses.includes(normalizedTxParams.from)) {
-        throw ethErrors.provider.unauthorized({ data: { origin } });
-      }
-    }
+    // if (origin === ORIGIN_METAMASK) {
+    //   // Assert the from address is the selected address
+    //   if (normalizedTxParams.from !== this.getSelectedAddress()) {
+    //     throw ethErrors.rpc.internal({
+    //       message: `Internally initiated transaction is using invalid account.`,
+    //       data: {
+    //         origin,
+    //         fromAddress: normalizedTxParams.from,
+    //         selectedAddress: this.getSelectedAddress(),
+    //       },
+    //     });
+    //   }
+    // } else {
+    //   // Assert that the origin has permissions to initiate transactions from
+    //   // the specified address
+    //   const permittedAddresses = await this.getPermittedAccounts(origin);
+    //   if (!permittedAddresses.includes(normalizedTxParams.from)) {
+    //     throw ethErrors.provider.unauthorized({ data: { origin } });
+    //   }
+    // }
 
-    const { type } = await determineTransactionType(
-      normalizedTxParams,
-      this.query,
-    );
+    const { type } = await determineTransactionType(txParams, this.query);
     txMeta.type = transactionType || type;
 
     // ensure value
-    txMeta.txParams.value = txMeta.txParams.value
-      ? addHexPrefix(txMeta.txParams.value)
-      : '0x0';
+    txMeta.txParams.value = txMeta.txParams.value ? txMeta.txParams.value : '0';
 
-    if (txMethodType && this.securityProviderRequest) {
-      const securityProviderResponse = await this.securityProviderRequest(
-        txMeta,
-        txMethodType,
-      );
+    // if (txMethodType && this.securityProviderRequest) {
+    //   const securityProviderResponse = await this.securityProviderRequest(
+    //     txMeta,
+    //     txMethodType,
+    //   );
 
-      txMeta.securityProviderResponse = securityProviderResponse;
-    }
+    //   txMeta.securityProviderResponse = securityProviderResponse;
+    // }
 
     this.addTransaction(txMeta);
     this.emit('newUnapprovedTx', txMeta);

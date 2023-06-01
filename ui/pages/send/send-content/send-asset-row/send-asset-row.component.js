@@ -125,9 +125,9 @@ export default class SendAssetRow extends Component {
           >
             {this.renderSendAsset()}
           </div>
-          {[...this.state.sendableTokens, ...this.state.sendableNfts].length > 0
+          {/* {[...this.state.sendableTokens, ...this.state.sendableNfts].length > 0
             ? this.renderAssetDropdown()
-            : null}
+            : null} */}
         </div>
       </SendRowWrapper>
     );
@@ -221,6 +221,7 @@ export default class SendAssetRow extends Component {
             <UserPreferencedCurrencyDisplay
               value={balanceValue}
               type={PRIMARY}
+              diameter={12}
             />
           </div>
         </div>
